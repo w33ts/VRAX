@@ -1,8 +1,0 @@
-[11:54:17] [INFO] Loaded 45 subdomains, 52 directories, 96 parameters
-[11:54:17] [INFO] Initialized 9 attack patterns
-[11:54:17] [INFO] ╔══════════════════════════════════════════════════════════════════╗
-[11:54:17] [INFO] ║  🚀 VANGUARD SECURITY SCANNER v2.0 - ENTERPRISE EDITION           ║
-[11:54:17] [INFO] ║  🔍 COMPREHENSIVE VULNERABILITY ASSESSMENT PLATFORM              ║
-[11:54:17] [INFO] ║  ⚡ MAX CONCURRENT REQUESTS: 30                                ║
-[11:54:17] [INFO] ║  🎯 CONFIDENCE THRESHOLD: 75%                                 ║
-[11:54:17] [INFO] ╚══════════════════════════════════════════════════════════════════╝
