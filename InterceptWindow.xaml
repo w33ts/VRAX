@@ -1,0 +1,1215 @@
+﻿<Window x:Class="ReconSuite.InterceptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ReconSuite"
+        WindowState="Maximized" 
+        Height="900" Width="1300"
+        Background="#0A0A0A" 
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Segoe UI"
+        WindowStyle="SingleBorderWindow"
+        BorderBrush="#8B0000"
+        BorderThickness="2"
+        MinHeight="800" MinWidth="1300">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="TacticalBlack" Color="#0A0A0A"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="#121212"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TacticalLight" Color="#242424"/>
+        <SolidColorBrush x:Key="TacticalRedDark" Color="#5A0000"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="#8B0000"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="#A30000"/>
+        <SolidColorBrush x:Key="TacticalRedText" Color="#CC6666"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="#450000"/>
+        <SolidColorBrush x:Key="TacticalDisabled" Color="#2A2A2A"/>
+        <SolidColorBrush x:Key="TacticalHover" Color="#6A0000"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="#006600"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="#996600"/>
+        <SolidColorBrush x:Key="TacticalCritical" Color="#990000"/>
+        <SolidColorBrush x:Key="TacticalPanel" Color="#101010"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource TacticalRedDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <Grid>
+                                <Border x:Name="glowEffect" 
+                                       BorderBrush="{StaticResource TacticalRed}" 
+                                       BorderThickness="1" 
+                                       CornerRadius="2"
+                                       Opacity="0">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#A30000" BlurRadius="15" ShadowDepth="0"/>
+                                    </Border.Effect>
+                                </Border>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TacticalHover}"/>
+                                <Setter TargetName="glowEffect" Property="Opacity" Value="0.6"/>
+                                <Setter Property="Foreground" Value="#FFAAAA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3A0000"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="BorderBrush" Value="#990000"/>
+            <Setter Property="Foreground" Value="#FF6B6B"/>
+        </Style>
+
+        <Style x:Key="WarningButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="BorderBrush" Value="#996600"/>
+            <Setter Property="Foreground" Value="#FFB84D"/>
+        </Style>
+
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="BorderBrush" Value="#006600"/>
+            <Setter Property="Foreground" Value="#5DCEA3"/>
+        </Style>
+
+        <Style x:Key="EditorStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="AcceptsTab" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TacticalRed}"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="IsReadOnly" Value="False"/>
+        </Style>
+
+        <Style x:Key="ReadonlyEditor" TargetType="TextBox" BasedOn="{StaticResource EditorStyle}">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Foreground" Value="#95A5B8"/>
+            <Setter Property="Background" Value="#101010"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#B8C5D6"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#5A0000"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="#0F0F0F"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#121212"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1A1A1A"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#5A0000"/>
+                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="11"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="#0F0F0F"/>
+            <Setter Property="Foreground" Value="#999999"/>
+            <Setter Property="BorderBrush" Value="#450000"/>
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Setter Property="Padding" Value="22,12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#1A1A1A"/>
+                    <Setter Property="Foreground" Value="#CC6666"/>
+                    <Setter Property="BorderThickness" Value="2,2,2,0"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#151515"/>
+                    <Setter Property="Foreground" Value="#B8C5D6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" 
+                BorderBrush="#8B0000" 
+                BorderThickness="0,0,0,2" 
+                Padding="24"
+                Background="#1A1A1A">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Ellipse x:Name="ProxyStatus" 
+                            Width="18" 
+                            Height="18" 
+                            Fill="#990000" 
+                            VerticalAlignment="Center"
+                            Margin="0,0,18,0">
+                        <Ellipse.Effect>
+                            <DropShadowEffect Color="#990000" BlurRadius="15" ShadowDepth="0"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+
+                    <StackPanel>
+                        <TextBlock Text="VRAX INTERCEPT v3.0" 
+                                  Foreground="#CC6666" 
+                                  FontSize="22" 
+                                  FontWeight="Bold">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#8B0000" BlurRadius="12" ShadowDepth="0" Opacity="0.6"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <TextBlock x:Name="ProxyStatusText" 
+                                  Text="PROXY: OFFLINE" 
+                                  Foreground="#FF6B6B" 
+                                  FontSize="10" 
+                                  FontWeight="SemiBold"
+                                  Margin="0,4,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" 
+                           Orientation="Horizontal" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                    <TextBlock Text="PROXY:" 
+                              Foreground="#999999" 
+                              FontSize="10" 
+                              FontWeight="SemiBold"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0"/>
+                    <TextBox x:Name="ProxyHost" 
+                            Text="127.0.0.1" 
+                            Width="110"
+                            Height="32"
+                            Margin="0,0,12,0"/>
+
+                    <TextBlock Text="PORT:" 
+                              Foreground="#999999" 
+                              FontSize="10" 
+                              FontWeight="SemiBold"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0"/>
+                    <TextBox x:Name="ProxyPort" 
+                            Text="8080" 
+                            Width="70"
+                            Height="32"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button x:Name="StartProxyBtn" 
+                           Content="▶ START PROXY" 
+                           Style="{StaticResource TacticalButton}"
+                           Click="StartProxy_Click"
+                           Height="42"
+                           Margin="0,0,10,0"/>
+
+                    <Button x:Name="StopProxyBtn" 
+                           Content="⏹ STOP PROXY" 
+                           Style="{StaticResource DangerButton}"
+                           Click="StopProxy_Click"
+                           IsEnabled="False"
+                           Height="42"
+                           Margin="0,0,10,0"/>
+
+                    <Button x:Name="ExportCertBtn"
+                           Content="📜 EXPORT CA" 
+                           Style="{StaticResource TacticalButton}"
+                           Click="ExportCert_Click"
+                           Height="42"
+                           Margin="0,0,10,0"/>
+
+                    <Button x:Name="SettingsBtn"
+                           Content="⚙ SETTINGS" 
+                           Style="{StaticResource TacticalButton}"
+                           Click="Settings_Click"
+                           Height="42"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" 
+                   Background="#0A0A0A" 
+                   BorderBrush="#450000" 
+                   BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" 
+                           BorderBrush="#450000" 
+                           BorderThickness="0,0,0,1" 
+                           Padding="18,12"
+                           Background="#1A1A1A">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" 
+                                      Text="// REQUEST HISTORY" 
+                                      Foreground="#CC6666" 
+                                      FontWeight="SemiBold"
+                                      VerticalAlignment="Center"/>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock x:Name="RequestCount" 
+                                          Text="0" 
+                                          Foreground="#CC6666" 
+                                          FontSize="20" 
+                                          FontWeight="Bold"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,6,0"/>
+                                <TextBlock Text="CAPTURED" 
+                                          Foreground="#999999" 
+                                          FontSize="9"
+                                          FontWeight="SemiBold"
+                                          VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <DataGrid x:Name="HistoryGrid" 
+                             Grid.Row="1"
+                             Background="#0A0A0A"
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             RowBackground="#0F0F0F"
+                             AlternatingRowBackground="#121212"
+                             AlternationCount="2"
+                             GridLinesVisibility="None"
+                             HeadersVisibility="Column"
+                             SelectionMode="Single"
+                             SelectionUnit="FullRow"
+                             CanUserResizeRows="False"
+                             SelectionChanged="HistoryGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#" Binding="{Binding Id}" Width="40"/>
+                            <DataGridTextColumn Header="METHOD" Binding="{Binding Method}" Width="70"/>
+                            <DataGridTextColumn Header="HTTPS" Binding="{Binding IsHttps}" Width="50"/>
+                            <DataGridTextColumn Header="HOST" Binding="{Binding Host}" Width="*" MinWidth="150"/>
+                            <DataGridTextColumn Header="STATUS" Binding="{Binding Status}" Width="50"/>
+                            <DataGridTextColumn Header="SIZE" Binding="{Binding Size}" Width="60"/>
+                            <DataGridTextColumn Header="TIME" Binding="{Binding ResponseTime, StringFormat={}{0}ms}" Width="60"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu Background="#1A1A1A" BorderBrush="#8B0000">
+                                <MenuItem Header="🔄 Send to Repeater" Click="SendToRepeater_Click"/>
+                                <MenuItem Header="🔍 Send to Intruder" Click="SendToIntruder_Click"/>
+                                <MenuItem Header="📋 Copy URL" Click="CopyUrl_Click"/>
+                                <MenuItem Header="💾 Save Request" Click="SaveRequest_Click"/>
+                                <Separator/>
+                                <MenuItem Header="❌ Delete" Click="DeleteHistory_Click" Foreground="#FF6B6B"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <Border Grid.Row="2" 
+                           BorderBrush="#450000" 
+                           BorderThickness="0,1,0,0" 
+                           Padding="18,12"
+                           Background="#121212">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="FilterBox" 
+                                    Grid.Column="0"
+                                    Background="#101010"
+                                    Foreground="#E0E0E0"
+                                    BorderBrush="#450000"
+                                    BorderThickness="1"
+                                    Padding="10,5"
+                                    Height="32"
+                                    VerticalContentAlignment="Center"
+                                    TextChanged="FilterBox_TextChanged"/>
+
+                            <Button Grid.Column="1" 
+                                   Content="CLEAR" 
+                                   Style="{StaticResource DangerButton}"
+                                   Click="ClearHistory_Click"
+                                   Height="32"
+                                   Padding="12,0"
+                                   Margin="12,0,0,0"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column="1" 
+                         Background="#450000" 
+                         HorizontalAlignment="Stretch"
+                         Width="5"/>
+
+            <TabControl Grid.Column="2" 
+                       Background="#0A0A0A"
+                       BorderThickness="0">
+
+                <TabItem Header="◈ INTERCEPT">
+                    <Grid Background="#0A0A0A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" 
+                               BorderBrush="#8B0000" 
+                               BorderThickness="0,0,0,2" 
+                               Padding="24,16"
+                               Background="#1A1A1A">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock x:Name="InterceptStatus" 
+                                              Text="◢ INTERCEPTION: OFF" 
+                                              Foreground="#FF6B6B" 
+                                              FontSize="12" 
+                                              FontWeight="SemiBold"
+                                              VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" 
+                                           Orientation="Horizontal" 
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    <TextBlock x:Name="CurrentRequestInfo" 
+                                              Text="No request intercepted" 
+                                              Foreground="#999999" 
+                                              FontSize="10"
+                                              VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                    <Button x:Name="InterceptOnOffBtn" 
+                                           Content="🔴 INTERCEPT OFF" 
+                                           Style="{StaticResource TacticalButton}"
+                                           Click="ToggleIntercept_Click"
+                                           Height="36"
+                                           Margin="0,0,10,0"/>
+
+                                    <Button x:Name="ForwardBtn" 
+                                           Content="▶ FORWARD" 
+                                           Style="{StaticResource SuccessButton}"
+                                           Click="Forward_Click"
+                                           IsEnabled="False"
+                                           Height="36"
+                                           Margin="0,0,10,0"/>
+
+                                    <Button x:Name="ModifyBtn"
+                                           Content="✎ MODIFY" 
+                                           Style="{StaticResource WarningButton}"
+                                           Click="Modify_Click"
+                                           IsEnabled="False"
+                                           Height="36"
+                                           Margin="0,0,10,0"/>
+
+                                    <Button x:Name="DropBtn" 
+                                           Content="✗ DROP" 
+                                           Style="{StaticResource DangerButton}"
+                                           Click="Drop_Click"
+                                           IsEnabled="False"
+                                           Height="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,0,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <Grid>
+                                    <TextBlock Text="// REQUEST EDITOR" 
+                                              Foreground="#CC6666" 
+                                              FontWeight="SemiBold"/>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="📋 COPY" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="CopyRequest_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,6,0"/>
+                                        <Button Content="📁 LOAD" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="LoadRequest_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,6,0"/>
+                                        <Button Content="💾 SAVE" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="SaveCurrentRequest_Click"
+                                               Height="28"
+                                               Padding="12,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <TextBox x:Name="RequestEditor" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource EditorStyle}"
+                                    TextChanged="RequestEditor_TextChanged"/>
+                        </Grid>
+
+                        <GridSplitter Grid.Row="2" 
+                                     Background="#450000" 
+                                     HorizontalAlignment="Stretch"
+                                     Height="5"/>
+
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,1,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <Grid>
+                                    <TextBlock Text="// RESPONSE VIEWER" 
+                                              Foreground="#CC6666" 
+                                              FontWeight="SemiBold"/>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="📋 COPY" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="CopyResponse_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,6,0"/>
+                                        <Button Content="💾 SAVE" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="SaveResponse_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,6,0"/>
+                                        <Button Content="🔍 BEAUTIFY" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="BeautifyResponse_Click"
+                                               Height="28"
+                                               Padding="12,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <TextBox x:Name="ResponseViewer" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource ReadonlyEditor}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="◈ REPEATER">
+                    <Grid Background="#0A0A0A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" 
+                               BorderBrush="#8B0000" 
+                               BorderThickness="0,0,0,2" 
+                               Padding="24,16"
+                               Background="#1A1A1A">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Text="TARGET:" 
+                                              Foreground="#999999" 
+                                              FontSize="10" 
+                                              FontWeight="SemiBold"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"/>
+                                    <TextBox x:Name="RepeaterUrl" 
+                                            Background="#101010"
+                                            Foreground="#E0E0E0"
+                                            BorderBrush="#450000"
+                                            BorderThickness="1"
+                                            Padding="12,5"
+                                            Height="36"
+                                            Width="600"
+                                            VerticalContentAlignment="Center"
+                                            Text="https://example.com"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBlock x:Name="RepeaterStatus"
+                                              Text="Ready"
+                                              Foreground="#FFB84D"
+                                              FontWeight="SemiBold"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"/>
+
+                                    <Button x:Name="RepeaterSendBtn"
+                                           Content="◢◢◢ SEND ◣◣◣" 
+                                           Style="{StaticResource SuccessButton}"
+                                           Click="RepeaterSend_Click"
+                                           Height="36"
+                                           Padding="32,0"
+                                           FontSize="12"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" 
+                                       BorderBrush="#450000" 
+                                       BorderThickness="0,0,0,1" 
+                                       Padding="18,10"
+                                       Background="#1A1A1A">
+                                    <Grid>
+                                        <TextBlock Text="// REQUEST EDITOR" 
+                                                  Foreground="#CC6666" 
+                                                  FontWeight="SemiBold"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button x:Name="RepeaterCopyRequestBtn"
+                                                   Content="COPY" 
+                                                   Style="{StaticResource TacticalButton}"
+                                                   Click="CopyRequest_Click"
+                                                   Height="28"
+                                                   Padding="12,0"
+                                                   Margin="0,0,6,0"/>
+                                            <Button x:Name="RepeaterLoadBtn"
+                                                   Content="LOAD" 
+                                                   Style="{StaticResource TacticalButton}"
+                                                   Click="LoadRequest_Click"
+                                                   Height="28"
+                                                   Padding="12,0"
+                                                   Margin="0,0,6,0"/>
+                                            <Button x:Name="RepeaterSaveBtn"
+                                                   Content="SAVE" 
+                                                   Style="{StaticResource TacticalButton}"
+                                                   Click="SaveCurrentRequest_Click"
+                                                   Height="28"
+                                                   Padding="12,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <TextBox x:Name="RepeaterRequest" 
+                                        Grid.Row="1"
+                                        Style="{StaticResource EditorStyle}"/>
+
+                                <Border Grid.Row="2" 
+                                       BorderBrush="#450000" 
+                                       BorderThickness="0,1,0,0" 
+                                       Padding="8,6"
+                                       Background="#121212">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="RepeaterClearBtn"
+                                               Content="CLEAR" 
+                                               Style="{StaticResource DangerButton}"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,6,0"/>
+                                        <Button x:Name="RepeaterPasteRequestBtn"
+                                               Content="PASTE" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Height="28"
+                                               Padding="12,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <GridSplitter Grid.Column="1" 
+                                         Background="#450000" 
+                                         HorizontalAlignment="Stretch"
+                                         Width="5"/>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" 
+                                       BorderBrush="#450000" 
+                                       BorderThickness="0,0,0,1" 
+                                       Padding="18,10"
+                                       Background="#1A1A1A">
+                                    <Grid>
+                                        <TextBlock Text="// RESPONSE VIEWER" 
+                                                  Foreground="#CC6666" 
+                                                  FontWeight="SemiBold"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <TextBlock x:Name="RepeaterResponseTime" 
+                                                      Text="0ms" 
+                                                      Foreground="#FFB84D" 
+                                                      FontWeight="SemiBold"
+                                                      VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <TextBox x:Name="RepeaterResponse" 
+                                        Grid.Row="1"
+                                        Style="{StaticResource ReadonlyEditor}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="◈ INTRUDER">
+                    <Grid Background="#0A0A0A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" 
+                               BorderBrush="#8B0000" 
+                               BorderThickness="0,0,0,2" 
+                               Padding="24,16"
+                               Background="#1A1A1A">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Text="ATTACK TYPE:" 
+                                              Foreground="#FFB84D" 
+                                              FontSize="10" 
+                                              FontWeight="SemiBold"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,12,0"/>
+                                    <ComboBox x:Name="AttackTypeCombo"
+                                              Width="160"
+                                              Height="32"
+                                              Background="#101010"
+                                              Foreground="#E0E0E0"
+                                              BorderBrush="#450000"
+                                              SelectedIndex="0"
+                                              Margin="0,0,20,0"
+                                              TextElement.Foreground="Black">
+                                        <ComboBoxItem Content="Sniper"/>
+                                        <ComboBoxItem Content="Battering Ram"/>
+                                        <ComboBoxItem Content="Pitchfork"/>
+                                        <ComboBoxItem Content="Cluster Bomb"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button x:Name="StartAttackBtn"
+                                           Content="◢◢◢ START ATTACK ◣◣◣" 
+                                           Style="{StaticResource WarningButton}"
+                                           Click="StartAttack_Click"
+                                           Height="36"
+                                           Padding="32,0"
+                                           FontSize="12"
+                                           Margin="0,0,10,0"/>
+                                    <Button x:Name="StopAttackBtn"
+                                           Content="⏹ STOP" 
+                                           Style="{StaticResource DangerButton}"
+                                           Click="StopAttack_Click"
+                                           Height="36"
+                                           IsEnabled="False"
+                                           Padding="20,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="400"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" 
+                                       BorderBrush="#450000" 
+                                       BorderThickness="0,0,0,1" 
+                                       Padding="18,10"
+                                       Background="#1A1A1A">
+                                    <Grid>
+                                        <TextBlock Text="// REQUEST TEMPLATE (Mark positions with §marker§)" 
+                                                  Foreground="#CC6666" 
+                                                  FontWeight="SemiBold"/>
+
+                                        <Button Content="CLEAR MARKERS" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="ClearMarkers_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               HorizontalAlignment="Right"/>
+                                    </Grid>
+                                </Border>
+
+                                <TextBox x:Name="IntruderTemplate" 
+                                        Grid.Row="1"
+                                        Style="{StaticResource EditorStyle}"
+                                        Text="GET /api/user/§1§ HTTP/1.1&#x0A;Host: example.com&#x0A;Authorization: Bearer §token§"/>
+                            </Grid>
+
+                            <GridSplitter Grid.Column="1" 
+                                         Background="#450000" 
+                                         HorizontalAlignment="Stretch"
+                                         Width="5"/>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" 
+                                           BorderBrush="#450000" 
+                                           BorderThickness="0,0,0,1" 
+                                           Padding="18,10"
+                                           Background="#1A1A1A">
+                                        <TextBlock Text="// PAYLOADS" 
+                                                  Foreground="#CC6666" 
+                                                  FontWeight="SemiBold"/>
+                                    </Border>
+
+                                    <TextBox x:Name="IntruderPayloads" 
+                                            Grid.Row="1"
+                                            Style="{StaticResource EditorStyle}"
+                                            Text="admin&#x0A;user&#x0A;test&#x0A;root&#x0A;guest"/>
+
+                                    <Border Grid.Row="2" 
+                                           Background="#121212" 
+                                           Padding="12">
+                                        <Grid>
+                                            <Button Content="📁 LOAD LIST" 
+                                                   Style="{StaticResource TacticalButton}"
+                                                   Click="LoadPayloads_Click"
+                                                   Height="32"
+                                                   HorizontalAlignment="Left"
+                                                   Padding="12,0"/>
+
+                                            <TextBlock x:Name="PayloadCount" 
+                                                      Text="5 payloads" 
+                                                      Foreground="#FFB84D"
+                                                      FontWeight="SemiBold"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Right"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+
+                                <GridSplitter Grid.Row="1" 
+                                             Background="#450000" 
+                                             HorizontalAlignment="Stretch"
+                                             Height="5"/>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" 
+                                           BorderBrush="#450000" 
+                                           BorderThickness="0,1,0,1" 
+                                           Padding="18,10"
+                                           Background="#1A1A1A">
+                                        <Grid>
+                                            <TextBlock Text="// ATTACK RESULTS" 
+                                                      Foreground="#CC6666" 
+                                                      FontWeight="SemiBold"/>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <ProgressBar x:Name="AttackProgress" 
+                                                            Width="100" 
+                                                            Height="8" 
+                                                            Margin="0,0,12,0"
+                                                            Value="0"
+                                                            Maximum="100"/>
+                                                <TextBlock x:Name="AttackProgressText"
+                                                          Text="0/0" 
+                                                          Foreground="#FFB84D"
+                                                          FontWeight="SemiBold"
+                                                          Margin="0,0,10,0"
+                                                          VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <TextBox x:Name="IntruderResults" 
+                                             Grid.Row="1"
+                                             Style="{StaticResource ReadonlyEditor}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="◈ DECODER">
+                    <Grid Background="#0A0A0A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,0,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <TextBlock Text="// INPUT" 
+                                          Foreground="#CC6666" 
+                                          FontWeight="SemiBold"/>
+                            </Border>
+
+                            <TextBox x:Name="DecoderInput" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource EditorStyle}"/>
+                        </Grid>
+
+                        <Border Grid.Row="1" 
+                               BorderBrush="#8B0000" 
+                               BorderThickness="0,1,0,1" 
+                               Padding="24,16"
+                               Background="#1A1A1A">
+                            <WrapPanel HorizontalAlignment="Center">
+                                <Button Content="▼ BASE64 DECODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="Base64Decode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="▲ BASE64 ENCODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="Base64Encode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="▼ URL DECODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="UrlDecode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="▲ URL ENCODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="UrlEncode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="▼ HTML DECODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="HtmlDecode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="▲ HTML ENCODE" 
+                                       Style="{StaticResource TacticalButton}"
+                                       Click="HtmlEncode_Click"
+                                       Margin="5,2"/>
+                                <Button Content="🔄 SWAP" 
+                                       Style="{StaticResource WarningButton}"
+                                       Click="SwapDecoderText_Click"
+                                       Margin="5,2"/>
+                            </WrapPanel>
+                        </Border>
+
+                        <Grid Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,1,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <TextBlock Text="// OUTPUT" 
+                                          Foreground="#CC6666" 
+                                          FontWeight="SemiBold"/>
+                            </Border>
+
+                            <TextBox x:Name="DecoderOutput" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource ReadonlyEditor}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="◈ COMPARER">
+                    <Grid Background="#0A0A0A">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,0,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <Grid>
+                                    <TextBlock Text="// ITEM 1" 
+                                              Foreground="#CC6666" 
+                                              FontWeight="SemiBold"/>
+
+                                    <Button Content="📁 LOAD" 
+                                           Style="{StaticResource TacticalButton}"
+                                           Click="LoadCompare1_Click"
+                                           Height="28"
+                                           Padding="12,0"
+                                           HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Border>
+
+                            <TextBox x:Name="CompareText1" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource EditorStyle}"/>
+                        </Grid>
+
+                        <GridSplitter Grid.Column="1" 
+                                     Background="#450000" 
+                                     HorizontalAlignment="Stretch"
+                                     Width="5"/>
+
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" 
+                                   BorderBrush="#450000" 
+                                   BorderThickness="0,0,0,1" 
+                                   Padding="18,10"
+                                   Background="#1A1A1A">
+                                <Grid>
+                                    <TextBlock Text="// ITEM 2" 
+                                              Foreground="#CC6666" 
+                                              FontWeight="SemiBold"/>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="📁 LOAD" 
+                                               Style="{StaticResource TacticalButton}"
+                                               Click="LoadCompare2_Click"
+                                               Height="28"
+                                               Padding="12,0"
+                                               Margin="0,0,10,0"/>
+                                        <Button Content="🔍 COMPARE" 
+                                               Style="{StaticResource WarningButton}"
+                                               Click="CompareTexts_Click"
+                                               Height="28"
+                                               Padding="12,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <TextBox x:Name="CompareText2" 
+                                    Grid.Row="1"
+                                    Style="{StaticResource EditorStyle}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Border Grid.Row="2" 
+                BorderBrush="#8B0000" 
+                BorderThickness="0,2,0,0" 
+                Padding="24,12"
+                Background="#1A1A1A">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="◢ VRAX INTERCEPT v3.0" 
+                              Foreground="#CC6666" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,20,0"/>
+                    <TextBlock Text="/" 
+                              Foreground="#666666" 
+                              Margin="0,0,20,0"/>
+                    <TextBlock x:Name="StatusMessage" 
+                              Text="Ready for deployment" 
+                              Foreground="#999999"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="MEMORY: " 
+                              Foreground="#999999" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,5,0"/>
+                    <TextBlock x:Name="MemoryUsage" 
+                              Text="0 MB" 
+                              Foreground="#CC6666"
+                              Margin="0,0,24,0"/>
+
+                    <TextBlock Text="CERT: " 
+                              Foreground="#999999" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,5,0"/>
+                    <TextBlock x:Name="CertStatus" 
+                              Text="✓ ACTIVE" 
+                              Foreground="#5DCEA3"
+                              Margin="0,0,24,0"/>
+
+                    <TextBlock Text="SSL INTERCEPTION: " 
+                              Foreground="#999999" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,5,0"/>
+                    <TextBlock x:Name="SslStatus" 
+                              Text="✅ ENABLED" 
+                              Foreground="#5DCEA3"
+                              Margin="0,0,24,0"/>
+
+                    <TextBlock Text="UPTIME: " 
+                              Foreground="#999999" 
+                              FontWeight="SemiBold"
+                              Margin="0,0,5,0"/>
+                    <TextBlock x:Name="UptimeDisplay" 
+                              Text="00:00:00" 
+                              Foreground="#CC6666"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

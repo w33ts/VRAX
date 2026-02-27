@@ -1,0 +1,8 @@
+[18:46:41] Connection from 127.0.0.1:55129
+[18:46:46] Sent: ls
+[18:46:50] Sent: ls
+[18:46:52] Sent: dir
+[18:48:14] Connection from 127.0.0.1:55195
+[18:48:25] Received: 6 bytes
+[19:00:17] Connection from 10.144.207.85:56350
+[19:00:24] Received: 16 bytes

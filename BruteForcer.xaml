@@ -1,0 +1,562 @@
+﻿<Window x:Class="ReconSuite.BruteForcer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Width="1400"
+        Height="900"
+        MinWidth="1000"
+        MinHeight="700"
+        WindowStyle="SingleBorderWindow"
+        FontFamily="Segoe UI"
+        Background="#0A0A0A"
+        Closing="Window_Closing"
+        >
+
+    <Window.Resources>
+        <Color x:Key="ColorBackground">#0A0A0A</Color>
+        <Color x:Key="ColorDark">#121212</Color>
+        <Color x:Key="ColorMedium">#1A1A1A</Color>
+        <Color x:Key="ColorPanel">#101010</Color>
+        <Color x:Key="ColorBorder">#333333</Color>
+        <Color x:Key="ColorPrimary">#FF3333</Color>
+        <Color x:Key="ColorPrimaryBright">#FF5555</Color>
+        <Color x:Key="ColorPrimaryDark">#8B0000</Color>
+        <Color x:Key="ColorWhite">#FFFFFF</Color>
+        <Color x:Key="ColorSuccess">#00CC00</Color>
+        <Color x:Key="ColorWarning">#FFAA00</Color>
+        <Color x:Key="ColorError">#FF3333</Color>
+        <Color x:Key="ColorGray">#888888</Color>
+        <Color x:Key="ColorLightGreen">#90EE90</Color>
+        <Color x:Key="ColorInfo">#3399FF</Color>
+        <Color x:Key="ColorOrange">#FFA500</Color>
+
+        <SolidColorBrush x:Key="TacticalBlack" Color="{StaticResource ColorBackground}"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="{StaticResource ColorDark}"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="{StaticResource ColorMedium}"/>
+        <SolidColorBrush x:Key="TacticalPanel" Color="{StaticResource ColorPanel}"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="{StaticResource ColorBorder}"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="{StaticResource ColorPrimary}"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="{StaticResource ColorPrimaryBright}"/>
+        <SolidColorBrush x:Key="TacticalRedDark" Color="{StaticResource ColorPrimaryDark}"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="{StaticResource ColorWhite}"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="{StaticResource ColorSuccess}"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="{StaticResource ColorWarning}"/>
+        <SolidColorBrush x:Key="TacticalError" Color="{StaticResource ColorError}"/>
+        <SolidColorBrush x:Key="TacticalGray" Color="{StaticResource ColorGray}"/>
+        <SolidColorBrush x:Key="TacticalLightGreen" Color="{StaticResource ColorLightGreen}"/>
+        <SolidColorBrush x:Key="TacticalInfo" Color="{StaticResource ColorInfo}"/>
+        <SolidColorBrush x:Key="TacticalOrange" Color="{StaticResource ColorOrange}"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource TacticalRedDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#AA0000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+
+        <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="8"/>
+        </Style>
+
+        <Style x:Key="ResultItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+
+        <Style x:Key="ShellOutputStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#00FF00"/>
+            <Setter Property="Background" Value="#0A0A0A"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+        </Style>
+
+        <Style x:Key="ShellInputStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalRed}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource TacticalBlack}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Height="50" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
+                    <TextBlock Text="VRAX" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text=" // " Foreground="{StaticResource TacticalRedBright}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="BRUTE FORCER" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource TacticalRedDark}" Padding="10,5" CornerRadius="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse x:Name="StatusLed" Width="8" Height="8" Fill="{StaticResource TacticalSuccess}" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="StatusText" Text="READY" Foreground="{StaticResource TacticalWhite}" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
+                    <Button x:Name="MinimizeBtn" Width="25" Height="25" Background="Transparent" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="MinimizeBtn_Click">
+                        <TextBlock Text="_" FontSize="14" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="CloseBtn" Width="25" Height="25" Margin="8,0,0,0" Background="{StaticResource TacticalRedDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="CloseBtn_Click">
+                        <TextBlock Text="×" FontSize="16" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="15">
+                        <TextBlock Text="// CONFIGURATION" Style="{StaticResource SectionHeader}"/>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="15">
+                        <StackPanel>
+                            <Border Style="{StaticResource ResultItemStyle}" Margin="0,0,0,15">
+                                <StackPanel>
+                                    <TextBlock Text="TARGET" Style="{StaticResource SectionHeader}"/>
+                                    <TextBlock Text="Target IP/Host:" Style="{StaticResource LabelText}"/>
+                                    <TextBox x:Name="TargetInput" Text="192.168.1.1" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+                                    <TextBlock Text="Port:" Style="{StaticResource LabelText}"/>
+                                    <TextBox x:Name="PortInput" Text="22" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+                                    <TextBlock Text="Protocol:" Style="{StaticResource LabelText}"/>
+                                    <ComboBox x:Name="ProtocolCombo" SelectedIndex="0" Style="{StaticResource ComboBoxStyle}" Margin="0,0,0,10" TextElement.Foreground="Black">
+                                        <ComboBoxItem Content="SSH (22)"/>
+                                        <ComboBoxItem Content="FTP (21)"/>
+                                        <ComboBoxItem Content="Telnet (23)"/>
+                                        <ComboBoxItem Content="RDP (3389)"/>
+                                        <ComboBoxItem Content="MySQL (3306)"/>
+                                        <ComboBoxItem Content="PostgreSQL (5432)"/>
+                                        <ComboBoxItem Content="SMB (445)"/>
+                                        <ComboBoxItem Content="VNC (5900)"/>
+                                        <ComboBoxItem Content="HTTP Basic Auth (80/443)"/>
+                                        <ComboBoxItem Content="Custom"/>
+                                    </ComboBox>
+                                    <Button x:Name="TestConnectionBtn" Content="🔍 TEST CONNECTION" Click="TestConnectionBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource ResultItemStyle}" Margin="0,0,0,15">
+                                <StackPanel>
+                                    <TextBlock Text="USERNAMES" Style="{StaticResource SectionHeader}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Username List:" Style="{StaticResource LabelText}"/>
+                                            <TextBox x:Name="UsernameInput" Text="admin,root,user" Style="{StaticResource TextBoxStyle}" Height="35"/>
+                                        </StackPanel>
+                                        <Button Grid.Column="1" x:Name="BrowseUsernameBtn" Content="📂" Click="BrowseUsernameBtn_Click" Style="{StaticResource TacticalButton}" Width="40" Height="35" Margin="10,20,0,0"/>
+                                    </Grid>
+                                    <TextBlock Text="OR" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,10"/>
+                                    <TextBlock Text="Load from File:" Style="{StaticResource LabelText}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="UsernameFileInput" Style="{StaticResource TextBoxStyle}" Height="35" IsReadOnly="True"/>
+                                        <Button Grid.Column="1" x:Name="LoadUsernameFileBtn" Content="📁" Click="LoadUsernameFileBtn_Click" Style="{StaticResource TacticalButton}" Width="40" Height="35" Margin="10,0,0,0"/>
+                                    </Grid>
+                                    <Grid Margin="0,10,0,0">
+                                        <TextBlock Text="Usernames Loaded:" Style="{StaticResource LabelText}"/>
+                                        <TextBlock x:Name="UsernameCountText" Text="3" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource ResultItemStyle}" Margin="0,0,0,15">
+                                <StackPanel>
+                                    <TextBlock Text="PASSWORDS" Style="{StaticResource SectionHeader}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Password List:" Style="{StaticResource LabelText}"/>
+                                            <TextBox x:Name="PasswordInput" Text="password,admin,123456" Style="{StaticResource TextBoxStyle}" Height="35"/>
+                                        </StackPanel>
+                                        <Button Grid.Column="1" x:Name="BrowsePasswordBtn" Content="📂" Click="BrowsePasswordBtn_Click" Style="{StaticResource TacticalButton}" Width="40" Height="35" Margin="10,20,0,0"/>
+                                    </Grid>
+                                    <TextBlock Text="OR" Style="{StaticResource LabelText}" HorizontalAlignment="Center" Margin="0,10"/>
+                                    <TextBlock Text="Load from File:" Style="{StaticResource LabelText}"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="PasswordFileInput" Style="{StaticResource TextBoxStyle}" Height="35" IsReadOnly="True"/>
+                                        <Button Grid.Column="1" x:Name="LoadPasswordFileBtn" Content="📁" Click="LoadPasswordFileBtn_Click" Style="{StaticResource TacticalButton}" Width="40" Height="35" Margin="10,0,0,0"/>
+                                    </Grid>
+                                    <Grid Margin="0,10,0,0">
+                                        <TextBlock Text="Passwords Loaded:" Style="{StaticResource LabelText}"/>
+                                        <TextBlock x:Name="PasswordCountText" Text="3" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                    </Grid>
+                                    <Button x:Name="GenerateWordlistBtn" Content="⚙ GENERATE WORDLIST" Click="GenerateWordlistBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource ResultItemStyle}" Margin="0,0,0,15">
+                                <StackPanel>
+                                    <TextBlock Text="ATTACK SETTINGS" Style="{StaticResource SectionHeader}"/>
+                                    <TextBlock Text="Max Threads:" Style="{StaticResource LabelText}"/>
+                                    <TextBox x:Name="ThreadsInput" Text="10" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+                                    <TextBlock Text="Timeout (ms):" Style="{StaticResource LabelText}"/>
+                                    <TextBox x:Name="TimeoutInput" Text="5000" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+                                    <CheckBox x:Name="StopOnSuccessCheck" Content="Stop on first success" Foreground="#CCCCCC" FontSize="12" Margin="0,0,0,10" IsChecked="True"/>
+                                    <CheckBox x:Name="SaveResultsCheck" Content="Save results to file" Foreground="#CCCCCC" FontSize="12"/>
+                                </StackPanel>
+                            </Border>
+
+                            <StackPanel Margin="0,10,0,0">
+                                <Button x:Name="StartAttackBtn" Content="▶ START BRUTE FORCE" Click="StartAttackBtn_Click" Style="{StaticResource ActionButton}" Height="50" Margin="0,0,0,10"/>
+                                <Button x:Name="StopAttackBtn" Content="◼ STOP ATTACK" Click="StopAttackBtn_Click" Style="{StaticResource ActionButton}" Height="50" Background="Transparent" BorderBrush="{StaticResource TacticalRedBright}" Foreground="{StaticResource TacticalRedBright}" IsEnabled="False"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="350"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="// ATTACK PROGRESS" Style="{StaticResource SectionHeader}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ProgressBar x:Name="ProgressBar" Style="{StaticResource ProgressBarStyle}" Grid.Column="0" Value="0" Margin="0,0,10,0"/>
+                            <TextBlock Grid.Column="1" x:Name="ProgressText" Text="Ready" Style="{StaticResource ValueText}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <TextBlock Text="Attempts:" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="AttemptsText" Text="0" Style="{StaticResource ValueText}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                <TextBlock Text="/" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="5,0"/>
+                                <TextBlock x:Name="TotalAttemptsText" Text="0" Style="{StaticResource ValueText}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Current Username:" Style="{StaticResource LabelText}"/>
+                                <TextBlock x:Name="CurrentUserText" Text="-" Style="{StaticResource ValueText}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Current Password:" Style="{StaticResource LabelText}"/>
+                                <TextBlock x:Name="CurrentPassText" Text="-" Style="{StaticResource ValueText}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Success Rate:" Style="{StaticResource LabelText}"/>
+                                <TextBlock x:Name="SuccessRateText" Text="0%" Style="{StaticResource ValueText}"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Row="1" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="15">
+                                <Grid>
+                                    <TextBlock Text="// LIVE ATTEMPTS" Style="{StaticResource SectionHeader}"/>
+                                    <Button x:Name="ClearResultsBtn" Content="🗑 CLEAR" Click="ClearResultsBtn_Click" Style="{StaticResource TacticalButton}" Width="80" HorizontalAlignment="Right" Margin="0,0,0,-9"/>
+                                </Grid>
+                            </Border>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10">
+                                <ItemsControl x:Name="ResultsItemsControl"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="2" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="15">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="// FOUND CREDENTIALS" Style="{StaticResource SectionHeader}" Grid.Column="0"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                        <Button x:Name="ExportBtn" Content="💾 EXPORT" Click="ExportBtn_Click" Style="{StaticResource TacticalButton}" Height="33" Width="90" Margin="0,0,5,0"/>
+                                        <Button x:Name="CopyBtn" Content="📋 COPY" Click="CopyBtn_Click" Style="{StaticResource TacticalButton}" Height="32" Width="80"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10">
+                                <ItemsControl x:Name="CredentialsItemsControl"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="2" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="15" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Elapsed Time:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="ElapsedTimeText" Text="00:00:00" Style="{StaticResource ValueText}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Attempts Per Second:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="AttemptsPerSecondText" Text="0" Style="{StaticResource ValueText}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Credentials Found:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="CredentialsFoundText" Text="0" Style="{StaticResource ValueText}" Foreground="{StaticResource TacticalSuccess}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <TextBlock Text="Failed Attempts:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="FailedAttemptsText" Text="0" Style="{StaticResource ValueText}" Foreground="{StaticResource TacticalError}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="4">
+                            <TextBlock Text="Estimated Time Left:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="TimeLeftText" Text="-:--:--" Style="{StaticResource ValueText}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="3" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="// INTERACTIVE SHELL" Style="{StaticResource SectionHeader}" Margin="0,0,0,10"/>
+
+                        <Grid Grid.Row="1" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Target:" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox Grid.Column="1" x:Name="ShellTargetInput" Text="192.168.1.1" Style="{StaticResource TextBoxStyle}" Height="30" Margin="0,0,10,0"/>
+
+                            <TextBlock Grid.Column="2" Text="Port:" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox Grid.Column="3" x:Name="ShellPortInput" Text="22" Width="60" Style="{StaticResource TextBoxStyle}" Height="30" Margin="0,0,10,0"/>
+
+                            <TextBlock Grid.Column="4" Text="Protocol:" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ComboBox Grid.Column="5"
+          x:Name="ShellProtocolCombo"
+          Width="80"
+          Height="30"
+          SelectedIndex="0"
+          Foreground="Black"
+          Style="{StaticResource ComboBoxStyle}">
+
+                                <ComboBox.Resources>
+                                    
+                                    <Style TargetType="ComboBoxItem">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </ComboBox.Resources>
+
+                                
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Content}"
+                       Foreground="Black"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
+                                <ComboBoxItem Content="SSH"/>
+                                <ComboBoxItem Content="Telnet"/>
+                                <ComboBoxItem Content="FTP"/>
+                                <ComboBoxItem Content="MySQL"/>
+                                <ComboBoxItem Content="HTTP"/>
+                                <ComboBoxItem Content="RDP"/>
+
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Username:" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox Grid.Column="1" x:Name="ShellUsernameInput" Text="root" Style="{StaticResource TextBoxStyle}" Height="30" Margin="0,0,10,0"/>
+
+                            <TextBlock Grid.Column="2" Text="Password:" Style="{StaticResource LabelText}" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox Grid.Column="3" x:Name="ShellPasswordInput" Text="password" Style="{StaticResource TextBoxStyle}" Height="30" Margin="0,0,10,0"/>
+
+                            <Button Grid.Column="4" x:Name="ConnectShellBtn" Content="CONNECT" Click="ConnectShellBtn_Click" Style="{StaticResource TacticalButton}" Width="100" Margin="0,0,5,-5"/>
+                            <Button Grid.Column="5" x:Name="DisconnectShellBtn" Content="DISCONNECT" Click="DisconnectShellBtn_Click" Style="{StaticResource TacticalButton}" Width="100" Background="Transparent" BorderBrush="{StaticResource TacticalRedBright}" Foreground="{StaticResource TacticalRedBright}" IsEnabled="False" Margin="0,0,0,-5"/>
+                        </Grid>
+
+                        <TextBox Grid.Row="3" x:Name="ShellOutputBox" Style="{StaticResource ShellOutputStyle}" Margin="0,0,0,10" 
+                                 Text="Ready. Enter target IP/domain, credentials and click CONNECT...&#xD;&#xA;Example: ssh root@192.168.1.1:22 with password 'password'"/>
+
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text=">" Foreground="#00FF00" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" x:Name="ShellInputBox" Style="{StaticResource ShellInputStyle}" Height="35" IsEnabled="False" KeyDown="ShellInputBox_KeyDown"/>
+                            <Button Grid.Column="2" x:Name="SendCommandBtn" Content="SEND" Click="SendCommandBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Width="80" Margin="5,0,0,0" IsEnabled="False"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

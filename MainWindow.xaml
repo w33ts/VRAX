@@ -1,0 +1,937 @@
+﻿<Window x:Class="ReconSuite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
+        FontFamily="Segoe UI"
+        ResizeMode="CanResizeWithGrip"
+        Background="{DynamicResource TacticalBlack}">
+
+    
+    <Window.Resources>
+      
+        <Color x:Key="ColorBackground">#0A0A0A</Color>
+        <Color x:Key="ColorDark">#121212</Color>
+        <Color x:Key="ColorMedium">#1A1A1A</Color>
+        <Color x:Key="ColorLight">#242424</Color>
+        <Color x:Key="ColorWhite">#FFFFFF</Color>
+        <Color x:Key="ColorDisabled">#2A2A2A</Color>
+        <Color x:Key="ColorPanel">#101010</Color>
+        <Color x:Key="ColorBorder">#333333</Color>
+
+       
+        <Color x:Key="ColorPrimaryDark">#8B0000</Color>
+        <Color x:Key="ColorPrimary">#FF3333</Color>
+        <Color x:Key="ColorPrimaryBright">#FF5555</Color>
+        <Color x:Key="ColorPrimaryText">#FF8888</Color>
+        <Color x:Key="ColorPrimaryHover">#FF4444</Color>
+
+
+        <Color x:Key="ColorSuccess">#00CC00</Color>
+        <Color x:Key="ColorWarning">#FFAA00</Color>
+        <Color x:Key="ColorCritical">#FF3333</Color>
+        <Color x:Key="ColorInfo">#3399FF</Color>
+
+        
+        <Color x:Key="ModuleOsint">#3399FF</Color>
+        <Color x:Key="ModuleCracker">#FFD700</Color>
+        <Color x:Key="ModuleDir">#FF66FF</Color>
+        <Color x:Key="ModuleWifi">#FF6666</Color>
+        <Color x:Key="ModulePayload">#66FF66</Color>
+        <Color x:Key="ModuleIntercept">#FFAA44</Color>
+        <Color x:Key="ModuleOps">#88AAFF</Color>
+        <Color x:Key="ModuleIntel">#AAFF66</Color>
+        <Color x:Key="ModuleVuln">#FF3333</Color>
+
+        
+        <SolidColorBrush x:Key="TacticalBlack" Color="{DynamicResource ColorBackground}"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="{DynamicResource ColorDark}"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="{DynamicResource ColorMedium}"/>
+        <SolidColorBrush x:Key="TacticalLight" Color="{DynamicResource ColorLight}"/>
+        <SolidColorBrush x:Key="TacticalRedDark" Color="{DynamicResource ColorPrimaryDark}"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="{DynamicResource ColorPrimary}"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="{DynamicResource ColorPrimaryBright}"/>
+        <SolidColorBrush x:Key="TacticalRedText" Color="{DynamicResource ColorPrimaryText}"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="{DynamicResource ColorWhite}"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="{DynamicResource ColorBorder}"/>
+        <SolidColorBrush x:Key="TacticalDisabled" Color="{DynamicResource ColorDisabled}"/>
+        <SolidColorBrush x:Key="TacticalHover" Color="{DynamicResource ColorPrimaryHover}"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="{DynamicResource ColorSuccess}"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="{DynamicResource ColorWarning}"/>
+        <SolidColorBrush x:Key="TacticalCritical" Color="{DynamicResource ColorCritical}"/>
+        <SolidColorBrush x:Key="TacticalInfo" Color="{DynamicResource ColorInfo}"/>
+        <SolidColorBrush x:Key="TacticalPanel" Color="{DynamicResource ColorPanel}"/>
+        <SolidColorBrush x:Key="ModuleOsintBrush" Color="{DynamicResource ModuleOsint}"/>
+        <SolidColorBrush x:Key="ModuleOsintBrushh" Color="DarkOrange"/>
+        <SolidColorBrush x:Key="ModuleCrackerBrush" Color="{DynamicResource ModuleCracker}"/>
+        <SolidColorBrush x:Key="ModuleDirBrush" Color="{DynamicResource ModuleDir}"/>
+        <SolidColorBrush x:Key="ModuleWifiBrush" Color="Indigo"/>
+        <SolidColorBrush x:Key="ModuleWifiBrus" Color="Beige"/>
+        <SolidColorBrush x:Key="ModulePayloadBrush" Color="{DynamicResource ModulePayload}"/>
+        <SolidColorBrush x:Key="ModulePayloadBrushh" Color="BurlyWood"/>
+        <SolidColorBrush x:Key="ModuleInterceptBrush" Color="{DynamicResource ModuleIntercept}"/>
+        <SolidColorBrush x:Key="ModuleOpsBrush" Color="{DynamicResource ModuleOps}"/>
+        <SolidColorBrush x:Key="ModuleIntelBrush" Color="{DynamicResource ModuleIntel}"/>
+        <SolidColorBrush x:Key="ModuleVulnBrush" Color="{DynamicResource ModuleVuln}"/>
+        <SolidColorBrush x:Key="ModuleVulnBrus" Color="BurlyWood"/>
+        <SolidColorBrush x:Key="ModuleVulnBru" Color="DarkOrchid"/>
+        <SolidColorBrush x:Key="ModuleBruteBrush" Color="#FFD700"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource TacticalRedDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TacticalHover}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TacticalRedBright}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#AA0000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TacticalDisabled}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#555555"/>
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModuleButtonStyle" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="24,12"/>
+        </Style>
+
+        <Style x:Key="SmallButtonStyle" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="12,4"/>
+        </Style>
+
+        <Style x:Key="TacticalTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="SelectionOpacity" Value="0.3"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="TitleText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="36"/>
+        </Style>
+
+        <Style x:Key="ModuleTitle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <Style x:Key="DataText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="LineHeight" Value="16"/>
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+
+        <Style x:Key="InfoCard" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource TacticalPanel}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,12,12"/>
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+
+        <Style x:Key="TagStyle" TargetType="Border">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="0,0,6,6"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource TacticalBlack}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Height="48" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
+                    <TextBlock Text="VRAX" Style="{StaticResource HeaderText}" FontSize="20"/>
+                    <TextBlock Text=" //" Style="{StaticResource HeaderText}" Foreground="{StaticResource TacticalRedBright}" FontWeight="SemiBold" Margin="4,0,0,0"/>
+                    <TextBlock Text=" ADVANCED RECON" Style="{StaticResource HeaderText}" FontSize="16" Margin="8,0,0,0" Foreground="#DDDDDD"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource TacticalRedDark}" Padding="12,4" CornerRadius="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource TacticalSuccess}" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="StatusText" Text="READY" Style="{StaticResource HeaderText}" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,12,0" VerticalAlignment="Center">
+                    <Button x:Name="MinimizeBtn" Width="28" Height="28" Background="Transparent" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="Minimize_Click">
+                        <TextBlock Text="_" FontSize="14" Foreground="{StaticResource TacticalWhite}"/>
+                    </Button>
+                    <Button x:Name="CloseBtn" Width="28" Height="28" Margin="8,0,0,0" Background="{StaticResource TacticalRedDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="Close_Click">
+                        <TextBlock Text="×" FontSize="16" Foreground="{StaticResource TacticalWhite}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="20,12,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Margin="0,0,12,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="VRAX" Style="{StaticResource TitleText}" Foreground="{StaticResource TacticalRedBright}"/>
+                            <TextBlock Text="RECONNAISSANCE SUITE" Foreground="#DDDDDD" FontSize="11" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="// MODULES" Style="{StaticResource HeaderText}" FontSize="14" Margin="0,0,0,20" Foreground="{StaticResource TacticalRedBright}"/>
+                            <Button x:Name="Learn" Style="{StaticResource ModuleButtonStyle}" Click="OpenLearn_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleOsintBrushh}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="LEARNING LIBRARY" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="OsintBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenOsint_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleOsintBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="OSINT GATHERING" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="CrackerBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenCracker_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleCrackerBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="CRACKER ENGINE" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="DirBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenDir_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleDirBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="DIR SCANNER" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="BruteBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenBrute_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleBruteBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="BRUTEFORCE PORTS" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="WifiBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenWifi_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleWifiBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="REPORT GENERATOR" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="PicBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenPic_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleWifiBrus}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="PICTURE OR VIDEO ANALYZER" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="PayloadBtn" Style="{StaticResource ModuleButtonStyle}" Click="CTFWindowbtn_open" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModulePayloadBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Reverse Shell" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="PayloadGeneratorBtn" Style="{StaticResource ModuleButtonStyle}" Click="Payloadbtn_open" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModulePayloadBrushh}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Payloads" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="InterceptBtn" Style="{StaticResource ModuleButtonStyle}" Click="Intercept_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleInterceptBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="PACKET INTERCEPT" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="IntelBtn" Style="{StaticResource ModuleButtonStyle}" Click="OpenIntel_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleIntelBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="INTELLIGENCE ANALYZER" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="VulnBtn" Style="{StaticResource ModuleButtonStyle}" Click="VanguardScanner_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleVulnBrush}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="VULNERABILITY SCANNER" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="PrivBtn" Style="{StaticResource ModuleButtonStyle}" Click="PrivBtn_Click" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="8" Height="8" Fill="{StaticResource ModuleVulnBrus}" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Privilege Escalation" Style="{StaticResource ModuleTitle}"/>
+                                </StackPanel>
+                            </Button>
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="2" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,1,0,0" Padding="20">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="SYSTEM TIME" Foreground="#AAAAAA" FontSize="10"/>
+                                <TextBlock Grid.Column="1" x:Name="LiveTimer" Text="00:00:00" Foreground="{StaticResource TacticalRedBright}" FontSize="12" FontWeight="Bold"/>
+                            </Grid>
+                            <TextBlock Text="SYSTEM LOAD" Foreground="#AAAAAA" FontSize="10" Margin="0,0,0,6"/>
+                            <ProgressBar x:Name="CpuLoad" Height="6" Foreground="{StaticResource TacticalRedBright}" Value="20"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="20" Margin="0,0,0,16" CornerRadius="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="// TARGET RECONNAISSANCE"
+               Style="{StaticResource HeaderText}"
+               FontSize="16"
+               Margin="0,0,0,12"
+               Foreground="{StaticResource TacticalRedBright}"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="120"/>
+                                    <ColumnDefinition Width="140"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox x:Name="UrlInput"
+                 Text="google.com"
+                 Style="{StaticResource TacticalTextBox}"
+                 Height="45"/>
+
+                                
+                                <ComboBox Grid.Column="1"
+                  Margin="12,0,0,0"
+                  SelectedIndex="0"
+                  Height="45"
+                  Background="{StaticResource TacticalDark}"
+                  BorderBrush="{StaticResource TacticalBorder}"
+                  Padding="8"
+                  Foreground="Black"
+                  TextElement.Foreground="Black">
+
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+
+                                    <ComboBoxItem Content="Domain"/>
+                                    <ComboBoxItem Content="IP Address"/>
+                                </ComboBox>
+
+                                
+                                <ComboBox Grid.Column="2"
+                  Margin="12,0,0,0"
+                  SelectedIndex="0"
+                  Height="45"
+                  Background="{StaticResource TacticalDark}"
+                  BorderBrush="{StaticResource TacticalBorder}"
+                  Padding="8"
+                  Foreground="Black"
+                  TextElement.Foreground="Black">
+
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+
+                                    <ComboBoxItem Content="Quick Scan"/>
+                                    <ComboBoxItem Content="Full Scan"/>
+                                </ComboBox>
+                            </Grid>
+
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ProgressBar x:Name="ScanProgress"
+                     Height="6"
+                     Value="0"
+                     Background="{StaticResource TacticalDark}"
+                     Foreground="{StaticResource TacticalRedBright}"/>
+
+                                <TextBlock Grid.Column="1"
+                   x:Name="ProgressText"
+                   Text="READY"
+                   Foreground="{StaticResource TacticalWhite}"
+                   FontSize="11"
+                   Margin="12,0,0,0"
+                   VerticalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1" Margin="24,0,0,0">
+                            <Button Content="▶ START SCAN" Click="ExecuteScan_Click" Style="{StaticResource ActionButtonStyle}" Margin="0,0,0,12" FontSize="13" Background="{StaticResource TacticalRed}" BorderBrush="{StaticResource TacticalRedBright}"/>
+                            <Button x:Name="StopButton" Content="◼ STOP SCAN" Click="StopScan_Click" Style="{StaticResource ActionButtonStyle}" BorderBrush="{StaticResource TacticalRedBright}" Foreground="{StaticResource TacticalRedBright}" IsEnabled="False" FontSize="13" Background="Transparent"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <TabControl Grid.Row="1" Background="Transparent" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border x:Name="Border"
+                        Background="{StaticResource TacticalDark}"
+                        BorderBrush="{StaticResource TacticalBorder}"
+                        BorderThickness="1,1,1,0"
+                        CornerRadius="3,3,0,0"
+                        Margin="2,0,2,-1">
+
+                                            <ContentPresenter x:Name="ContentSite"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      ContentSource="Header"
+                                      Margin="12,6"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+
+                                            
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="{StaticResource TacticalMedium}"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TacticalRedBright}"/>
+                                                <Setter Property="Foreground" Value="{StaticResource TacticalRedBright}"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                            </Trigger>
+
+                                          
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#1F1F1F"/>
+                                                <Setter Property="Foreground" Value="{StaticResource TacticalRedText}"/>
+                                            </Trigger>
+
+                                            
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Foreground" Value="#666666"/>
+                                            </Trigger>
+
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </TabControl.Resources>
+
+                    <TabItem Header="OVERVIEW">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource InfoCard}">
+                                        <StackPanel>
+                                            <TextBlock Text="TARGET INFORMATION" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                    <TextBlock Text="Target:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="TargetText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                    <TextBlock Text="IP Address:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="IpText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                                    <TextBlock Text="Hostname:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="HostnameText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="3" Margin="0,0,0,8">
+                                                    <TextBlock Text="Status:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="StatusOverviewText" Text="Not Scanned" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="4">
+                                                    <TextBlock Text="Scan Time:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="ScanTimeText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock Text="GEOLOCATION DATA" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                    <TextBlock Text="Country:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CountryText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                    <TextBlock Text="City:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CityText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                                    <TextBlock Text="Region:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="RegionText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="3" Margin="0,0,0,8">
+                                                    <TextBlock Text="ISP:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="IspText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="4">
+                                                    <TextBlock Text="Timezone:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="TimezoneText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="2">
+                                        <StackPanel>
+                                            <TextBlock Text="OPEN PORTS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <ScrollViewer MaxHeight="150" VerticalScrollBarVisibility="Auto">
+                                                <WrapPanel x:Name="PortsPanel">
+                                                    <TextBlock Text="No ports scanned" Style="{StaticResource DataText}"/>
+                                                </WrapPanel>
+                                            </ScrollViewer>
+                                            <Grid Margin="0,12,0,0">
+                                                <TextBlock Text="Open Ports:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="PortCountText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Grid Margin="0,8,0,0">
+                                                <TextBlock Text="Filtered Ports:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="FilteredPortsText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Margin="0,12,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource InfoCard}">
+                                        <StackPanel>
+                                            <TextBlock Text="TECHNOLOGY (GUESS)" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <ScrollViewer MaxHeight="120" VerticalScrollBarVisibility="Auto">
+                                                <WrapPanel x:Name="TechStackPanel">
+                                                    <TextBlock Text="No technologies detected" Style="{StaticResource DataText}"/>
+                                                </WrapPanel>
+                                            </ScrollViewer>
+                                            <Grid Margin="0,12,0,0">
+                                                <TextBlock Text="Technologies:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="TechCountText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock Text="HTTP RESPONSE" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                    <TextBlock Text="Status Code:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="StatusCodeText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                    <TextBlock Text="Server:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="ServerText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="2">
+                                                    <TextBlock Text="Content Type:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="ContentTypeText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Border Style="{StaticResource InfoCard}" Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="HTTP HEADERS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                            <StackPanel x:Name="HeadersPanel"/>
+                                        </ScrollViewer>
+                                        <Grid Margin="0,12,0,0">
+                                            <TextBlock Text="Total Headers:" Style="{StaticResource DataText}"/>
+                                            <TextBlock x:Name="HeaderCountText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <TabItem Header="SECURITY">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource InfoCard}">
+                                        <StackPanel>
+                                            <TextBlock Text="SECURITY HEADERS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <StackPanel x:Name="SecurityHeadersPanel"/>
+                                            <Grid Margin="0,12,0,0">
+                                                <TextBlock Text="Security Score:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="SecurityScoreText" Text="0/7" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock Text="SSL/TLS INFORMATION" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                    <TextBlock Text="Valid From:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CertValidFrom" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                    <TextBlock Text="Valid To:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CertValidTo" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                                    <TextBlock Text="Issuer:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CertIssuer" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="3" Margin="0,0,0,8">
+                                                    <TextBlock Text="Protocol:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CertProtocol" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="4">
+                                                    <TextBlock Text="Cipher:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="CertCipher" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Border Style="{StaticResource InfoCard}" Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="VULNERABILITIES AND ISSUES" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                        <StackPanel x:Name="VulnPanel">
+                                            <TextBlock Text="No vulnerabilities detected" Style="{StaticResource DataText}"/>
+                                        </StackPanel>
+                                        <Grid Margin="0,12,0,0">
+                                            <TextBlock Text="Total Issues:" Style="{StaticResource DataText}"/>
+                                            <TextBlock x:Name="VulnCountText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Style="{StaticResource InfoCard}" Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="RECOMMENDED ACTIONS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                        <StackPanel x:Name="SecurityActionsPanel"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <TabItem Header="DNS AND NETWORK">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource InfoCard}">
+                                        <StackPanel>
+                                            <TextBlock Text="DNS RECORDS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <StackPanel x:Name="DnsRecordsPanel"/>
+                                            <Grid Margin="0,12,0,0">
+                                                <TextBlock Text="DNS Records:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="DnsCountText" Text="0" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock Text="NETWORK INFORMATION" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                    <TextBlock Text="IPv6 Address:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="Ipv6Text" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                    <TextBlock Text="TTL:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="TtlText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="2" Margin="0,0,0,8">
+                                                    <TextBlock Text="MX Records:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="MxText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="3" Margin="0,0,0,8">
+                                                    <TextBlock Text="TXT Records:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="TxtText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                                <Grid Grid.Row="4">
+                                                    <TextBlock Text="NS Records:" Style="{StaticResource DataText}"/>
+                                                    <TextBlock x:Name="NsText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Border Style="{StaticResource InfoCard}" Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="NETWORK ANALYSIS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0" Margin="0,0,0,8">
+                                                <TextBlock Text="Ping Response:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="PingResponseText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Grid Grid.Row="1" Margin="0,0,0,8">
+                                                <TextBlock Text="Response Time:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="PingTimeText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Grid Grid.Row="2" Margin="0,0,0,8">
+                                                <TextBlock Text="Hop Count:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="HopCountText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                            <Grid Grid.Row="3">
+                                                <TextBlock Text="Network Type:" Style="{StaticResource DataText}"/>
+                                                <TextBlock x:Name="NetworkTypeText" Text="--" Style="{StaticResource ValueText}" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <TabItem Header="AI PROMPT">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="20">
+                                <Border Style="{StaticResource InfoCard}">
+                                    <StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="INTELLIGENCE REPORT" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <Button x:Name="CopyPromptBtn" Grid.Column="1" Content="📋 COPY" Click="CopyPrompt_Click" Style="{StaticResource SmallButtonStyle}" Margin="0,0,0,12" Width="80"/>
+                                        </Grid>
+                                        <Border BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Background="{StaticResource TacticalDark}" Padding="12" CornerRadius="3">
+                                            <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
+                                                <TextBlock x:Name="PromptText" Text="Scan a target to generate reconnaissance intelligence report..." Style="{StaticResource DataText}" TextWrapping="Wrap" FontSize="11" FontFamily="Consolas"/>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+
+                                <Grid Margin="0,12,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource InfoCard}">
+                                        <StackPanel>
+                                            <TextBlock Text="IMMEDIATE ACTIONS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <StackPanel x:Name="ImmediateActionsPanel"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Style="{StaticResource InfoCard}" Grid.Column="1">
+                                        <StackPanel>
+                                            <TextBlock Text="MODULE RECOMMENDATIONS" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                            <StackPanel x:Name="ModuleRecommendationsPanel"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Border Style="{StaticResource InfoCard}" Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="ADVANCED TECHNIQUES" Foreground="{StaticResource TacticalRedBright}" FontWeight="Bold" FontSize="14" Margin="0,0,0,12"/>
+                                        <StackPanel x:Name="AdvancedTechPanel"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <TabItem Header="LOGS">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="16,12">
+                                <Grid>
+                                    <TextBlock Text="// RECONNAISSANCE LOGS" Style="{StaticResource HeaderText}" FontSize="14" Foreground="{StaticResource TacticalRedBright}"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="📋 COPY LOGS" Click="CopyLogs_Click" Style="{StaticResource TacticalButton}" Height="32" Width="120" Margin="0,0,12,0"/>
+                                        <Button Content="💾 EXPORT" Click="ExportLogs_Click" Style="{StaticResource TacticalButton}" Height="32" Width="100" Margin="0,0,12,0"/>
+                                        <Button Content="🗑️ CLEAR" Click="ClearLogs_Click" Style="{StaticResource TacticalButton}" Height="32" Width="100"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <ScrollViewer Grid.Row="1" x:Name="LogScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="16,12">
+                                <TextBlock x:Name="LogText" Foreground="{StaticResource TacticalWhite}" FontSize="11" TextWrapping="Wrap" LineHeight="18" FontFamily="Consolas"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

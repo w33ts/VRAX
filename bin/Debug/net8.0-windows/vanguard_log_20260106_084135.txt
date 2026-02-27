@@ -1,0 +1,20 @@
+[08:41:35] [INFO] Loaded 45 subdomains, 52 directories, 96 parameters
+[08:41:35] [INFO] Initialized 9 attack patterns
+[08:41:35] [INFO] ╔══════════════════════════════════════════════════════════════════╗
+[08:41:35] [INFO] ║  🚀 VANGUARD SECURITY SCANNER v2.0 - ENTERPRISE EDITION           ║
+[08:41:35] [INFO] ║  🔍 COMPREHENSIVE VULNERABILITY ASSESSMENT PLATFORM              ║
+[08:41:35] [INFO] ║  ⚡ MAX CONCURRENT REQUESTS: 30                                ║
+[08:41:35] [INFO] ║  🎯 CONFIDENCE THRESHOLD: 75%                                 ║
+[08:41:35] [INFO] ╚══════════════════════════════════════════════════════════════════╝
+[08:41:55] [INFO] ╔══════════════════════════════════════════════════════════════════╗
+[08:41:55] [INFO] ║  🚀 VANGUARD SCAN INITIATED: https://www.bradford.ac.uk/                  ║
+[08:41:55] [INFO] ║  📊 MAX CRAWL DEPTH: 10                                           ║
+[08:41:55] [INFO] ║  ⚡ MAX CONCURRENT: 30                                          ║
+[08:41:55] [INFO] ╚══════════════════════════════════════════════════════════════════╝
+[08:41:55] [PHASE: Reconnaissance] Starting reconnaissance phase
+[08:41:55] [INFO] Enumerating subdomains...
+[08:42:05] [INFO] Discovered 0 subdomains
+[08:42:05] [INFO] Performing port scan...
+[08:42:06] [DEBUG] Open port: www.bradford.ac.uk:80
+[08:42:15] [WARN] Stopping scan...
+[08:42:20] [INFO] Logs cleared

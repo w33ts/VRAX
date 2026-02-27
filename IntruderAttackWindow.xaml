@@ -1,0 +1,570 @@
+﻿<Window x:Class="ReconSuite.IntruderAttackWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        Height="900" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        Background="#0A0A0A"
+        FontFamily="Segoe UI"
+        Foreground="#CCCCCC"
+        ResizeMode="CanResizeWithGrip"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="TacticalBlack" Color="#0A0A0A"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="#121212"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TacticalLight" Color="#242424"/>
+        <SolidColorBrush x:Key="TacticalRedDark" Color="#5A0000"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="#8B0000"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="#A30000"/>
+        <SolidColorBrush x:Key="TacticalRedText" Color="#CC6666"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="#450000"/>
+        <SolidColorBrush x:Key="TacticalDisabled" Color="#2A2A2A"/>
+        <SolidColorBrush x:Key="TacticalHover" Color="#6A0000"/>
+        <SolidColorBrush x:Key="TacticalPanel" Color="#101010"/>
+        <SolidColorBrush x:Key="TacticalGridLine" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="#006600"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="#996600"/>
+        <SolidColorBrush x:Key="TacticalCritical" Color="#990000"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource TacticalRedDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TacticalHover}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TacticalRed}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3A0000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource TacticalDisabled}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#333333"/>
+                                <Setter Property="Foreground" Value="#666666"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Background" Value="#3A0000"/>
+            <Setter Property="BorderBrush" Value="#990000"/>
+            <Setter Property="Foreground" Value="#FF6666"/>
+        </Style>
+
+        <Style x:Key="WarningButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Background" Value="#332200"/>
+            <Setter Property="BorderBrush" Value="#996600"/>
+            <Setter Property="Foreground" Value="#FFAA44"/>
+        </Style>
+
+        <Style x:Key="TacticalTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TacticalRed}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="SelectionOpacity" Value="0.3"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ReadOnlyTextBox" TargetType="TextBox" BasedOn="{StaticResource TacticalTextBox}">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Background" Value="{StaticResource TacticalPanel}"/>
+            <Setter Property="Foreground" Value="#888888"/>
+        </Style>
+
+        <Style x:Key="TacticalProgressBar" TargetType="ProgressBar">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalRed}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="14"/>
+        </Style>
+
+        <Style x:Key="TacticalDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource TacticalPanel}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="SelectionMode" Value="Extended"/>
+            <Setter Property="RowBackground" Value="Transparent"/>
+            <Setter Property="AlternatingRowBackground" Value="#0F0F0F"/>
+            <Setter Property="RowHeight" Value="32"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+                        <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="12,6"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="Height" Value="36"/>
+                        <Setter Property="FontSize" Value="11"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderBrush" Value="{StaticResource TacticalGridLine}"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="Padding" Value="12,4"/>
+                        <Setter Property="FontSize" Value="11"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource TacticalRedDark}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="TacticalTabItem" TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" Background="{StaticResource TacticalDark}" Margin="0" 
+                                BorderThickness="1,1,1,0" BorderBrush="{StaticResource TacticalBorder}" CornerRadius="0">
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" ContentSource="Header" 
+                                            Margin="20,10"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource TacticalMedium}"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TacticalRed}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Foreground" Value="#999999"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource TacticalLight}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="StatsPanel" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="0,0,16,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource TacticalBlack}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="377*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="20,20,20,20" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Height="48" Background="{StaticResource TacticalDark}" 
+                    BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
+                        <TextBlock Text="VRAX" Style="{StaticResource HeaderText}" FontSize="20"/>
+                        <TextBlock Text=" INTRUDER" Style="{StaticResource HeaderText}" Foreground="{StaticResource TacticalRed}" 
+                                 FontWeight="SemiBold" Margin="4,0,0,0"/>
+
+                    </StackPanel>
+
+                    <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Background="{StaticResource TacticalRedDark}" Padding="12,4" CornerRadius="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="8" Height="8" Fill="{StaticResource TacticalRed}" Margin="0,0,8,0"/>
+                            <TextBlock x:Name="StatusText" Text="INITIALIZING" Style="{StaticResource HeaderText}" FontSize="12"/>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,12,0" VerticalAlignment="Center">
+                        <Button x:Name="PauseResumeBtn" Content="PAUSE" Width="100" Height="35"
+                               Style="{StaticResource WarningButton}" Click="PauseResumeBtn_Click" Margin="0,0,8,0"/>
+                        <Button x:Name="StopBtn" Content="STOP" Width="100" Height="33"
+                               Style="{StaticResource DangerButton}" Click="StopBtn_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1" Background="{StaticResource TacticalMedium}" 
+                    BorderThickness="1" BorderBrush="{StaticResource TacticalBorder}" 
+                    Margin="0,12,0,12" Padding="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                        <Border Style="{StaticResource StatsPanel}">
+                            <StackPanel>
+                                <TextBlock Text="PAYLOADS" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TotalPayloadsText" Text="0" 
+                                          Foreground="{StaticResource TacticalWhite}" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource StatsPanel}">
+                            <StackPanel>
+                                <TextBlock Text="COMPLETED" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="CompletedText" Text="0" 
+                                          Foreground="{StaticResource TacticalWhite}" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource StatsPanel}">
+                            <StackPanel>
+                                <TextBlock Text="SUCCESS" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="SuccessText" Text="0" 
+                                          Foreground="#44FF44" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource StatsPanel}">
+                            <StackPanel>
+                                <TextBlock Text="ERRORS" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ErrorsText" Text="0" 
+                                          Foreground="#FF4444" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+
+                    <StackPanel Grid.Column="1" Margin="30,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid Width="400">
+                            <ProgressBar x:Name="ProgressBar" Style="{StaticResource TacticalProgressBar}" 
+                                       Maximum="100" Value="0"/>
+                            <TextBlock x:Name="ProgressText" Text="0%" HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center" Foreground="{StaticResource TacticalWhite}" FontWeight="Bold"/>
+                        </Grid>
+                        <TextBlock x:Name="StatussText" Text="Initializing attack vectors..." Foreground="#888888" 
+                                  HorizontalAlignment="Center" Margin="0,6,0,0" FontSize="11"/>
+                    </StackPanel>
+
+                    <WrapPanel Grid.Column="2" Orientation="Horizontal">
+                        <Border Style="{StaticResource StatsPanel}" Margin="0,0,16,0">
+                            <StackPanel>
+                                <TextBlock Text="REQ/SEC" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ReqPerSecText" Text="0.0" 
+                                          Foreground="#FFAA44" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource StatsPanel}">
+                            <StackPanel>
+                                <TextBlock Text="ELAPSED" Foreground="#888888" FontSize="10" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ElapsedTimeText" Text="00:00:00" 
+                                          Foreground="#88AAFF" FontSize="16" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource TacticalMedium}" 
+                       BorderThickness="1,1,1,0" BorderBrush="{StaticResource TacticalBorder}" 
+                       Padding="16,12" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="FILTER RESULTS" 
+                                  Foreground="{StaticResource TacticalWhite}" FontSize="13" FontWeight="Bold" 
+                                  VerticalAlignment="Center"/>
+
+                        <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,0">
+                            <CheckBox x:Name="Filter200" Content="200 OK" IsChecked="True" 
+                                     Checked="Filter_Changed" Unchecked="Filter_Changed" Margin="0,0,15,0"/>
+                            <CheckBox x:Name="Filter300" Content="3xx REDIRECT" IsChecked="True" 
+                                     Checked="Filter_Changed" Unchecked="Filter_Changed" Margin="0,0,15,0"/>
+                            <CheckBox x:Name="Filter400" Content="4xx CLIENT" IsChecked="True" 
+                                     Checked="Filter_Changed" Unchecked="Filter_Changed" Margin="0,0,15,0"/>
+                            <CheckBox x:Name="Filter500" Content="5xx SERVER" IsChecked="True" 
+                                     Checked="Filter_Changed" Unchecked="Filter_Changed" Margin="0,0,15,0"/>
+                            <CheckBox x:Name="FilterErrors" Content="ERRORS" IsChecked="True" 
+                                     Checked="Filter_Changed" Unchecked="Filter_Changed"/>
+                        </WrapPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <Button Content="EXPORT" Width="100" Height="35" 
+                                   Style="{StaticResource TacticalButton}" Click="ExportBtn_Click" Margin="0,0,12,0"/>
+                            <Button Content="CLEAR" Width="100" Height="39" 
+                                   Style="{StaticResource DangerButton}" Click="ClearBtn_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <DataGrid Grid.Row="1" x:Name="ResultsGrid" 
+                         Style="{StaticResource TacticalDataGrid}"
+                         AutoGenerateColumns="False"
+                         SelectionMode="Single"
+                         SelectionUnit="FullRow"
+                         AlternationCount="2"
+                         RowDetailsVisibilityMode="VisibleWhenSelected"
+                         LoadingRow="ResultsGrid_LoadingRow"
+                         SelectionChanged="ResultsGrid_SelectionChanged"
+                         CanUserSortColumns="True">
+
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource TacticalPanel}" Padding="20" Margin="5" 
+                                   BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                                <TabControl Background="Transparent" BorderThickness="0">
+                                    <TabItem Header="REQUEST" Style="{StaticResource TacticalTabItem}">
+                                        <TextBox Text="{Binding FullRequest}" 
+                                                Style="{StaticResource ReadOnlyTextBox}"
+                                                FontFamily="Consolas"
+                                                FontSize="10"
+                                                Height="180"/>
+                                    </TabItem>
+                                    <TabItem Header="RESPONSE" Style="{StaticResource TacticalTabItem}">
+                                        <TextBox Text="{Binding FullResponse}" 
+                                                Style="{StaticResource ReadOnlyTextBox}"
+                                                FontFamily="Consolas"
+                                                FontSize="10"
+                                                Height="180"/>
+                                    </TabItem>
+                                    <TabItem Header="ANALYSIS" Style="{StaticResource TacticalTabItem}">
+                                        <StackPanel Margin="10">
+                                            <TextBlock Text="Response Analysis" Foreground="{StaticResource TacticalWhite}" 
+                                                     FontWeight="Bold" Margin="0,0,0,10"/>
+                                            <TextBlock x:Name="AnalysisText" Text="" Foreground="#888888" 
+                                                      TextWrapping="Wrap" FontSize="11"/>
+                                        </StackPanel>
+                                    </TabItem>
+                                </TabControl>
+                            </Border>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="#" Binding="{Binding RequestNumber}" Width="50" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="#888888"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="PAYLOAD" Binding="{Binding Payload}" Width="180">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="STATUS" Binding="{Binding StatusCode}" Width="80">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="{Binding StatusColor}"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="TIME" Binding="{Binding ResponseTime, StringFormat={}{0:F1}s}" Width="80">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#FFAA44"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="SIZE" Binding="{Binding Length, StringFormat={}{0} bytes}" Width="80">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#88AAFF"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="NOTES" Binding="{Binding ErrorMessage}" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                    <Setter Property="Foreground" Value="{Binding ErrorColor}"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="ACTIONS" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="VIEW" Width="60" Height="24" Margin="2"
+                                               ToolTip="View Details"
+                                               Click="ViewDetailsBtn_Click"
+                                               Tag="{Binding}"
+                                               Style="{StaticResource TacticalButton}"/>
+                                        <Button Content="COPY" Width="60" Height="24" Margin="2"
+                                               ToolTip="Copy Request"
+                                               Click="CopyRequestBtn_Click"
+                                               Tag="{Binding}"
+                                               Style="{StaticResource TacticalButton}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Background="{StaticResource TacticalDark}" Padding="16,12" 
+                               BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <TextBlock Text="REQUEST" Foreground="{StaticResource TacticalWhite}" 
+                                         FontWeight="Bold" FontSize="12"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="COPY" Width="80" Height="34"
+                                           Style="{StaticResource TacticalButton}" Click="CopyRequestPreview_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <TextBox Grid.Row="1" x:Name="RequestPreview" 
+                                Style="{StaticResource ReadOnlyTextBox}"
+                                FontFamily="Consolas"
+                                FontSize="10"/>
+                    </Grid>
+                </Border>
+
+                <GridSplitter Grid.Column="1" Width="5" Background="{StaticResource TacticalBorder}" 
+                            HorizontalAlignment="Stretch" ShowsPreview="True"/>
+
+                <Border Grid.Column="2" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Background="{StaticResource TacticalDark}" Padding="16,12" 
+                               BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <TextBlock Text="RESPONSE" Foreground="{StaticResource TacticalWhite}" 
+                                         FontWeight="Bold" FontSize="12"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock x:Name="ResponseInfoText" Text="" Foreground="#888888" 
+                                             Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                    <Button Content="JSON" Width="70" Height="32" Margin="0,0,6,0"
+                                           Style="{StaticResource TacticalButton}" Click="BeautifyJsonBtn_Click"/>
+                                    <Button Content="HTML" Width="70" Height="32" Margin="0,0,6,0"
+                                           Style="{StaticResource TacticalButton}" Click="BeautifyHtmlBtn_Click"/>
+                                    <Button Content="COPY" Width="80" Height="32"
+                                           Style="{StaticResource TacticalButton}" Click="CopyResponsePreview_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <TextBox Grid.Row="1" x:Name="ResponsePreview" 
+                                Style="{StaticResource ReadOnlyTextBox}"
+                                FontFamily="Consolas"
+                                FontSize="10"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,1922 @@
+﻿<Window x:Class="ReconSuite.PrivilegeEscalationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReconSuite"
+        mc:Ignorable="d"
+         
+        Height="1080" Width="1920"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="#030303"
+        Foreground="#F0F0F0"
+        FontFamily="Segoe UI"
+        WindowStyle="SingleBorderWindow"
+        AllowsTransparency="False">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="BackgroundDeep" Color="#030303"/>
+        <SolidColorBrush x:Key="BackgroundDark" Color="#0A0A0A"/>
+        <SolidColorBrush x:Key="BackgroundMedium" Color="#121212"/>
+        <SolidColorBrush x:Key="BackgroundLight" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="AccentPrimary" Color="#8B1A1A"/>
+        <SolidColorBrush x:Key="AccentSecondary" Color="#A52A2A"/>
+        <SolidColorBrush x:Key="AccentTertiary" Color="#6B0000"/>
+        <SolidColorBrush x:Key="AccentGlow" Color="#8B0000"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="TextTertiary" Color="#B0B0B0"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#808080"/>
+        <SolidColorBrush x:Key="BorderPrimary" Color="#8B1A1A"/>
+        <SolidColorBrush x:Key="BorderSecondary" Color="#4A4A4A"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#2E7D32"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#ED6A5E"/>
+        <SolidColorBrush x:Key="ErrorBrush" Color="#8B0000"/>
+        <SolidColorBrush x:Key="InfoBrush" Color="#1565C0"/>
+        <SolidColorBrush x:Key="CommandBgBrush" Color="#0D0D0D"/>
+        <SolidColorBrush x:Key="CommandBorderBrush" Color="#8B1A1A"/>
+        <SolidColorBrush x:Key="CommandTextBrush" Color="#F0E68C"/>
+        <SolidColorBrush x:Key="SelectionBrush" Color="#8B1A1A"/>
+        <SolidColorBrush x:Key="SelectionOpacityBrush" Color="#4C8B1A1A"/>
+        <SolidColorBrush x:Key="TreeViewForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TreeViewItemForeground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TreeViewItemSelectedForeground" Color="#FFFFFF"/>
+
+        <Style x:Key="PanelBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+
+        <Style x:Key="ReconTreeViewStyle" TargetType="TreeView">
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeView">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="_tv_scrollviewer_"
+                                        Background="{TemplateBinding Background}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                        VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                        CanContentScroll="False">
+                                <ItemsPresenter Margin="5"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconTreeViewItemStyle" TargetType="TreeViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="IsExpanded" Value="False"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeViewItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton x:Name="Expander"
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        ClickMode="Press"
+                                        IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Width="20"
+                                        Height="20"
+                                        Margin="2,0,2,0">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid Background="Transparent">
+                                            <Path x:Name="ArrowPath"
+                                                Fill="{StaticResource AccentPrimary}"
+                                                Width="10"
+                                                Height="10"
+                                                Data="M 0,0 L 10,5 L 0,10 Z"
+                                                RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <RotateTransform Angle="0"/>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ArrowPath" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="90"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ArrowPath" Property="Fill" Value="{StaticResource AccentSecondary}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Border x:Name="Bd"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Padding}"
+                                    CornerRadius="3">
+                                <ContentPresenter ContentSource="Header"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                TextElement.Foreground="{StaticResource TextPrimary}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost"
+                                          Grid.Row="1"
+                                          Grid.Column="1"
+                                          Margin="20,2,2,2"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="False">
+                                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsSelectionActive" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SelectionOpacityBrush}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentPrimary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SelectionOpacityBrush}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentPrimary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#2A2A2A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentPrimary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentTertiary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource BackgroundMedium}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource BorderSecondary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentPrimary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentSecondary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AccentPrimary}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource AccentPrimary}"/>
+            <Setter Property="SelectionOpacity" Value="0.5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                        Margin="2"
+                                        Background="Transparent"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <Style x:Key="ReconScrollBarStyle" TargetType="ScrollBar">
+            <Setter Property="Background" Value="{StaticResource BackgroundDark}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentPrimary}"/>
+            <Setter Property="Width" Value="12"/>
+        </Style>
+
+        <Style x:Key="ReconTabControlStyle" TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="HeaderPanel"
+                                    Grid.Row="0"
+                                    Background="{StaticResource BackgroundLight}"
+                                    IsItemsHost="True"
+                                    Margin="0"/>
+                            <ContentPresenter x:Name="PART_SelectedContentHost"
+                                            Grid.Row="1"
+                                            ContentSource="SelectedContent"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconTabItemStyle" TargetType="TabItem">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid x:Name="Root">
+                            <Border x:Name="Border"
+                                   Background="{TemplateBinding Background}"
+                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                   BorderThickness="0,0,0,2"
+                                   Margin="0">
+                                <ContentPresenter x:Name="ContentSite"
+                                                ContentSource="Header"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentPrimary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentSecondary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ReconProgressBarStyle" TargetType="ProgressBar">
+            <Setter Property="Background" Value="{StaticResource BackgroundLight}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderPrimary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentPrimary}"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                   CornerRadius="3"/>
+                            <Rectangle x:Name="PART_Track"
+                                     Fill="{TemplateBinding Foreground}"
+                                     HorizontalAlignment="Left"
+                                     RadiusX="2"
+                                     RadiusY="2"
+                                     Margin="1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="CommandBlockTemplate">
+            <Border Background="{StaticResource CommandBgBrush}"
+                    BorderBrush="{StaticResource CommandBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Margin="0,5,0,5"
+                    Padding="12,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                              Grid.Column="0"
+                              Text="{Binding Command}"
+                              FontFamily="Consolas"
+                              FontSize="13"
+                              Foreground="{StaticResource CommandTextBrush}"
+                              TextWrapping="Wrap"
+                              Margin="0,0,10,0"/>
+                    <Button Grid.Row="0"
+                          Grid.Column="1"
+                          Content="📋 COPY"
+                          Style="{StaticResource ReconButtonStyle}"
+                          Tag="{Binding Command}"
+                          Click="CopyCommand_Click"
+                          Width="80"
+                          Height="28"
+                          FontSize="11"/>
+                    <TextBlock Grid.Row="1"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Text="{Binding Description}"
+                              FontSize="11"
+                              Foreground="{StaticResource TextTertiary}"
+                              Margin="0,6,0,0"
+                              TextWrapping="Wrap"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentPrimary}"/>
+            <Setter Property="Margin" Value="0,15,0,10"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Style="{StaticResource PanelBorderStyle}"
+                Margin="0,0,0,12"
+                Padding="15,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="⚡" FontSize="28" Margin="0,0,10,0" Foreground="{StaticResource AccentPrimary}"/>
+                    <StackPanel>
+                        <TextBlock Text="Vrax" FontSize="22" FontWeight="Bold" Foreground="{StaticResource AccentPrimary}"/>
+                        <TextBlock Text="Privilege Escalation Encyclopedia" FontSize="14" Margin="0,-4,0,0" Foreground="{StaticResource TextSecondary}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Border Grid.Column="2"
+                        Background="{StaticResource BackgroundMedium}"
+                        BorderBrush="{StaticResource BorderPrimary}"
+                        BorderThickness="1"
+                        CornerRadius="20"
+                        Width="350"
+                        Height="40"
+                        Margin="0,0,15,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                  Text="🔍"
+                                  FontSize="16"
+                                  Foreground="{StaticResource TextMuted}"
+                                  VerticalAlignment="Center"
+                                  Margin="15,0,5,0"/>
+
+                        <TextBox x:Name="SearchBox"
+                                Grid.Column="1"
+                                Style="{StaticResource ReconTextBoxStyle}"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Padding="5,0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe UI"
+                                Foreground="{StaticResource TextPrimary}"
+                                TextChanged="SearchBox_TextChanged"/>
+
+                        <Button x:Name="ClearSearchButton"
+                               Grid.Column="2"
+                               Content="✕"
+                               Style="{StaticResource ReconButtonStyle}"
+                               Background="Transparent"
+                               BorderThickness="0"
+                               Width="30"
+                               Height="30"
+                               Margin="0,0,10,0"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Click="ClearSearchButton_Click"/>
+                    </Grid>
+                </Border>
+
+                <Button x:Name="ExpandAllButton"
+                       Grid.Column="3"
+                       Content="⤵ EXPAND"
+                       Style="{StaticResource ReconButtonStyle}"
+                       Width="90"
+                       Height="40"
+                       Margin="0,0,5,0"
+                       Click="ExpandAllButton_Click"/>
+
+                <Button x:Name="CollapseAllButton"
+                       Grid.Column="4"
+                       Content="⤴ COLLAPSE"
+                       Style="{StaticResource ReconButtonStyle}"
+                       Width="90"
+                       Height="40"
+                       Margin="0,0,15,0"
+                       Click="CollapseAllButton_Click"/>
+
+                <Border Grid.Column="5"
+                        Background="{StaticResource BackgroundMedium}"
+                        BorderBrush="{StaticResource BorderPrimary}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="15,0"
+                        Height="40">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="📊" Margin="0,0,8,0" FontSize="14"/>
+                        <StackPanel>
+                            <TextBlock x:Name="StatsTotalEntries" Text="256 entries" Foreground="{StaticResource TextPrimary}" FontWeight="Bold"/>
+                            <TextBlock x:Name="StatsLastUpdate" Text="verified 2026" Foreground="{StaticResource TextTertiary}" FontSize="10" Margin="0,-2,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="500"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource PanelBorderStyle}"
+                    Margin="0,0,12,0"
+                    Padding="0,0,0,5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+                            Background="{StaticResource AccentPrimary}"
+                            Padding="15"
+                            CornerRadius="4,4,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                      Text="PRIVILEGE ESCALATION VECTORS"
+                                      FontWeight="Bold"
+                                      FontSize="15"
+                                      Foreground="{StaticResource TextPrimary}"/>
+
+                            <TextBlock Grid.Column="1"
+                                      x:Name="CategoryCountText"
+                                      Text="⏣ 12 CATEGORIES"
+                                      FontSize="11"
+                                      Foreground="#E0B3B3"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,10,0"/>
+
+                            <TextBlock Grid.Column="2"
+                                      x:Name="TotalTechniquesText"
+                                      Text="256 TECHNIQUES"
+                                      FontSize="11"
+                                      Foreground="#FFE0B3B3"
+                                      FontWeight="Bold"
+                                      VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1"
+                            Background="{StaticResource BackgroundLight}"
+                            Padding="10"
+                            BorderBrush="{StaticResource BorderSecondary}"
+                            BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox x:Name="CategoryFilterCombo"
+         Style="{StaticResource ReconComboBoxStyle}"
+         SelectionChanged="CategoryFilterCombo_SelectionChanged"
+         TextElement.Foreground="Black">
+                                <ComboBoxItem Content="All Categories" IsSelected="True"/>
+                                <ComboBoxItem Content="🐧 Linux"/>
+                                <ComboBoxItem Content="🪟 Windows"/>
+                                <ComboBoxItem Content="🏢 Active Directory"/>
+                                <ComboBoxItem Content="🐳 Containers"/>
+                                <ComboBoxItem Content="☁️ Cloud"/>
+                                <ComboBoxItem Content="🗄️ Databases"/>
+                                <ComboBoxItem Content="🔧 Kernel"/>
+                                <ComboBoxItem Content="📱 Mobile"/>
+                                <ComboBoxItem Content="🔌 IoT/Embedded"/>
+                                <ComboBoxItem Content="🔄 macOS"/>
+                                <ComboBoxItem Content="⚙️ Hardware"/>
+                                <ComboBoxItem Content="🔧 Miscellaneous"/>
+                            </ComboBox>
+
+                            <Button x:Name="ClearFiltersButton"
+                                   Grid.Column="1"
+                                   Content="✕ CLEAR"
+                                   Style="{StaticResource ReconButtonStyle}"
+                                   Width="70"
+                                   Height="30"
+                                   Margin="10,0,0,0"
+                                   Click="ClearFiltersButton_Click"/>
+
+                            <TextBlock Grid.Column="2"
+                                      x:Name="TechniqueCountText"
+                                      Text="256 techniques"
+                                      Foreground="{StaticResource TextTertiary}"
+                                      FontSize="11"
+                                      VerticalAlignment="Center"
+                                      Margin="10,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="2"
+                                 Background="{StaticResource BackgroundDark}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 HorizontalScrollBarVisibility="Auto"
+                                 Padding="0,5,0,5">
+                        <TreeView x:Name="NavigationTree"
+                                 Style="{StaticResource ReconTreeViewStyle}"
+                                 Background="{StaticResource BackgroundDark}"
+                                 BorderThickness="0"
+                                 SelectedItemChanged="NavigationTree_SelectedItemChanged"
+                                 ItemContainerStyle="{StaticResource ReconTreeViewItemStyle}"
+                                 Foreground="{StaticResource TextPrimary}">
+
+                            <TreeViewItem Header="🐧 LINUX (54 techniques)" IsExpanded="True" Tag="Linux_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="📋 System Enumeration" Tag="Linux_Enum" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔑 SUID Binaries" Tag="Linux_SUID" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="⏰ Cron Jobs" Tag="Linux_Cron" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="👤 Sudo Abuse" Tag="Linux_Sudo" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎯 Capabilities" Tag="Linux_Cap" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="💾 Kernel Exploits" Tag="Linux_Kernel" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2016-5195 (DirtyCow)" Tag="Linux_Kernel_DirtyCow" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-0847 (Dirty Pipe)" Tag="Linux_Kernel_DirtyPipe" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-4034 (PwnKit)" Tag="Linux_Kernel_PwnKit" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-3156 (Baron Samedit)" Tag="Linux_Kernel_Sudo" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2017-1000112 (Dirty Sock)" Tag="Linux_Kernel_DirtySock" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-2588 (Dirty Cred)" Tag="Linux_Kernel_DirtyCred" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-0386 (OverlayFS)" Tag="Linux_Kernel_OverlayFS" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-1086 (Netfilter)" Tag="Linux_Kernel_Netfilter" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-32629 (Ubuntu)" Tag="Linux_Kernel_Ubuntu" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-23222 (eBPF)" Tag="Linux_Kernel_eBPF" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-3490 (eBPF)" Tag="Linux_Kernel_eBPF2" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-2640 (Ubuntu)" Tag="Linux_Kernel_Ubuntu2" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📁 PATH Hijacking" Tag="Linux_Path" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 NFS Root Squash" Tag="Linux_NFS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Shared Libraries" Tag="Linux_LD" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 Docker Groups" Tag="Linux_Docker" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="💽 LXD/LXC Groups" Tag="Linux_LXD" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔌 Pkexec/Polkit" Tag="Linux_Polkit" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📄 Writable Passwd/Shadow" Tag="Linux_Passwd" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Tmux/Screen Hijacking" Tag="Linux_Tmux" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🐍 Python Library Hijacking" Tag="Linux_Python" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📊 Logrotate Exploitation" Tag="Linux_Logrotate" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Service Misconfigurations" Tag="Linux_Services" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 Writable Directories" Tag="Linux_Writable" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔐 SSH Key Abuse" Tag="Linux_SSH" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎭 LD_PRELOAD" Tag="Linux_LD_Preload" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 Snap Confinement" Tag="Linux_Snap" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 AppArmor Bypass" Tag="Linux_AppArmor" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🛡️ SELinux Bypass" Tag="Linux_SELinux" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 CIFS/SMB Mounts" Tag="Linux_CIFS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔌 USB Gadget FS" Tag="Linux_USB" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📡 Bluetooth" Tag="Linux_Bluetooth" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🖨️ CUPS" Tag="Linux_CUPS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 Flatpak/Snap" Tag="Linux_Flatpak" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Rsync Exploitation" Tag="Linux_Rsync" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Systemd Timer Abuse" Tag="Linux_Systemd" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 D-Bus Privilege Escalation" Tag="Linux_DBus" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🪟 WINDOWS (58 techniques)" IsExpanded="True" Tag="Windows_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="📋 System Enumeration" Tag="Windows_Enum" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="⚙️ Unquoted Service Paths" Tag="Windows_Unquoted" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Writable Service Binaries" Tag="Windows_Service_Binaries" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎭 Token Impersonation" Tag="Windows_Token" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📅 Scheduled Tasks" Tag="Windows_Sched" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📚 DLL Hijacking" Tag="Windows_DLL" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🗂️ PATH Hijacking" Tag="Windows_Path" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 AlwaysInstallElevated" Tag="Windows_Install" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📝 Registry Vulnerabilities" Tag="Windows_Registry" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="💾 Kernel Exploits" Tag="Windows_Kernel" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="MS17-010 (EternalBlue)" Tag="Windows_Kernel_010" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-1732 (Win32k)" Tag="Windows_Kernel_1732" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-40449" Tag="Windows_Kernel_40449" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-21882" Tag="Windows_Kernel_21882" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-21768 (AFD.sys)" Tag="Windows_Kernel_21768" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-28252 (CLFS)" Tag="Windows_Kernel_28252" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-26234" Tag="Windows_Kernel_26234" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-20698" Tag="Windows_Kernel_20698" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-29360" Tag="Windows_Kernel_29360" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-21338" Tag="Windows_Kernel_21338" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔐 Credential Theft" Tag="Windows_Creds" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="LSASS Dumping" Tag="Windows_Creds_LSASS" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="SAM Dumping" Tag="Windows_Creds_SAM" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="DPAPI" Tag="Windows_Creds_DPAPI" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Kerberos Tickets" Tag="Windows_Creds_Kerberos" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔄 UAC Bypass" Tag="Windows_UAC" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CMSTP Bypass" Tag="Windows_UAC_CMSTP" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="FODHelper Bypass" Tag="Windows_UAC_FOD" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="EventViewer Bypass" Tag="Windows_UAC_Event" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="SDCLT Bypass" Tag="Windows_UAC_SDCLT" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ComputerDefaults" Tag="Windows_UAC_ComputerDefaults" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="DiskCleanup" Tag="Windows_UAC_DiskCleanup" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="SilentCleanup" Tag="Windows_UAC_SilentCleanup" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🖥️ RDP Abuse" Tag="Windows_RDP" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 Alternate Data Streams" Tag="Windows_ADS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Print Spooler" Tag="Windows_Print" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2021-34527 (PrintNightmare)" Tag="Windows_Print_Nightmare" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-22718" Tag="Windows_Print_22718" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔄 NTLM Relay" Tag="Windows_NTLM" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 COM/OLE" Tag="Windows_COM" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔌 WMI Abuse" Tag="Windows_WMI" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📜 PowerShell Constrained Mode" Tag="Windows_PS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🛡️ Windows Defender Bypass" Tag="Windows_Defender" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔑 BitLocker" Tag="Windows_BitLocker" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📀 Hyper-V Escape" Tag="Windows_HyperV" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Group Policy Abuse" Tag="Windows_GPO" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Active Setup" Tag="Windows_ActiveSetup" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 AppLocker Bypass" Tag="Windows_AppLocker" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🏢 ACTIVE DIRECTORY (44 techniques)" IsExpanded="True" Tag="AD_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🔍 AD Enumeration" Tag="AD_Enum" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔑 Kerberoasting" Tag="AD_Kerberoast" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 AS-REP Roasting" Tag="AD_ASREP" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎫 Silver/Golden Tickets" Tag="AD_Tickets" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔐 ACL Exploitation" Tag="AD_ACL" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="ForceChangePassword" Tag="AD_ACL_Password" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="AddMember to Group" Tag="AD_ACL_Group" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="GenericAll/WriteOwner" Tag="AD_ACL_Owner" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="DS-Replication-Get-Changes" Tag="AD_ACL_DCSync" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="WriteProperty" Tag="AD_ACL_WriteProperty" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Self-Membership" Tag="AD_ACL_Self" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="WriteDACL" Tag="AD_ACL_WriteDACL" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔄 DCSync Attack" Tag="AD_DCSync" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="👥 Delegation Abuse" Tag="AD_Delegation" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Unconstrained Delegation" Tag="AD_Delegation_Unconstrained" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Constrained Delegation" Tag="AD_Delegation_Constrained" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Resource-Based Delegation" Tag="AD_Delegation_RBCD" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🏛️ Domain Trusts" Tag="AD_Trusts" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="SID Filtering Abuse" Tag="AD_Trusts_SID" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Trust Ticket" Tag="AD_Trusts_Ticket" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Child-to-Parent" Tag="AD_Trusts_ChildParent" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📦 GPO Abuse" Tag="AD_GPO" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🧬 AD Certificate Services" Tag="AD_Certs" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="ESC1 - Subject Alt Name" Tag="AD_Certs_ESC1" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC2 - Any Purpose" Tag="AD_Certs_ESC2" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC3 - Enrollment Agent" Tag="AD_Certs_ESC3" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC4 - Vulnerable ACL" Tag="AD_Certs_ESC4" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC6 - EDITF_ATTRIBUTESUBJECTALTNAME2" Tag="AD_Certs_ESC6" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC7 - CA Configuration" Tag="AD_Certs_ESC7" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC8 - Web Enrollment" Tag="AD_Certs_ESC8" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC9 - No Security Extension" Tag="AD_Certs_ESC9" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC10 - Weak Certificate Mapping" Tag="AD_Certs_ESC10" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ESC11 - RPC Relay" Tag="AD_Certs_ESC11" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="💻 LAPS Abuse" Tag="AD_LAPS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔐 Password Spraying" Tag="AD_Spray" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Skeleton Key" Tag="AD_Skeleton" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎭 Pass-the-Hash" Tag="AD_PTH" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Pass-the-Ticket" Tag="AD_PTT" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 AdminSDHolder" Tag="AD_AdminSD" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔑 Group Managed Service Accounts" Tag="AD_gMSA" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📧 Exchange Privilege Escalation" Tag="AD_Exchange" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📝 Azure AD Connect" Tag="AD_AzureConnect" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Shadow Principals" Tag="AD_Shadow" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 DNS Admin Abuse" Tag="AD_DNS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Print Spooler" Tag="AD_Print" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🐳 CONTAINERS (26 techniques)" IsExpanded="False" Tag="Container_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🐳 Docker Escape" Tag="Container_Docker" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Privileged Mode Escape" Tag="Container_Docker_Privileged" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Docker Socket Mount" Tag="Container_Docker_Socket" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2019-5736 (RunC)" Tag="Container_Docker_RunC" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-21626 (RunC)" Tag="Container_Docker_RunC_2024" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-32473" Tag="Container_Docker_32473" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-0492 (Cgroups)" Tag="Container_Docker_Cgroups" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="☸️ Kubernetes Escape" Tag="Container_K8s" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Kubelet API Abuse" Tag="Container_K8s_Kubelet" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Service Account Token" Tag="Container_K8s_ServiceAccount" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Privileged Container" Tag="Container_K8s_Privileged" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="HostPath Mount" Tag="Container_K8s_HostPath" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-3676" Tag="Container_K8s_3676" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2020-8558" Tag="Container_K8s_8558" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🐋 LXC/LXD Escape" Tag="Container_LXC" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Privileged Container" Tag="Container_LXC_Privileged" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-47952" Tag="Container_LXC_47952" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📦 Podman Escape" Tag="Container_Podman" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔨 containerd Escape" Tag="Container_Containerd" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2020-15257" Tag="Container_Containerd_15257" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🎯 Container Capabilities" Tag="Container_Cap" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CAP_SYS_ADMIN" Tag="Container_Cap_SysAdmin" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CAP_SYS_PTRACE" Tag="Container_Cap_SysPtrace" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CAP_DAC_READ_SEARCH" Tag="Container_Cap_DAC" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CAP_NET_RAW" Tag="Container_Cap_NetRaw" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CAP_SYS_MODULE" Tag="Container_Cap_SysModule" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CAP_SYS_RAWIO" Tag="Container_Cap_SysRawIO" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📦 CRI-O Escape" Tag="Container_CRIO" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2022-0811" Tag="Container_CRIO_0811" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔧 Kata Containers" Tag="Container_Kata" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="☁️ CLOUD (34 techniques)" IsExpanded="False" Tag="Cloud_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🟦 Azure" Tag="Cloud_Azure" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Managed Identity Abuse" Tag="Cloud_Azure_MI" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Key Vault Abuse" Tag="Cloud_Azure_KeyVault" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Privileged Role Assignment" Tag="Cloud_Azure_Role" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Dynamic Group Membership" Tag="Cloud_Azure_Group" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Azure AD Integration" Tag="Cloud_Azure_AD" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Automation Account Abuse" Tag="Cloud_Azure_Automation" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Logic Apps Abuse" Tag="Cloud_Azure_Logic" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Functions Abuse" Tag="Cloud_Azure_Functions" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Storage Account Abuse" Tag="Cloud_Azure_Storage" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🟢 AWS" Tag="Cloud_AWS" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="IAM Privilege Escalation" Tag="Cloud_AWS_IAM" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="S3 Bucket Policy Abuse" Tag="Cloud_AWS_S3" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Lambda Function Abuse" Tag="Cloud_AWS_Lambda" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="EC2 Metadata Service" Tag="Cloud_AWS_Metadata" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CloudFormation Template" Tag="Cloud_AWS_CF" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="SSM Parameter Store" Tag="Cloud_AWS_SSM" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="EKS Escape" Tag="Cloud_AWS_EKS" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Glue Jobs" Tag="Cloud_AWS_Glue" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CodeBuild Abuse" Tag="Cloud_AWS_CodeBuild" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="ECS Task Execution" Tag="Cloud_AWS_ECS" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Step Functions Abuse" Tag="Cloud_AWS_Step" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🔵 GCP" Tag="Cloud_GCP" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="IAM Abuse" Tag="Cloud_GCP_IAM" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Cloud Functions Abuse" Tag="Cloud_GCP_Functions" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="GKE Escape" Tag="Cloud_GCP_GKE" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Cloud SQL Abuse" Tag="Cloud_GCP_SQL" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Storage Bucket" Tag="Cloud_GCP_Storage" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Compute Engine Metadata" Tag="Cloud_GCP_Metadata" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Cloud KMS Abuse" Tag="Cloud_GCP_KMS" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🟠 Oracle Cloud" Tag="Cloud_Oracle" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔴 Alibaba Cloud" Tag="Cloud_Alibaba" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🟣 IBM Cloud" Tag="Cloud_IBM" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🗄️ DATABASES (20 techniques)" IsExpanded="False" Tag="DB_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🐬 MySQL/MariaDB" Tag="DB_MySQL" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="User-Defined Functions" Tag="DB_MySQL_UDF" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Plugin Injection" Tag="DB_MySQL_Plugin" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-0361" Tag="DB_MySQL_0361" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-20984" Tag="DB_MySQL_20984" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-21971" Tag="DB_MySQL_21971" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🐘 PostgreSQL" Tag="DB_PostgreSQL" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="COPY FROM PROGRAM" Tag="DB_PostgreSQL_Copy" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Malicious Extension" Tag="DB_PostgreSQL_Extension" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-39417" Tag="DB_PostgreSQL_39417" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-0985" Tag="DB_PostgreSQL_0985" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🟠 MSSQL" Tag="DB_MSSQL" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="xp_cmdshell" Tag="DB_MSSQL_xp" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="OLE Automation" Tag="DB_MSSQL_OLE" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CLR Assembly" Tag="DB_MSSQL_CLR" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Agent Jobs" Tag="DB_MSSQL_Agent" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Linked Servers" Tag="DB_MSSQL_Linked" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="UNC Path Injection" Tag="DB_MSSQL_UNC" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🍃 MongoDB" Tag="DB_MongoDB" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔥 Redis" Tag="DB_Redis" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="Write SSH Key" Tag="DB_Redis_SSH" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Cron Job Injection" Tag="DB_Redis_Cron" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-35977" Tag="DB_Redis_35977" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📊 Elasticsearch" Tag="DB_Elastic" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🟨 Cassandra" Tag="DB_Cassandra" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🟢 CouchDB" Tag="DB_Couch" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🔧 KERNEL (24 techniques)" IsExpanded="False" Tag="Kernel_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🟡 Linux Kernel" Tag="Kernel_Linux" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2024-1086 (Netfilter)" Tag="Kernel_Linux_1086" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-0386 (OverlayFS)" Tag="Kernel_Linux_0386" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-32629 (Ubuntu)" Tag="Kernel_Linux_32629" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-2588 (Dirty Cred)" Tag="Kernel_Linux_2588" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2022-23222 (eBPF)" Tag="Kernel_Linux_23222" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2021-3490 (eBPF)" Tag="Kernel_Linux_3490" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-2640 (Ubuntu)" Tag="Kernel_Linux_2640" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-3269" Tag="Kernel_Linux_3269" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🟦 Windows Kernel" Tag="Kernel_Windows" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2024-26234" Tag="Kernel_Windows_26234" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-20698" Tag="Kernel_Windows_20698" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-21768" Tag="Kernel_Windows_21768" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-28252" Tag="Kernel_Windows_28252" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-21338" Tag="Kernel_Windows_21338" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-29360" Tag="Kernel_Windows_29360" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🍎 macOS Kernel" Tag="Kernel_macOS" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2023-32434" Tag="Kernel_macOS_32434" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-23208" Tag="Kernel_macOS_23208" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-41993" Tag="Kernel_macOS_41993" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📱 iOS Kernel" Tag="Kernel_iOS" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="📱 MOBILE (16 techniques)" IsExpanded="False" Tag="Mobile_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🤖 Android" Tag="Mobile_Android" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2023-20963" Tag="Mobile_Android_20963" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-0044" Tag="Mobile_Android_0044" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-40077" Tag="Mobile_Android_40077" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2023-40076" Tag="Mobile_Android_40076" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="Magisk Module Abuse" Tag="Mobile_Android_Magisk" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="🍎 iOS" Tag="Mobile_iOS" IsExpanded="False" Foreground="{StaticResource TextPrimary}">
+                                    <TreeViewItem Header="CVE-2023-32434" Tag="Mobile_iOS_32434" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="CVE-2024-23208" Tag="Mobile_iOS_23208" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="TrollStore" Tag="Mobile_iOS_Troll" Foreground="{StaticResource TextPrimary}"/>
+                                    <TreeViewItem Header="KTRW" Tag="Mobile_iOS_KTRW" Foreground="{StaticResource TextPrimary}"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="📱 iPadOS" Tag="Mobile_iPad" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📳 HarmonyOS" Tag="Mobile_Harmony" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🔄 macOS (16 techniques)" IsExpanded="False" Tag="macOS_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🔧 SUID Abuse" Tag="macOS_SUID" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔑 TCC Bypass" Tag="macOS_TCC" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📦 Gatekeeper Bypass" Tag="macOS_Gatekeeper" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🛡️ SIP Bypass" Tag="macOS_SIP" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔌 DYLD_INSERT_LIBRARIES" Tag="macOS_DYLD" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 LaunchDaemons" Tag="macOS_Launchd" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔐 Keychain Abuse" Tag="macOS_Keychain" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📊 CVE-2023-32434" Tag="macOS_32434" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📊 CVE-2024-23208" Tag="macOS_23208" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📊 CVE-2023-41993" Tag="macOS_41993" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 AMFI Bypass" Tag="macOS_AMFI" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 XProtect Bypass" Tag="macOS_XProtect" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🔌 IoT/EMBEDDED (14 techniques)" IsExpanded="False" Tag="IoT_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="📶 Router Exploits" Tag="IoT_Router" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎥 IP Camera" Tag="IoT_Camera" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🏠 Smart Home" Tag="IoT_SmartHome" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🏭 Industrial Control" Tag="IoT_ICS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📟 Embedded Linux" Tag="IoT_Embedded" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 U-Boot Exploits" Tag="IoT_UBoot" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 JTAG/SWD" Tag="IoT_JTAG" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 UART Console" Tag="IoT_UART" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="⚙️ HARDWARE (12 techniques)" IsExpanded="False" Tag="Hardware_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🔌 USB Rubber Ducky" Tag="Hardware_USB" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📀 BIOS/UEFI" Tag="Hardware_BIOS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔋 Thunderbolt DMA" Tag="Hardware_Thunderbolt" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📠 JTAG/SWD" Tag="Hardware_JTAG" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📡 RFID/NFC" Tag="Hardware_RFID" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Raspberry Pi" Tag="Hardware_RPi" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 SPI Flash" Tag="Hardware_SPI" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 I2C" Tag="Hardware_I2C" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Side Channel" Tag="Hardware_SideChannel" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+
+                            <TreeViewItem Header="🔧 MISCELLANEOUS (18 techniques)" IsExpanded="False" Tag="Misc_Root" Foreground="{StaticResource TextPrimary}">
+                                <TreeViewItem Header="🎯 Wildcard Injection" Tag="Misc_Wildcard" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📚 Shared Library Hijacking" Tag="Misc_Library" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔄 Tmux/Screen Hijacking" Tag="Misc_Tmux" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📝 Logrotate Exploitation" Tag="Misc_Logrotate" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="💾 Backup Abuse" Tag="Misc_Backup" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📁 NFS/SMB Shares" Tag="Misc_NFS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 CUPS Exploitation" Tag="Misc_CUPS" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📊 D-Bus Abuse" Tag="Misc_DBus" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔌 Bluetooth Exploits" Tag="Misc_Bluetooth" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📱 Mobile Device Sync" Tag="Misc_Mobile" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🎮 Game Engine" Tag="Misc_Game" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🖨️ Printer" Tag="Misc_Printer" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="📠 Fax" Tag="Misc_Fax" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🖥️ X11/Xorg" Tag="Misc_Xorg" Foreground="{StaticResource TextPrimary}"/>
+                                <TreeViewItem Header="🔧 Polkit" Tag="Misc_Polkit" Foreground="{StaticResource TextPrimary}"/>
+                            </TreeViewItem>
+                        </TreeView>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="3"
+                            Background="{StaticResource BackgroundLight}"
+                            Padding="12"
+                            BorderBrush="{StaticResource BorderSecondary}"
+                            BorderThickness="0,1,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                      Text="📌 Click any technique for detailed steps"
+                                      Foreground="{StaticResource TextTertiary}"
+                                      FontSize="10"/>
+                            <TextBlock Grid.Column="1"
+                                      x:Name="TreeSelectionInfo"
+                                      Text=""
+                                      Foreground="{StaticResource AccentPrimary}"
+                                      FontSize="10"
+                                      FontWeight="Bold"
+                                      Margin="0,0,10,0"/>
+                            <TextBlock Grid.Column="2"
+                                      x:Name="LastSelectedInfo"
+                                      Text=""
+                                      Foreground="{StaticResource TextMuted}"
+                                      FontSize="9"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Style="{StaticResource PanelBorderStyle}"
+                    Margin="0,0,12,0"
+                    Padding="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+                            Background="{StaticResource BackgroundLight}"
+                            BorderBrush="{StaticResource BorderSecondary}"
+                            BorderThickness="0,0,0,1"
+                            Padding="20,15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock x:Name="ContentCategory"
+                                          Text="SELECT A TOPIC"
+                                          FontSize="11"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource AccentPrimary}"
+                                          Margin="0,0,0,5"/>
+                                <TextBlock x:Name="ContentTitle"
+                                          Text="Privilege Escalation Reference"
+                                          FontSize="26"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource TextPrimary}"
+                                          TextWrapping="Wrap"/>
+                                <TextBlock x:Name="ContentSubtitle"
+                                          Text="Fact-checked and verified techniques for authorized security testing"
+                                          FontSize="12"
+                                          Foreground="{StaticResource TextTertiary}"
+                                          Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <Border x:Name="DifficultyBadge"
+                                    Grid.Column="1"
+                                    Background="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource BorderPrimary}"
+                                    BorderThickness="1"
+                                    CornerRadius="12"
+                                    Padding="10,5"
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="DifficultyIcon" Text="📘" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="DifficultyText" Text="Reference" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border x:Name="ToolCountBadge"
+                                    Grid.Column="2"
+                                    Background="{StaticResource BackgroundMedium}"
+                                    BorderBrush="{StaticResource SuccessBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="12"
+                                    Padding="10,5"
+                                    VerticalAlignment="Top"
+                                    Visibility="Collapsed">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="🛠️" Margin="0,0,5,0"/>
+                                    <TextBlock x:Name="ToolCountText" Text="0 tools" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer x:Name="ContentScrollViewer"
+                                Grid.Row="1"
+                                Background="{StaticResource BackgroundDark}"
+                                Padding="20"
+                                VerticalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel x:Name="ContentPanel"/>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2"
+                    Style="{StaticResource PanelBorderStyle}"
+                    Padding="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+                            Background="{StaticResource BackgroundLight}"
+                            BorderBrush="{StaticResource BorderSecondary}"
+                            BorderThickness="0,0,0,1">
+                        <TabControl x:Name="RightTabControl"
+                                   Style="{StaticResource ReconTabControlStyle}">
+                            <TabItem Header="📋 COMMANDS" Style="{StaticResource ReconTabItemStyle}">
+                                <ScrollViewer Background="{StaticResource BackgroundDark}"
+                                             Padding="15"
+                                             VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Text="AVAILABLE COMMANDS"
+                                                  Style="{StaticResource SectionHeaderStyle}"
+                                                  FontSize="14"
+                                                  Margin="0,0,0,15"/>
+                                        <ItemsControl x:Name="CommandsList"
+                                                    ItemTemplate="{StaticResource CommandBlockTemplate}"
+                                                    Margin="0,0,0,20"/>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderSecondary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="12"
+                                               Margin="0,10,0,0">
+                                            <StackPanel>
+                                                <TextBlock Text="💡 PRO TIP"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,8"/>
+                                                <TextBlock Text="Double-click any command to copy it to clipboard"
+                                                          Foreground="{StaticResource TextTertiary}"
+                                                          TextWrapping="Wrap"
+                                                          FontSize="11"/>
+                                                <TextBlock Text="All commands verified on current versions"
+                                                          Foreground="{StaticResource TextTertiary}"
+                                                          TextWrapping="Wrap"
+                                                          FontSize="10"
+                                                          Margin="0,5,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </TabItem>
+
+                            <TabItem Header="📝 NOTES" Style="{StaticResource ReconTabItemStyle}">
+                                <ScrollViewer Background="{StaticResource BackgroundDark}"
+                                             Padding="15"
+                                             VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Text="PERSONAL NOTES"
+                                                  Style="{StaticResource SectionHeaderStyle}"
+                                                  FontSize="14"
+                                                  Margin="0,0,0,15"/>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderPrimary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="15">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0"
+                                                          Text="Notes for current entry"
+                                                          Foreground="{StaticResource TextTertiary}"
+                                                          FontSize="11"
+                                                          Margin="0,0,0,10"/>
+                                                <TextBox x:Name="NotesTextBox"
+                                                        Grid.Row="1"
+                                                        Style="{StaticResource ReconTextBoxStyle}"
+                                                        Background="{StaticResource BackgroundLight}"
+                                                        Height="200"
+                                                        TextWrapping="Wrap"
+                                                        AcceptsReturn="True"
+                                                        VerticalScrollBarVisibility="Auto"
+                                                        FontFamily="Segoe UI"
+                                                        FontSize="12"
+                                                        Foreground="{StaticResource TextSecondary}"
+                                                        TextChanged="NotesTextBox_TextChanged"/>
+                                                <Grid Grid.Row="2" Margin="0,15,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0"
+                                                              Text="Last saved: "
+                                                              Foreground="{StaticResource TextMuted}"
+                                                              FontSize="10"
+                                                              VerticalAlignment="Center"/>
+                                                    <TextBlock x:Name="NotesLastSaved"
+                                                              Grid.Column="1"
+                                                              Text="Not saved yet"
+                                                              Foreground="{StaticResource TextTertiary}"
+                                                              FontSize="10"
+                                                              FontStyle="Italic"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderSecondary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="15"
+                                               Margin="0,15,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0">
+                                                    <TextBlock Text="📌 MARK AS TRIED"
+                                                              FontWeight="Bold"
+                                                              Foreground="{StaticResource TextSecondary}"
+                                                              FontSize="12"/>
+                                                    <TextBlock Text="Track your learning progress"
+                                                              Foreground="{StaticResource TextTertiary}"
+                                                              FontSize="10"
+                                                              Margin="0,3,0,0"/>
+                                                </StackPanel>
+                                                <ToggleButton x:Name="MarkTriedToggle"
+                                                            Grid.Column="1"
+                                                            Style="{StaticResource ReconToggleButtonStyle}"
+                                                            Content="○ NOT TRIED"
+                                                            Width="100"
+                                                            Height="32"
+                                                            Checked="MarkTriedToggle_Checked"
+                                                            Unchecked="MarkTriedToggle_Unchecked"/>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </TabItem>
+
+                            <TabItem Header="🔧 TOOLS" Style="{StaticResource ReconTabItemStyle}">
+                                <ScrollViewer Background="{StaticResource BackgroundDark}"
+                                             Padding="15"
+                                             VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Text="RECOMMENDED TOOLS"
+                                                  Style="{StaticResource SectionHeaderStyle}"
+                                                  FontSize="14"
+                                                  Margin="0,0,0,15"/>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🐧 Linux Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="LinPEAS" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="pspy" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="GTFOBins" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Linux Exploit Suggester" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="traitor" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="PEASS-ng" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="SUID3NUM" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="1" Text="linux-smart-enumeration" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="1" Text="DirtyCow" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="1" Text="DirtyPipe" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🪟 Windows Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="WinPEAS" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="PowerUp" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Seatbelt" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="SharpUp" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Watson" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="PrivescCheck" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="JuicyPotato" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="1" Text="PrintSpoofer" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="1" Text="GodPotato" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="1" Text="RoguePotato" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="10" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="10" Grid.Column="1" Text="Mimikatz" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🏢 Active Directory Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="BloodHound" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="SharpHound" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Rubeus" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Impacket" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Mimikatz" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="Certify" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="ADModule" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="1" Text="PowerView" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="1" Text="PingCastle" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="1" Text="ADRecon" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🐳 Container Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="amicontained" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="CDK" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="DeepCe" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="kube-hunter" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="kubectl" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="docker-explorer" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="☁️ Cloud Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Pacu (AWS)" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Scout Suite" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Stormspotter (Azure)" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="MicroBurst (Azure)" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="GCP Scanner" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="CloudSploit" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="Prowler" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🗄️ Database Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="PowerUpSQL" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="sqlmap" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Redis Rogue Server" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="NoSQLMap" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="mssql-cli" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="psql" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                                BorderBrush="{StaticResource BorderPrimary}"
+                                                BorderThickness="1"
+                                                CornerRadius="4"
+                                                Padding="15"
+                                                Margin="0,0,0,10">
+                                            <StackPanel>
+                                                <TextBlock Text="🔧 Hardware Tools"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource AccentPrimary}"
+                                                          Margin="0,0,0,10"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="flashrom" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="OpenOCD" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="JTAGulator" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Proxmark3" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="•" Foreground="{StaticResource AccentPrimary}" Margin="0,0,10,5"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="pcileech" Foreground="{StaticResource CommandTextBrush}" Margin="0,0,0,5"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </TabItem>
+
+                            <TabItem Header="📊 PROGRESS" Style="{StaticResource ReconTabItemStyle}">
+                                <ScrollViewer Background="{StaticResource BackgroundDark}"
+                                             Padding="15"
+                                             VerticalScrollBarVisibility="Auto">
+                                    <StackPanel>
+                                        <TextBlock Text="LEARNING PROGRESS"
+                                                  Style="{StaticResource SectionHeaderStyle}"
+                                                  FontSize="14"
+                                                  Margin="0,0,0,15"/>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderPrimary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="15">
+                                            <StackPanel>
+                                                <Grid Margin="0,0,0,15">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0"
+                                                              Text="Overall Completion"
+                                                              Foreground="{StaticResource TextSecondary}"
+                                                              FontSize="12"/>
+                                                    <TextBlock Grid.Column="1"
+                                                              x:Name="ProgressPercentage"
+                                                              Text="0%"
+                                                              Foreground="{StaticResource AccentPrimary}"
+                                                              FontWeight="Bold"
+                                                              FontSize="16"/>
+                                                </Grid>
+                                                <ProgressBar x:Name="OverallProgress"
+                                                            Style="{StaticResource ReconProgressBarStyle}"
+                                                            Value="0"
+                                                            Maximum="100"
+                                                            Height="25"
+                                                            Margin="0,0,0,10"/>
+                                                <TextBlock x:Name="ProgressText"
+                                                          Text="0/256 entries tried"
+                                                          Foreground="{StaticResource TextTertiary}"
+                                                          FontSize="11"
+                                                          HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderPrimary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="15"
+                                               Margin="0,15,0,0">
+                                            <StackPanel>
+                                                <TextBlock Text="Category Breakdown"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource TextSecondary}"
+                                                          Margin="0,0,0,15"/>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="🐧 Linux" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="0" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="LinuxProgressText" Text="0/54" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="🪟 Windows" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="1" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="WindowsProgressText" Text="0/58" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="🏢 AD" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="2" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="2" Grid.Column="2" x:Name="ADProgressText" Text="0/44" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="🐳 Containers" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="3" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="ContainerProgressText" Text="0/26" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="☁️ Cloud" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="4" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="4" Grid.Column="2" x:Name="CloudProgressText" Text="0/34" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="🗄️ Databases" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="5" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="DBProgressText" Text="0/20" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="🔧 Kernel" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="6" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="6" Grid.Column="2" x:Name="KernelProgressText" Text="0/24" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="📱 Mobile" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="7" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="7" Grid.Column="2" x:Name="MobileProgressText" Text="0/16" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="🔄 macOS" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="8" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="8" Grid.Column="2" x:Name="MacOSProgressText" Text="0/16" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="🔌 IoT" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="9" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="9" Grid.Column="2" x:Name="IoTProgressText" Text="0/14" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="10" Grid.Column="0" Text="⚙️ Hardware" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="10" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="10" Grid.Column="2" x:Name="HardwareProgressText" Text="0/12" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+
+                                                    <TextBlock Grid.Row="11" Grid.Column="0" Text="🔧 Misc" Foreground="{StaticResource TextSecondary}" Margin="0,0,10,8"/>
+                                                    <ProgressBar Grid.Row="11" Grid.Column="1" Style="{StaticResource ReconProgressBarStyle}" Value="0" Height="15" Margin="0,0,10,8"/>
+                                                    <TextBlock Grid.Row="11" Grid.Column="2" x:Name="MiscProgressText" Text="0/18" Foreground="{StaticResource TextTertiary}" FontSize="10"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="{StaticResource BackgroundMedium}"
+                                               BorderBrush="{StaticResource BorderPrimary}"
+                                               BorderThickness="1"
+                                               CornerRadius="4"
+                                               Padding="15"
+                                               Margin="0,15,0,0">
+                                            <StackPanel>
+                                                <TextBlock Text="Recently Completed"
+                                                          FontWeight="Bold"
+                                                          Foreground="{StaticResource TextSecondary}"
+                                                          Margin="0,0,0,10"/>
+                                                <ItemsControl x:Name="RecentCompletedList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding}" 
+                                                                     Foreground="{StaticResource TextTertiary}" 
+                                                                     FontSize="10" 
+                                                                     Margin="0,2,0,2"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                        <Grid Margin="0,20,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button x:Name="ExportProgressButton"
+                                                   Grid.Column="0"
+                                                   Content="📊 EXPORT"
+                                                   Style="{StaticResource ReconButtonStyle}"
+                                                   Height="35"
+                                                   Margin="0,0,5,0"
+                                                   Click="ExportProgress_Click"/>
+                                            <Button x:Name="ResetProgressButton"
+                                                   Grid.Column="1"
+                                                   Content="🔄 RESET"
+                                                   Style="{StaticResource ReconButtonStyle}"
+                                                   Background="{StaticResource ErrorBrush}"
+                                                   Height="35"
+                                                   Margin="5,0,5,0"
+                                                   Click="ResetProgress_Click"/>
+                                            <Button x:Name="GenerateReportButton"
+                                                   Grid.Column="2"
+                                                   Content="📄 REPORT"
+                                                   Style="{StaticResource ReconButtonStyle}"
+                                                   Height="35"
+                                                   Margin="5,0,0,0"
+                                                   Click="GenerateReport_Click"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </TabItem>
+                        </TabControl>
+                    </Border>
+
+                    <Border Grid.Row="2"
+                            Background="{StaticResource BackgroundLight}"
+                            BorderBrush="{StaticResource BorderSecondary}"
+                            BorderThickness="0,1,0,0"
+                            Padding="15">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                      Text="⚡ Double-click command to copy | Verified 2026"
+                                      Foreground="{StaticResource TextMuted}"
+                                      FontSize="10"
+                                      VerticalAlignment="Center"/>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,15,0">
+                                <Border Width="8" Height="8" CornerRadius="4" Background="{StaticResource SuccessBrush}" Margin="0,0,5,0"/>
+                                <TextBlock x:Name="RightPanelStats" Text="256 entries" Foreground="{StaticResource TextMuted}" FontSize="10"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,15,0">
+                                <Border Width="8" Height="8" CornerRadius="4" Background="{StaticResource AccentPrimary}" Margin="0,0,5,0"/>
+                                <TextBlock x:Name="VerifiedCountText" Text="100% verified" Foreground="{StaticResource TextMuted}" FontSize="10"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="3"
+                                      x:Name="CurrentEntryStatus"
+                                      Text=""
+                                      Foreground="{StaticResource AccentPrimary}"
+                                      FontSize="10"
+                                      FontWeight="Bold"
+                                      VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2"
+                Style="{StaticResource PanelBorderStyle}"
+                Margin="0,12,0,0"
+                Padding="15,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                       Width="10"
+                       Height="10"
+                       CornerRadius="5"
+                       Background="{StaticResource SuccessBrush}"
+                       Margin="0,0,10,0"/>
+
+                <TextBlock Grid.Column="1"
+                          x:Name="StatusText"
+                          Text="Ready - 256 privilege escalation techniques loaded (All verified)"
+                          Foreground="{StaticResource TextSecondary}"
+                          FontSize="11"
+                          VerticalAlignment="Center"/>
+
+                <Separator Grid.Column="2"
+                          Background="{StaticResource BorderSecondary}"
+                          Width="1"
+                          Height="15"
+                          Margin="15,0"/>
+
+                <TextBlock Grid.Column="3"
+                          Text="🔒 EDUCATIONAL USE ONLY"
+                          Foreground="{StaticResource AccentPrimary}"
+                          FontSize="11"
+                          FontWeight="Bold"
+                          VerticalAlignment="Center"
+                          Margin="0,0,15,0"/>
+
+                <TextBlock Grid.Column="4"
+                          x:Name="SessionTimer"
+                          Text="Session: 00:00"
+                          Foreground="{StaticResource TextMuted}"
+                          FontSize="10"
+                          VerticalAlignment="Center"
+                          Margin="0,0,15,0"/>
+
+                <TextBlock Grid.Column="5"
+                          x:Name="VersionText"
+                          Text="v3.0.0"
+                          Foreground="{StaticResource TextMuted}"
+                          FontSize="10"
+                          VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

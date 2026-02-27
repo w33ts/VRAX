@@ -1,0 +1,596 @@
+﻿<Window x:Class="ReconSuite.ForensicsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Width="1800"
+        Height="1100"
+        MinWidth="1400"
+        MinHeight="900"
+        WindowStyle="SingleBorderWindow"
+        FontFamily="Segoe UI"
+        Background="#0A0A0A"
+       
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        KeyDown="Window_KeyDown">
+
+    <Window.Resources>
+        <Color x:Key="ColorBackground">#0A0A0A</Color>
+        <Color x:Key="ColorDark">#121212</Color>
+        <Color x:Key="ColorMedium">#1A1A1A</Color>
+        <Color x:Key="ColorBorder">#333333</Color>
+        <Color x:Key="ColorPrimary">#FF3333</Color>
+        <Color x:Key="ColorPrimaryBright">#FF5555</Color>
+        <Color x:Key="ColorSuccess">#00CC00</Color>
+        <Color x:Key="ColorWarning">#FFAA00</Color>
+        <Color x:Key="ColorInfo">#3399FF</Color>
+        <Color x:Key="ColorPurple">#9933FF</Color>
+        <Color x:Key="ColorOrange">#FF9933</Color>
+        <Color x:Key="ColorPink">#FF33FF</Color>
+        <Color x:Key="ColorCyan">#33FFFF</Color>
+        <Color x:Key="ColorWhite">#FFFFFF</Color>
+
+        <SolidColorBrush x:Key="TacticalBlack" Color="{StaticResource ColorBackground}"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="{StaticResource ColorDark}"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="{StaticResource ColorMedium}"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="{StaticResource ColorBorder}"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="{StaticResource ColorPrimary}"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="{StaticResource ColorPrimaryBright}"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="{StaticResource ColorSuccess}"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="{StaticResource ColorWarning}"/>
+        <SolidColorBrush x:Key="TacticalInfo" Color="{StaticResource ColorInfo}"/>
+        <SolidColorBrush x:Key="TacticalPurple" Color="{StaticResource ColorPurple}"/>
+        <SolidColorBrush x:Key="TacticalOrange" Color="{StaticResource ColorOrange}"/>
+        <SolidColorBrush x:Key="TacticalPink" Color="{StaticResource ColorPink}"/>
+        <SolidColorBrush x:Key="TacticalCyan" Color="{StaticResource ColorCyan}"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="{StaticResource ColorWhite}"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="#8B0000"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+
+        <Style x:Key="HexBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="IsReadOnly" Value="False"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource TacticalBlack}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Height="50" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
+                    <TextBlock Text="VRAX" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text=" // " Foreground="{StaticResource TacticalRedBright}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="FORENSICS ANALYZER" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#8B0000" Padding="10,5" CornerRadius="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse x:Name="StatusLed" Width="8" Height="8" Fill="{StaticResource TacticalSuccess}" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="StatusText" Text="READY" Foreground="{StaticResource TacticalWhite}" FontSize="12" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
+                    <Button x:Name="MinimizeBtn" Width="25" Height="25" Background="Transparent" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="MinimizeBtn_Click">
+                        <TextBlock Text="_" FontSize="14" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="CloseBtn" Width="25" Height="25" Margin="8,0,0,0" Background="#8B0000" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="CloseBtn_Click">
+                        <TextBlock Text="×" FontSize="16" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <TextBlock Text="FILE CONTROL" Style="{StaticResource SectionHeader}"/>
+
+                        <Button x:Name="OpenFileBtn" Content="📂 OPEN FILE" Click="OpenFileBtn_Click" Style="{StaticResource ActionButton}" Height="40" Margin="0,0,0,5"/>
+                        <Button x:Name="SaveFileBtn" Content="💾 SAVE FILE" Click="SaveFileBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,0,0,5"/>
+                        <Button x:Name="SaveAsBtn" Content="📝 SAVE AS" Click="SaveAsBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,0,0,10"/>
+
+                        <Button x:Name="LoadFromURLBtn" Content="🌐 LOAD FROM URL" Click="LoadFromURLBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,0,0,5"/>
+                        <Button x:Name="CompareFilesBtn" Content="🔄 COMPARE WITH FILE" Click="CompareFilesBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="FILE INFO" Style="{StaticResource SectionHeader}" Margin="0,5,0,5"/>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Filename:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FileNameText" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" TextWrapping="Wrap"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Size:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="FileSizeText" Text="0 bytes" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Type:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="FileTypeText" Text="Unknown" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Magic:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="MagicBytesText" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Extension:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="FileExtensionText" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="MIME:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1" x:Name="MimeTypeText" Text="Unknown" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+                        </Grid>
+
+                        <TextBlock Text="TIMESTAMPS" Style="{StaticResource SectionHeader}" Margin="0,10,0,5"/>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Created:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="CreatedText" Text="Unknown" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Modified:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ModifiedText" Text="Unknown" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Accessed:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="AccessedText" Text="Unknown" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+                        </Grid>
+
+                        <TextBlock Text="HASHES" Style="{StaticResource SectionHeader}" Margin="0,10,0,5"/>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="MD5:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="MD5Text" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="SHA1:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="SHA1Text" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="SHA256:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="SHA256Text" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="SHA512:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="SHA512Text" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="CRC32:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="CRC32Text" Text="None" Style="{StaticResource ValueText}" Margin="5,0,0,2" FontSize="10"/>
+                        </Grid>
+
+                        <TextBlock Text="ENTROPY" Style="{StaticResource SectionHeader}" Margin="0,10,0,5"/>
+
+                        <ProgressBar x:Name="EntropyBar" Height="15" Background="{StaticResource TacticalDark}" Foreground="{StaticResource TacticalInfo}" Value="0" Margin="0,0,0,2"/>
+                        <TextBlock x:Name="EntropyText" Text="0.0 bits/byte" Style="{StaticResource ValueText}" Margin="0,0,0,5"/>
+
+                        <TextBlock Text="IOC DETECTION" Style="{StaticResource SectionHeader}" Margin="0,10,0,5"/>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="IPs:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="IPCountText" Text="0" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Domains:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="DomainCountText" Text="0" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="URLs:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="URLCountText" Text="0" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Emails:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="EmailCountText" Text="0" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Paths:" Style="{StaticResource LabelText}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="PathCountText" Text="0" Style="{StaticResource ValueText}" Margin="5,0,0,2"/>
+                        </Grid>
+
+                        <Button x:Name="RefreshBtn" Content="🔄 REFRESH ANALYSIS" Click="RefreshBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TabControl Grid.Row="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}">
+                    <TabItem Header="HEX VIEWER" Background="{StaticResource TacticalDark}" Foreground="{StaticResource TacticalWhite}" FontWeight="Bold">
+                        <Grid Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1" Padding="5" Margin="0,0,0,5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <TextBlock Text="Offset: " Foreground="#CCCCCC" VerticalAlignment="Center"/>
+                                        <TextBlock x:Name="CurrentOffsetText" Text="0x0" Style="{StaticResource ValueText}" Width="90" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Selected: " Foreground="#CCCCCC" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                                        <TextBlock x:Name="SelectedBytesText" Text="0" Style="{StaticResource ValueText}" Width="70" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Total: " Foreground="#CCCCCC" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                                        <TextBlock x:Name="TotalBytesText" Text="0" Style="{StaticResource ValueText}" Width="70" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                        <TextBlock Text="Bytes/Line:" Foreground="#CCCCCC" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                        <ComboBox x:Name="BytesPerLineCombo" SelectedIndex="1" Style="{StaticResource ComboBoxStyle}" Width="70" Height="28" TextElement.Foreground="Black">
+                                            <ComboBoxItem Content="8"/>
+                                            <ComboBoxItem Content="16"/>
+                                            <ComboBoxItem Content="32"/>
+                                            <ComboBoxItem Content="64"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ScrollViewer Grid.Column="0" x:Name="OffsetScroll" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" Background="#1E1E1E" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1,0,0,0">
+                                    <TextBlock x:Name="OffsetNumbers" FontFamily="Consolas" FontSize="12" Foreground="#888888" Background="#1E1E1E" Padding="10,10,10,10"/>
+                                </ScrollViewer>
+
+                                <ScrollViewer Grid.Column="1" x:Name="HexScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="#1E1E1E" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1,0,1,0" ScrollChanged="HexScroll_ScrollChanged">
+                                    <TextBox x:Name="HexViewBox" Style="{StaticResource HexBoxStyle}" Padding="10,10,10,10" TextChanged="HexViewBox_TextChanged" SelectionChanged="HexViewBox_SelectionChanged"/>
+                                </ScrollViewer>
+
+                                <ScrollViewer Grid.Column="2" x:Name="AsciiScroll" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" Background="#1E1E1E" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,1,0">
+                                    <TextBlock x:Name="AsciiView" FontFamily="Consolas" FontSize="12" Foreground="#00FF00" Background="#1E1E1E" Padding="10,10,10,10"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="METADATA AND EXIF" Background="{StaticResource TacticalDark}" Foreground="{StaticResource TacticalWhite}" FontWeight="Bold">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="EXIF / IMAGE METADATA" Style="{StaticResource SectionHeader}"/>
+
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl x:Name="ExifItemsControl">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#1A1A1A" Padding="8" Margin="0,0,0,2" CornerRadius="3">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="120"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0" Text="{Binding Key}" Foreground="{StaticResource TacticalInfo}" FontWeight="Bold" FontSize="11"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Value}" Foreground="{StaticResource TacticalWhite}" TextWrapping="Wrap" FontSize="11" Margin="5,0,0,0"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="FILE METADATA" Style="{StaticResource SectionHeader}"/>
+
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl x:Name="FileMetadataItemsControl">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#1A1A1A" Padding="8" Margin="0,0,0,2" CornerRadius="3">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="100"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0" Text="{Binding Key}" Foreground="{StaticResource TacticalOrange}" FontWeight="Bold" FontSize="11"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Value}" Foreground="{StaticResource TacticalWhite}" TextWrapping="Wrap" FontSize="11" Margin="5,0,0,0"/>
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+
+                                    <Button Grid.Row="2" x:Name="ExportMetadataBtn" Content="📤 EXPORT METADATA" Click="ExportMetadataBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,10,0,0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="IOC EXTRACTOR" Background="{StaticResource TacticalDark}" Foreground="{StaticResource TacticalWhite}" FontWeight="Bold">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="EXTRACTED INDICATORS" Style="{StaticResource SectionHeader}"/>
+
+                                    <TabControl Grid.Row="1" Background="{StaticResource TacticalMedium}">
+                                        <TabItem Header="IP Addresses">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5">
+                                                <ItemsControl x:Name="IPAddressesList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#1A1A1A" Padding="5" Margin="0,0,0,2">
+                                                                <TextBlock Text="{Binding}" Foreground="{StaticResource TacticalCyan}"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="Domains">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5">
+                                                <ItemsControl x:Name="DomainsList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#1A1A1A" Padding="5" Margin="0,0,0,2">
+                                                                <TextBlock Text="{Binding}" Foreground="{StaticResource TacticalOrange}"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="URLs">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5">
+                                                <ItemsControl x:Name="URLsList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#1A1A1A" Padding="5" Margin="0,0,0,2">
+                                                                <TextBlock Text="{Binding}" Foreground="{StaticResource TacticalPurple}"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="Emails">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5">
+                                                <ItemsControl x:Name="EmailsList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#1A1A1A" Padding="5" Margin="0,0,0,2">
+                                                                <TextBlock Text="{Binding}" Foreground="{StaticResource TacticalPink}"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </TabItem>
+                                        <TabItem Header="File Paths">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5">
+                                                <ItemsControl x:Name="FilePathsList">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#1A1A1A" Padding="5" Margin="0,0,0,2">
+                                                                <TextBlock Text="{Binding}" Foreground="{StaticResource TacticalSuccess}"/>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </ScrollViewer>
+                                        </TabItem>
+                                    </TabControl>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="STRING EXTRACTION" Style="{StaticResource SectionHeader}"/>
+
+                                    <TextBox Grid.Row="1" x:Name="StringsOutputBox" Style="{StaticResource HexBoxStyle}" IsReadOnly="True" FontSize="11" Padding="8"/>
+
+                                    <Grid Grid.Row="2" Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" x:Name="ExtractStringsBtn" Content="EXTRACT STRINGS" Click="ExtractStringsBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,0,2,0"/>
+                                        <Button Grid.Column="1" x:Name="CopyStringsBtn" Content="COPY" Click="CopyStringsBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="2,0,0,0"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    
+                </TabControl>
+
+                <Border Grid.Row="1" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="8" Margin="0,5,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Go to offset:" Style="{StaticResource LabelText}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" x:Name="GoToOffsetInput" Style="{StaticResource TextBoxStyle}" Height="28" Margin="5,0,5,0" VerticalAlignment="Center"/>
+
+                        <Button Grid.Column="2" x:Name="GoToBtn" Content="GO" Click="GoToBtn_Click" Style="{StaticResource TacticalButton}" Height="28" Width="50" Margin="0,0,5,0" VerticalAlignment="Center"/>
+
+                        <Button Grid.Column="3" x:Name="CopyHexBtn" Content="COPY HEX" Click="CopyHexBtn_Click" Style="{StaticResource TacticalButton}" Height="28" Width="80" Margin="0,0,5,0" VerticalAlignment="Center"/>
+
+                        <Button Grid.Column="4" x:Name="CopyTextBtn" Content="COPY TEXT" Click="CopyTextBtn_Click" Style="{StaticResource TacticalButton}" Height="28" Width="80" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

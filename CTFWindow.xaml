@@ -1,0 +1,530 @@
+﻿<Window x:Class="ReconSuite.CTFWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="#0A0A0A"
+        FontFamily="Consolas"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="ShellGreen" Color="#00FF00"/>
+        <SolidColorBrush x:Key="ShellRed" Color="#FF3333"/>
+        <SolidColorBrush x:Key="ShellYellow" Color="#FFAA00"/>
+        <SolidColorBrush x:Key="ShellBlue" Color="#3399FF"/>
+        <SolidColorBrush x:Key="ShellGray" Color="#888888"/>
+
+        <Style x:Key="ListenerButton" TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="#333333" 
+                                BorderThickness="1" 
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" 
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF5555"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#AA0000"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#333333"/>
+                                <Setter Property="Foreground" Value="#666666"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="QuickCommandButton" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" 
+                                            Margin="8,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#333333"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" 
+                Background="#121212" 
+                BorderBrush="#333333" 
+                BorderThickness="1" 
+                CornerRadius="3"
+                Padding="15" 
+                Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="🎯 REVERSE SHELL LISTENER" 
+                               Foreground="#FF5555" 
+                               FontSize="18" 
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"/>
+                    <Ellipse x:Name="StatusIndicator" 
+                             Width="12" 
+                             Height="12" 
+                             Fill="#555555"
+                             Margin="15,0,0,0"
+                             VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button x:Name="ClearBtn" 
+                            Content="🗑️ CLEAR" 
+                            Style="{StaticResource ListenerButton}"
+                            Background="#1A1A1A"
+                            Width="100"
+                            Click="ClearBtn_Click"/>
+                    <Button x:Name="ExportBtn" 
+                            Content="💾 EXPORT" 
+                            Style="{StaticResource ListenerButton}"
+                            Background="#1A1A1A"
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Click="ExportBtn_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            
+            <Border Grid.Column="0" 
+                    Background="#121212" 
+                    BorderBrush="#333333" 
+                    BorderThickness="1" 
+                    CornerRadius="3"
+                    Margin="0,0,10,0"
+                    Padding="15">
+
+                <StackPanel>
+                    
+                    <TextBlock Text="🔌 LISTENER" 
+                               Foreground="#FF5555" 
+                               FontWeight="Bold" 
+                               FontSize="14"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Port:" 
+                               Foreground="#AAAAAA"
+                               FontSize="11"
+                               Margin="0,0,0,3"/>
+                    <TextBox x:Name="PortInput" 
+                             Text="4444" 
+                             Background="#0A0A0A"
+                             Foreground="White"
+                             BorderBrush="#333333"
+                             BorderThickness="1"
+                             Height="35"
+                             Padding="10"
+                             FontSize="12"
+                             Margin="0,0,0,15"
+                             TextChanged="PortInput_TextChanged"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="StartListenerBtn" 
+                                Grid.Column="0"
+                                Content="▶ START" 
+                                Style="{StaticResource ListenerButton}"
+                                Background="#8B0000"
+                                Click="StartListener_Click"/>
+
+                        <Button x:Name="StopListenerBtn" 
+                                Grid.Column="1"
+                                Content="⏹ STOP" 
+                                Style="{StaticResource ListenerButton}"
+                                Background="#333333"
+                                IsEnabled="False"
+                                Margin="10,0,0,0"
+                                Click="StopListener_Click"/>
+                    </Grid>
+
+                    
+                    <Border Background="#0A0A0A" 
+                            CornerRadius="3" 
+                            BorderBrush="#333333"
+                            BorderThickness="1"
+                            Padding="10"
+                            Margin="0,15,0,0">
+                        <StackPanel>
+                            <TextBlock Text="CONNECTION" 
+                                       Foreground="#FF5555" 
+                                       FontWeight="Bold"
+                                       FontSize="12"
+                                       Margin="0,0,0,10"/>
+
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Status:" Foreground="#AAAAAA" FontSize="11"/>
+                                <TextBlock x:Name="ConnectionStatusText" 
+                                           Grid.Column="1" 
+                                           Text="Disconnected" 
+                                           Foreground="#FF5555" 
+                                           FontSize="11"
+                                           FontWeight="Bold"/>
+                            </Grid>
+
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Client:" Foreground="#AAAAAA" FontSize="11"/>
+                                <TextBlock x:Name="ClientInfoText" 
+                                           Grid.Column="1" 
+                                           Text="None" 
+                                           Foreground="White" 
+                                           FontSize="11"
+                                           FontFamily="Consolas"/>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Connected:" Foreground="#AAAAAA" FontSize="11"/>
+                                <TextBlock x:Name="ConnectedSinceText" 
+                                           Grid.Column="1" 
+                                           Text="--:--:--" 
+                                           Foreground="White" 
+                                           FontSize="11"/>
+                            </Grid>
+
+                            <Button x:Name="DisconnectBtn" 
+                                    Content="❌ DISCONNECT" 
+                                    Style="{StaticResource ListenerButton}"
+                                    Background="#333333"
+                                    Height="30"
+                                    FontSize="11"
+                                    Margin="0,15,0,0"
+                                    IsEnabled="False"
+                                    Click="Disconnect_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    
+                    <TextBlock Text="⚡ QUICK COMMANDS" 
+                               Foreground="#FF5555" 
+                               FontWeight="Bold" 
+                               FontSize="14"
+                               Margin="0,20,0,10"/>
+
+                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Button Content="id" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="whoami" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="pwd" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="ls -la" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="ps aux" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="netstat -an" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="ifconfig/ipconfig" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="uname -a" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="cat /etc/passwd" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="sudo -l" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="find / -perm -4000 2>/dev/null" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+
+                            <Button Content="history" 
+                                    Style="{StaticResource QuickCommandButton}"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0,0,0,3"
+                                    Click="QuickCommand_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+           
+            <Border Grid.Column="1" 
+                    Background="#121212" 
+                    BorderBrush="#333333" 
+                    BorderThickness="1" 
+                    CornerRadius="3"
+                    Padding="15">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <TextBlock Text="📟 SHELL OUTPUT" 
+                                   Foreground="#FF5555" 
+                                   FontWeight="Bold" 
+                                   FontSize="14"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+
+                    
+                    <Border Grid.Row="1" 
+                            Background="#0A0A0A" 
+                            BorderBrush="#333333" 
+                            BorderThickness="1"
+                            CornerRadius="3">
+
+                        <ScrollViewer x:Name="OutputScroll" 
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      Padding="10">
+                            <TextBox x:Name="OutputBox" 
+                                     Background="Transparent" 
+                                     BorderThickness="0"
+                                     Foreground="#00FF00"
+                                     FontFamily="Consolas"
+                                     FontSize="11"
+                                     IsReadOnly="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Disabled"
+                                     HorizontalScrollBarVisibility="Disabled"/>
+                        </ScrollViewer>
+                    </Border>
+
+                    <Border Grid.Row="2" 
+                            Background="#0A0A0A" 
+                            BorderBrush="#333333" 
+                            BorderThickness="1"
+                            CornerRadius="3"
+                            Padding="10"
+                            Margin="0,10,0,0">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="CommandInput" 
+                                     Background="#0A0A0A"
+                                     Foreground="White"
+                                     BorderBrush="#333333"
+                                     BorderThickness="1"
+                                     Height="35"
+                                     Padding="10"
+                                     FontFamily="Consolas"
+                                     FontSize="12"
+                                     IsEnabled="False"
+                                     KeyDown="CommandInput_KeyDown"/>
+
+                            <Button Grid.Column="1" 
+                                    x:Name="SendBtn"
+                                    Content="SEND" 
+                                    Width="80"
+                                    Margin="10,0,0,0"
+                                    Height="35"
+                                    Background="#333333"
+                                    Foreground="White"
+                                    BorderBrush="#333333"
+                                    BorderThickness="1"
+                                    IsEnabled="False"
+                                    Cursor="Hand"
+                                    Click="SendCommand_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" 
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="2">
+                                            <ContentPresenter HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#444444"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                            <Button Grid.Column="2" 
+                                    x:Name="InterruptBtn"
+                                    Content="^C" 
+                                    Width="40"
+                                    Margin="5,0,0,0"
+                                    Height="35"
+                                    Background="#8B0000"
+                                    Foreground="White"
+                                    BorderBrush="#333333"
+                                    BorderThickness="1"
+                                    IsEnabled="False"
+                                    Cursor="Hand"
+                                    Click="Interrupt_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" 
+                                                Background="{TemplateBinding Background}" 
+                                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="2">
+                                            <ContentPresenter HorizontalAlignment="Center" 
+                                                            VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#AA0000"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+       
+        <Border Grid.Row="2" 
+                Background="#121212" 
+                BorderBrush="#333333" 
+                BorderThickness="1" 
+                CornerRadius="3"
+                Padding="15"
+                Margin="0,10,0,0">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="StatusText" 
+                           Text="Ready" 
+                           Foreground="#AAAAAA"
+                           FontSize="11"/>
+
+                <TextBlock Grid.Column="1" 
+                           x:Name="BytesReceivedText" 
+                           Text="0 bytes received"
+                           Foreground="#AAAAAA"
+                           FontSize="11"
+                           Margin="20,0,0,0"/>
+
+                
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

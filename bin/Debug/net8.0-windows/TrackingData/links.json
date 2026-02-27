@@ -1,0 +1,82 @@
+[
+  {
+    "Id": "ovs8zm2a",
+    "OriginalUrl": "https://google.com",
+    "TrackingUrl": "http://10.33.104.85:8080/ovs8zm2a",
+    "PublicUrl": "http://10.33.104.85:8080",
+    "Created": "2025-12-27T19:58:25.291838+03:00",
+    "Campaign": "Default",
+    "Template": "🔒 Password Reset Request",
+    "Options": {
+      "TrackIP": true,
+      "TrackLocation": true,
+      "TrackDevice": true,
+      "TrackBrowser": true,
+      "TrackCamera": false,
+      "TrackMicrophone": false,
+      "TrackClipboard": false,
+      "TrackSocial": false
+    },
+    "ClickCount": 0
+  },
+  {
+    "Id": "w0n9jalq",
+    "OriginalUrl": "https://google.com",
+    "TrackingUrl": "http://10.33.104.85:8080/w0n9jalq",
+    "PublicUrl": "http://10.33.104.85:8080",
+    "Created": "2025-12-27T19:59:11.9941698+03:00",
+    "Campaign": "Default",
+    "Template": "📱 App Download",
+    "Options": {
+      "TrackIP": true,
+      "TrackLocation": true,
+      "TrackDevice": true,
+      "TrackBrowser": true,
+      "TrackCamera": false,
+      "TrackMicrophone": false,
+      "TrackClipboard": false,
+      "TrackSocial": false
+    },
+    "ClickCount": 0
+  },
+  {
+    "Id": "0m2zb75c",
+    "OriginalUrl": "https://google.com",
+    "TrackingUrl": "http://10.33.104.85:8080/0m2zb75c",
+    "PublicUrl": "http://10.33.104.85:8080",
+    "Created": "2025-12-27T19:59:29.3563092+03:00",
+    "Campaign": "Default",
+    "Template": "📱 App Download",
+    "Options": {
+      "TrackIP": true,
+      "TrackLocation": true,
+      "TrackDevice": true,
+      "TrackBrowser": true,
+      "TrackCamera": false,
+      "TrackMicrophone": false,
+      "TrackClipboard": false,
+      "TrackSocial": false
+    },
+    "ClickCount": 0
+  },
+  {
+    "Id": "x6jils8g",
+    "OriginalUrl": "https://google.com",
+    "TrackingUrl": "http://10.33.104.85:8080/x6jils8g",
+    "PublicUrl": "http://10.33.104.85:8080",
+    "Created": "2025-12-27T19:59:45.4487664+03:00",
+    "Campaign": "Default",
+    "Template": "📱 App Download",
+    "Options": {
+      "TrackIP": true,
+      "TrackLocation": true,
+      "TrackDevice": true,
+      "TrackBrowser": true,
+      "TrackCamera": false,
+      "TrackMicrophone": false,
+      "TrackClipboard": false,
+      "TrackSocial": false
+    },
+    "ClickCount": 0
+  }
+]

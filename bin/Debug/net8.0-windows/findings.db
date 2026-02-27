@@ -1,0 +1,88 @@
+{
+  "$id": "1",
+  "$values": [
+    {
+      "$id": "2",
+      "Id": "b3109c92-59ab-451e-a95d-718152ac3d90",
+      "Title": "ENTER FINDING TITLE",
+      "Severity": "MEDIUM",
+      "Status": "OPEN",
+      "CVSS": 5,
+      "AssignedTo": "analyst@reconsuite.localcvc",
+      "Module": "ELITE SCANNER",
+      "Target": "https://target.cc vcom",
+      "Owasp": "A03: INJECTION",
+      "Description": "DESCRIBE THE VULNERABILITY IN DETAIL...\n\n\u2022 Impact\n\u2022 Technical details\n\u2022 Proof of concept\n\u2022 Affected componenbdvfv\r\nhtts",
+      "Remediation": "PROVIDE REMEDIATION STEPS...\n\n1. Immediate action\n2. Short-term fix\n3. Long-term solution\n4. Preventive measures",
+      "Evidence": {
+        "$id": "3",
+        "$values": []
+      },
+      "Created": "2026-01-12T16:19:07.6122945+03:00",
+      "Modified": "2026-01-12T16:19:07.6122951+03:00"
+    },
+    {
+      "$id": "4",
+      "Id": "cf784228-fab1-44e1-8f2f-93778331f86a",
+      "Title": "ENTER FINDING TITLE",
+      "Severity": "MEDIUM",
+      "Status": "OPEN",
+      "CVSS": 5,
+      "AssignedTo": "analyst@reconsuite.local",
+      "Module": "ELITE SCANNER",
+      "Target": "https://target.com",
+      "Owasp": "A01: BROKEN ACCESS CONTROL",
+      "Description": "DESCRIBE THE VULNERABILITY IN DETAIL...\n\n\u2022 Impact\n\u2022 Technical details\n\u2022 Proof of concept\n\u2022 Affected components",
+      "Remediation": "PROVIDE REMEDIATION STEPS...\n\n1. Immediate action\n2. Short-term fix\n3. Long-term solution\n4. Preventive measures",
+      "Evidence": {
+        "$id": "5",
+        "$values": []
+      },
+      "Created": "2026-01-12T16:26:25.6126334+03:00",
+      "Modified": "2026-01-12T16:26:25.6126339+03:00"
+    },
+    {
+      "$id": "6",
+      "Id": "a88c99ab-a5fc-49d7-90e3-885b2e34db75",
+      "Title": "ENTER FINDING TITLE",
+      "Severity": "MEDIUM",
+      "Status": "OPEN",
+      "CVSS": 5,
+      "AssignedTo": "analyst@reconsuite.local",
+      "Module": "ELITE SCANNER",
+      "Target": "https://target.com",
+      "Owasp": "A01: BROKEN ACCESS CONTROL",
+      "Description": "DESCRIBE THE VULNERABILITY IN DETAIL...\n\n\u2022 Impact\n\u2022 Technical details\n\u2022 Proof of concept\n\u2022 Affected components",
+      "Remediation": "PROVIDE REMEDIATION STEPS...\n\n1. Immediate action\n2. Short-term fix\n3. Long-term solution\n4. Preventive measures",
+      "Evidence": {
+        "$id": "7",
+        "$values": []
+      },
+      "Created": "2026-02-07T19:57:49.7734143+03:00",
+      "Modified": "2026-02-07T19:57:49.7734148+03:00"
+    },
+    {
+      "$id": "8",
+      "Id": "fd9b9b44-fca8-4e57-b9db-95ad6401870b",
+      "Title": "clubs",
+      "Severity": "CRITICAL",
+      "Status": "CLOSED",
+      "CVSS": 5,
+      "AssignedTo": "analyst@reconsuite.localgyujk",
+      "Module": "ELITE SCANNER",
+      "Target": "https://target.com",
+      "Owasp": "A10: SSRF",
+      "Description": "DESCRIBE THE VULNERABILITY IN DETAIL...\n\n\u2022 Impact\n\u2022 Technical details\n\u2022 Proof of concept\n\u2022 Affected components\r\ngvjhkbjuk\r\nhjbm \r\nhi",
+      "Remediation": "PROVIDE REMEDIATION STEPS...\n\n1. Immediate action\r\nygiyih\r\nhijkm\r\n\r\n\r\njhkjn\r\n\r\nj",
+      "Evidence": {
+        "$id": "9",
+        "$values": [
+          "9d30c18a2bcf4eb69289b51fb4695c33_unnamed.png",
+          "d29819225b954a9f96b0b50616852f91_Camera,Jan 16, 2026, 04_58_47 PM.png"
+        ]
+      },
+      "Created": "2026-02-25T21:31:40.62228+03:00",
+      "Modified": "2026-02-25T21:31:45.368257+03:00"
+    }
+  ]
+}

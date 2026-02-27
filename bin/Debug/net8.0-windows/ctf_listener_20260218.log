@@ -1,0 +1,33 @@
+[22:52:27] Connection from 127.0.0.1:60975
+[22:52:39] Sent: dir
+[22:52:39] Received: 3934 bytes
+[22:52:44] Sent: ls
+[22:52:44] Received: 3934 bytes
+[22:52:45] Sent: dir
+[22:52:45] Received: 3934 bytes
+[22:52:47] Sent: clear
+[22:52:47] Received: 19 bytes
+[22:52:54] Sent: clear
+[22:52:54] Received: 19 bytes
+[22:53:05] Sent: cd Desktop
+[22:53:05] Received: 27 bytes
+[22:53:07] Sent: dir
+[22:53:07] Received: 3829 bytes
+[22:55:11] Connection from 10.200.88.85:61091
+[22:55:25] Sent: id
+[22:55:25] Received: 27 bytes
+[22:55:29] Sent: whoami
+[22:55:29] Received: 50 bytes
+[22:55:32] Sent: pwd
+[22:55:32] Received: 105 bytes
+[22:55:37] Sent: ls -la
+[22:55:37] Received: 27 bytes
+[22:55:42] Sent: ps
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 4096 bytes
+[22:55:43] Received: 2458 bytes

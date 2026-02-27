@@ -1,0 +1,190 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ramya\\source\\repos\\ReconSuite\\ReconSuite.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ramya\\source\\repos\\ReconSuite\\ReconSuite.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ramya\\source\\repos\\ReconSuite\\ReconSuite.csproj",
+        "projectName": "ReconSuite",
+        "projectPath": "C:\\Users\\ramya\\source\\repos\\ReconSuite\\ReconSuite.csproj",
+        "packagesPath": "C:\\Users\\ramya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ramya\\source\\repos\\ReconSuite\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ramya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "AngleSharp": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "DnsClient": {
+              "target": "Package",
+              "version": "[1.7.0, )"
+            },
+            "FontAwesome.WPF": {
+              "target": "Package",
+              "version": "[4.7.0.9, )"
+            },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.12.4, )"
+            },
+            "ManagedNativeWifi": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.VisualBasic": {
+              "target": "Package",
+              "version": "[10.3.0, )"
+            },
+            "Microsoft.Win32.Registry": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Windows.CsWin32": {
+              "target": "Package",
+              "version": "[0.3.49, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "PacketDotNet": {
+              "target": "Package",
+              "version": "[1.4.8, )"
+            },
+            "SSH.NET": {
+              "target": "Package",
+              "version": "[2025.1.0, )"
+            },
+            "SharpPcap": {
+              "target": "Package",
+              "version": "[6.3.1, )"
+            },
+            "SharpZipLib": {
+              "target": "Package",
+              "version": "[1.4.2, )"
+            },
+            "SourceGear.sqlite3": {
+              "target": "Package",
+              "version": "[3.50.4.5, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.119, )"
+            },
+            "System.IO.Pipelines": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            },
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Security.Cryptography.Xml": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Terminal.Gui": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Wpf.Ui": {
+              "target": "Package",
+              "version": "[3.4.2.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

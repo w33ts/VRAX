@@ -1,0 +1,351 @@
+﻿<Window x:Class="ReconSuite.PayloadGenerator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Width="1600"
+        Height="1000"
+        MinWidth="1200"
+        MinHeight="800"
+        WindowStyle="SingleBorderWindow"
+        FontFamily="Segoe UI"
+        Background="#0A0A0A"
+       
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <Color x:Key="ColorBackground">#0A0A0A</Color>
+        <Color x:Key="ColorDark">#121212</Color>
+        <Color x:Key="ColorMedium">#1A1A1A</Color>
+        <Color x:Key="ColorBorder">#333333</Color>
+        <Color x:Key="ColorPrimary">#FF3333</Color>
+        <Color x:Key="ColorPrimaryBright">#FF5555</Color>
+        <Color x:Key="ColorSuccess">#00CC00</Color>
+        <Color x:Key="ColorWarning">#FFAA00</Color>
+        <Color x:Key="ColorInfo">#3399FF</Color>
+        <Color x:Key="ColorPurple">#9933FF</Color>
+        <Color x:Key="ColorWhite">#FFFFFF</Color>
+
+        <SolidColorBrush x:Key="TacticalBlack" Color="{StaticResource ColorBackground}"/>
+        <SolidColorBrush x:Key="TacticalDark" Color="{StaticResource ColorDark}"/>
+        <SolidColorBrush x:Key="TacticalMedium" Color="{StaticResource ColorMedium}"/>
+        <SolidColorBrush x:Key="TacticalBorder" Color="{StaticResource ColorBorder}"/>
+        <SolidColorBrush x:Key="TacticalRed" Color="{StaticResource ColorPrimary}"/>
+        <SolidColorBrush x:Key="TacticalRedBright" Color="{StaticResource ColorPrimaryBright}"/>
+        <SolidColorBrush x:Key="TacticalSuccess" Color="{StaticResource ColorSuccess}"/>
+        <SolidColorBrush x:Key="TacticalWarning" Color="{StaticResource ColorWarning}"/>
+        <SolidColorBrush x:Key="TacticalInfo" Color="{StaticResource ColorInfo}"/>
+        <SolidColorBrush x:Key="TacticalPurple" Color="{StaticResource ColorPurple}"/>
+        <SolidColorBrush x:Key="TacticalWhite" Color="{StaticResource ColorWhite}"/>
+
+        <Style x:Key="TacticalButton" TargetType="Button">
+            <Setter Property="Background" Value="#8B0000"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource TacticalButton}">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{StaticResource TacticalRed}"/>
+        </Style>
+
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalRedBright}"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource TacticalDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource TacticalWhite}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+
+        <Style x:Key="CodeBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="#D4D4D4"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TacticalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource TacticalBlack}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Height="50" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,0" VerticalAlignment="Center">
+                    <TextBlock Text="VRAX" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text=" // " Foreground="{StaticResource TacticalRedBright}" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="ADVANCED PAYLOAD GENERATOR" Foreground="{StaticResource TacticalWhite}" FontSize="18" FontWeight="Bold"/>
+                </StackPanel>
+
+                <Border Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#8B0000" Padding="10,5" CornerRadius="2">
+                    <TextBlock x:Name="StatusText" Text="READY" Foreground="{StaticResource TacticalWhite}" FontSize="12" FontWeight="Bold"/>
+                </Border>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,20,0" VerticalAlignment="Center">
+                    <Button x:Name="MinimizeBtn" Width="25" Height="25" Background="Transparent" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="MinimizeBtn_Click">
+                        <TextBlock Text="_" FontSize="14" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button x:Name="CloseBtn" Width="25" Height="25" Margin="8,0,0,0" Background="#8B0000" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Click="CloseBtn_Click">
+                        <TextBlock Text="×" FontSize="16" Foreground="{StaticResource TacticalWhite}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel - Configuration -->
+            <Border Grid.Column="0" Background="{StaticResource TacticalMedium}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="// PAYLOAD TYPE" Style="{StaticResource SectionHeader}"/>
+
+                        <RadioButton x:Name="RadioReverseShell" Content="Reverse Shell" Foreground="#FFFFFF" Margin="0,0,0,10" IsChecked="True" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+                        <RadioButton x:Name="RadioBindShell" Content="Bind Shell" Foreground="#FFFFFF" Margin="0,0,0,10" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+                        <RadioButton x:Name="RadioWebShell" Content="Web Shell" Foreground="#FFFFFF" Margin="0,0,0,10" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+                        <RadioButton x:Name="RadioFileUpload" Content="File Upload Bypass" Foreground="#FFFFFF" Margin="0,0,0,10" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+                        <RadioButton x:Name="RadioStager" Content="Stager Payload" Foreground="#FFFFFF" Margin="0,0,0,10" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+                        <RadioButton x:Name="RadioMeterpreter" Content="Meterpreter Payload" Foreground="#FFFFFF" Margin="0,0,0,15" GroupName="PayloadType" Checked="PayloadType_Changed"/>
+
+                        <TextBlock Text="// CONNECTION DETAILS" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <TextBlock Text="LHOST (Your IP):" Style="{StaticResource LabelText}"/>
+                        <TextBox x:Name="LHostInput" Text="10.0.0.1" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="LPORT:" Style="{StaticResource LabelText}"/>
+                        <TextBox x:Name="LPortInput" Text="4444" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10"/>
+
+                        <TextBlock x:Name="TargetURLLabel" Text="Target Upload URL:" Style="{StaticResource LabelText}" Visibility="Collapsed"/>
+                        <TextBox x:Name="TargetURLInput" Text="http://target.com/upload.php" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10" Visibility="Collapsed"/>
+
+                        <TextBlock x:Name="FieldNameLabel" Text="File Field Name:" Style="{StaticResource LabelText}" Visibility="Collapsed"/>
+                        <TextBox x:Name="FieldNameInput" Text="file" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10" Visibility="Collapsed"/>
+
+                        <TextBlock Text="// LANGUAGE" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <ComboBox x:Name="LanguageCombo" SelectedIndex="0" Style="{StaticResource ComboBoxStyle}" Margin="0,0,0,10" TextElement.Foreground="Black">
+                            <ComboBoxItem Content="PHP"/>
+                            <ComboBoxItem Content="Python"/>
+                            <ComboBoxItem Content="Bash"/>
+                            <ComboBoxItem Content="PowerShell"/>
+                            <ComboBoxItem Content="Perl"/>
+                            <ComboBoxItem Content="Ruby"/>
+                            <ComboBoxItem Content="Java"/>
+                            <ComboBoxItem Content="C"/>
+                            <ComboBoxItem Content="ASP"/>
+                            <ComboBoxItem Content="ASPX"/>
+                            <ComboBoxItem Content="JSP"/>
+                            <ComboBoxItem Content="Node.js"/>
+                            <ComboBoxItem Content="C#"/>
+                            <ComboBoxItem Content="Go"/>
+                            <ComboBoxItem Content="Rust"/>
+                        </ComboBox>
+
+                        <TextBlock Text="// ENCODING / OBFUSCATION (MULTI-LAYER)" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <CheckBox x:Name="CheckBase64" Content="Base64 Encode" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckBase64Twice" Content="Double Base64" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckHex" Content="Hex Encoding" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckURLEncode" Content="URL Encode" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckURLEncodeTwice" Content="Double URL Encode" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckReverse" Content="String Reversal" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckROT13" Content="ROT13 Encoding" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckMinify" Content="Minify/Whitespace Removal" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckRandomVars" Content="Random Variable Names" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckChunked" Content="Chunked Payload" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <TextBlock Text="Chunk Size:" Style="{StaticResource LabelText}" Margin="20,0,0,0"/>
+                        <TextBox x:Name="ChunkSizeInput" Text="100" Style="{StaticResource TextBoxStyle}" Width="80" Margin="20,0,0,10" HorizontalAlignment="Left"/>
+
+                        <CheckBox x:Name="CheckComments" Content="Inject as Comments" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckHTMLComments" Content="Hide in HTML Comments" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckWhitespace" Content="Tab/Newline Obfuscation" Foreground="#CCCCCC" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="// POLYGLOT / IMAGE INJECTION" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <RadioButton x:Name="RadioNoInject" Content="No Injection (Raw)" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType" IsChecked="True"/>
+                        <RadioButton x:Name="RadioInjectJPEG" Content="Inject into JPEG" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType"/>
+                        <RadioButton x:Name="RadioInjectPNG" Content="Inject into PNG" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType"/>
+                        <RadioButton x:Name="RadioInjectGIF" Content="Inject into GIF" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType"/>
+                        <RadioButton x:Name="RadioInjectPDF" Content="Inject into PDF" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType"/>
+                        <RadioButton x:Name="RadioInjectZIP" Content="Inject into ZIP" Foreground="#CCCCCC" Margin="0,0,0,5" GroupName="InjectType"/>
+
+                        <Button x:Name="SelectImageBtn" Content="📁 SELECT IMAGE FILE" Click="SelectImageBtn_Click" Style="{StaticResource TacticalButton}" Height="35" Margin="0,10,0,10"/>
+                        <TextBlock x:Name="SelectedImageText" Text="No image selected" Foreground="#AAAAAA" FontSize="11" Margin="5,0,0,10"/>
+
+                        <TextBlock Text="// EXTENSION BYPASS TECHNIQUES" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <TextBlock Text="File Extension:" Style="{StaticResource LabelText}"/>
+                        <TextBox x:Name="FileExtensionInput" Text="php" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,5"/>
+
+                        <CheckBox x:Name="CheckDoubleExtension" Content="Double Extension (file.php.jpg)" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckNullByte" Content="Null Byte Injection (file.php%00.jpg)" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckCaseSpoof" Content="Case Spoofing (file.PhP)" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckMimeSpoof" Content="MIME Type Spoofing" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+
+                        <ComboBox x:Name="MimeTypeCombo" SelectedIndex="0" Style="{StaticResource ComboBoxStyle}" Margin="0,0,0,10" IsEnabled="{Binding ElementName=CheckMimeSpoof, Path=IsChecked}" TextElement.Foreground="Black">
+                            <ComboBoxItem Content="image/jpeg"/>
+                            <ComboBoxItem Content="image/png"/>
+                            <ComboBoxItem Content="image/gif"/>
+                            <ComboBoxItem Content="application/pdf"/>
+                            <ComboBoxItem Content="text/plain"/>
+                            <ComboBoxItem Content="application/x-httpd-php"/>
+                            <ComboBoxItem Content="application/octet-stream"/>
+                        </ComboBox>
+                        <CheckBox x:Name="CheckMagicBytes" Content="Add Magic Bytes" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <TextBox x:Name="MagicBytesInput" Text="GIF89a;" Style="{StaticResource TextBoxStyle}" Margin="20,0,0,10"/>
+
+                        <TextBlock Text="// WAF BYPASS TECHNIQUES" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <CheckBox x:Name="CheckCaseRandom" Content="Random Case in Keywords" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckSpaceRandom" Content="Random Whitespace" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckCommentInsert" Content="Insert Random Comments" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckCharSubstitution" Content="Character Substitution (a→@, e→3)" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckHexKeywords" Content="Hex-encoded Keywords" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <CheckBox x:Name="CheckConcatenation" Content="String Concatenation" Foreground="#CCCCCC" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="// METASPLOIT INTEGRATION" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <CheckBox x:Name="CheckMetasploit" Content="Generate Metasploit Resource Script" Foreground="#CCCCCC" Margin="0,0,0,5"/>
+                        <TextBox x:Name="MetasploitPayloadInput" Text="windows/meterpreter/reverse_tcp" Style="{StaticResource TextBoxStyle}" Margin="20,0,0,10"/>
+
+                        <TextBlock Text="// ACTION BUTTONS" Style="{StaticResource SectionHeader}" Margin="0,15,0,10"/>
+
+                        <Button x:Name="GenerateBtn" Content="⚡ GENERATE ULTIMATE PAYLOAD" Click="GenerateBtn_Click" Style="{StaticResource ActionButton}" Height="50" Margin="0,0,0,10"/>
+                        <Button x:Name="CopyBtn" Content="📋 COPY TO CLIPBOARD" Click="CopyBtn_Click" Style="{StaticResource TacticalButton}" Height="40" Margin="0,0,0,5"/>
+                        <Button x:Name="SaveBtn" Content="💾 SAVE TO FILE" Click="SaveBtn_Click" Style="{StaticResource TacticalButton}" Height="40" Margin="0,0,0,5"/>
+                        <Button x:Name="UploadBtn" Content="🌐 UPLOAD AND EXECUTE" Click="UploadBtn_Click" Style="{StaticResource ActionButton}" Height="45" Background="{StaticResource TacticalInfo}" Foreground="White" Margin="0,0,0,5"/>
+                        <Button x:Name="TestUploadBtn" Content="🔍 TEST UPLOAD VULNERABILITY" Click="TestUploadBtn_Click" Style="{StaticResource TacticalButton}" Height="40" Margin="0,0,0,5"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Right Panel - Generated Payload -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="15" Margin="0,0,0,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="// ULTIMATE PAYLOAD" Style="{StaticResource SectionHeader}"/>
+                            <TextBlock x:Name="PayloadInfoText" Text="Configure options and click GENERATE" Foreground="#AAAAAA" FontSize="11"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button x:Name="PreviewRawBtn" Content="RAW" Click="PreviewRawBtn_Click" Style="{StaticResource TacticalButton}" Width="60" Margin="0,0,5,0"/>
+                            <Button x:Name="PreviewDecodedBtn" Content="DECODED" Click="PreviewDecodedBtn_Click" Style="{StaticResource TacticalButton}" Width="80"/>
+                            <Button x:Name="PreviewHexBtn" Content="HEX" Click="PreviewHexBtn_Click" Style="{StaticResource TacticalButton}" Width="60" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="0">
+                    <TextBox x:Name="PayloadOutputBox" Style="{StaticResource CodeBoxStyle}" FontSize="12"/>
+                </Border>
+
+                <Border Grid.Row="2" Background="{StaticResource TacticalDark}" BorderBrush="{StaticResource TacticalBorder}" BorderThickness="1" Padding="15" Margin="0,10,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Size:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="SizeText" Text="0 bytes" Style="{StaticResource LabelText}" Foreground="{StaticResource TacticalInfo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Language:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="LangText" Text="PHP" Style="{StaticResource LabelText}" Foreground="{StaticResource TacticalInfo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Type:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="TypeText" Text="Reverse Shell" Style="{StaticResource LabelText}" Foreground="{StaticResource TacticalInfo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <TextBlock Text="Obfuscation Layers:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="ObfuscationLayersText" Text="0" Style="{StaticResource LabelText}" Foreground="{StaticResource TacticalInfo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="4">
+                            <TextBlock Text="Bypass Techniques:" Style="{StaticResource LabelText}"/>
+                            <TextBlock x:Name="BypassText" Text="None" Style="{StaticResource LabelText}" Foreground="{StaticResource TacticalInfo}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

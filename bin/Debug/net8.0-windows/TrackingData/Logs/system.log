@@ -1,0 +1,33 @@
+[INFO] 19:40:02 - Ngrok not found. Will use Serveo as default.
+[SUCCESS] 19:40:03 - Vanguard Tracker ready
+[INFO] 19:40:06 - Port 8080 is available
+[INFO] 19:40:19 - Application closing
+[INFO] 19:57:35 - Ngrok not found. Will use Serveo as default.
+[INFO] 19:57:35 - Loaded 0 victims
+[SUCCESS] 19:57:36 - Vanguard Tracker ready
+[INFO] 19:57:39 - Port 8080 is available
+[SUCCESS] 19:58:02 - Port 8080 is available
+[INFO] 19:58:03 - Local server started on port 8080
+[ERROR] 19:58:03 - Failed to start server: Ngrok tunnel failed: Ngrok not found. Please download it first.
+[INFO] 19:58:17 - Local server started on port 8080
+[WARNING] 19:58:17 - Local tunnel only. For internet access:
+[WARNING] 19:58:17 - 1. Configure port forwarding on your router for port 8080
+[WARNING] 19:58:17 - 2. Use your public IP
+[SUCCESS] 19:58:19 - Server running! Public URL: http://10.33.104.85:8080
+[SUCCESS] 19:58:25 - Tracking link generated
+[SUCCESS] 19:58:28 - Link copied to clipboard
+[SUCCESS] 19:59:11 - Tracking link generated
+[SUCCESS] 19:59:15 - Link copied to clipboard
+[INFO] 19:59:16 - Testing URL: https://google.com
+[SUCCESS] 19:59:16 - URL opened in browser
+[WARNING] 19:59:21 - Port 8080 is in use by another application!
+[SUCCESS] 19:59:29 - Tracking link generated
+[SUCCESS] 19:59:30 - Port 8081 is available
+[SUCCESS] 19:59:41 - Port 8081 is available
+[SUCCESS] 19:59:45 - Tracking link generated
+[SUCCESS] 19:59:48 - Link copied to clipboard
+[INFO] 19:59:50 - Shortening link...
+[SUCCESS] 19:59:58 - Link shortened
+[INFO] 20:00:03 - QR Code placeholder displayed
+[SUCCESS] 20:00:04 - Link copied to clipboard
+[INFO] 20:00:17 - Application closing

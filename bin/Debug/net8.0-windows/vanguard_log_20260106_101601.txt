@@ -1,0 +1,15 @@
+[10:16:01] [INFO] Loaded 26 subdomains, 11 directories
+[10:16:01] [INFO] Initialized 3 attack patterns
+[10:16:01] [INFO] ╔══════════════════════════════════════════════════════════════════╗
+[10:16:01] [INFO] ║  🚀 VANGUARD SECURITY SCANNER v2.1 - ENTERPRISE EDITION           ║
+[10:16:01] [INFO] ║  🔍 ENHANCED VULNERABILITY DETECTION                             ║
+[10:16:01] [INFO] ║  ⚡ MAX CONCURRENT REQUESTS: 25                                ║
+[10:16:01] [INFO] ║  🎯 CONFIDENCE THRESHOLD: 80%                                 ║
+[10:16:01] [INFO] ╚══════════════════════════════════════════════════════════════════╝
+[10:16:29] [INFO] Starting scan of https://le.ac.uk/
+[10:16:30] [INFO] Starting crawling phase
+[10:16:31] [DEBUG] Extracted 311 URLs from https://le.ac.uk/
+[10:16:31] [SUCCESS] Crawling complete. Crawled 1 pages
+[10:16:31] [INFO] Starting vulnerability scanning
+[10:16:34] [SUCCESS] Vulnerability scanning complete
+[10:16:34] [SUCCESS] Scan complete. Found 0 vulnerabilities

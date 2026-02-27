@@ -1,0 +1,20 @@
+[15:13:16] [INFO] Database initialized successfully
+[15:13:28] [SUCCESS] SYSTEM INITIALIZED: VANGUARD Tactical Reconnaissance Suite v3.0.7
+[15:13:28] [INFO] Session ID: 9436
+[15:13:28] [INFO] System: DESKTOP-BT12T4E\ramya
+[15:13:28] [INFO] OS: Microsoft Windows NT 10.0.19045.0
+[15:13:28] [INFO] Running with administrative privileges
+[15:13:45] [INFO] OSINT Explorer module (not implemented)
+[15:13:47] [INFO] Network Sentry module (not implemented)
+[15:13:50] [INFO] Cracker Engine module (not implemented)
+[15:13:54] [INFO] Initiating reconnaissance on target: scanme.nmap.org
+[15:13:54] [ERROR] Scan error: The calling thread cannot access this object because a different thread owns it.
+[15:13:59] [INFO] Initiating reconnaissance on target: scanme.nmap.org
+[15:13:59] [ERROR] Scan error: The calling thread cannot access this object because a different thread owns it.
+[15:14:00] [INFO] Initiating reconnaissance on target: scanme.nmap.org
+[15:14:00] [ERROR] Scan error: The calling thread cannot access this object because a different thread owns it.
+[15:14:00] [INFO] Initiating reconnaissance on target: scanme.nmap.org
+[15:14:00] [ERROR] Scan error: The calling thread cannot access this object because a different thread owns it.
+[15:14:00] [INFO] Initiating reconnaissance on target: scanme.nmap.org
+[15:14:00] [ERROR] Scan error: The calling thread cannot access this object because a different thread owns it.
+[15:14:10] [INFO] Session 9436 terminated
