@@ -1,0 +1,27 @@
+name: Repository Hygiene
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  block-generated-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fail if generated artifacts are tracked
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden='(^|/)(bin|obj|\.vs)/|\.(exe|dll|pdb|user|suo)$'
+          if git ls-files | grep -En "$forbidden"; then
+            echo ""
+            echo "Tracked generated files were found. Remove artifacts from git and rely on CI release assets."
+            exit 1
+          fi
+          echo "No forbidden tracked artifacts found."

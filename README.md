@@ -462,6 +462,12 @@ Node.js | C# | Go | Rust
 # 6. Enter target → Start scanning
 ```
 
+## 📦 Releases & Deployment
+
+- Source code only is kept in git.
+- Windows executable releases are produced by GitHub Actions on version tags.
+- Deployment and maintainer workflow details: `docs/deployment-guide.md`.
+
 ---
 
 ## ⚠️ Legal & Ethical Warning
@@ -502,7 +508,6 @@ If you appreciate the work that went into this:
 Every star tells me this was worth the sleepless nights.
 
 ---
-
 
 
 
