@@ -1,9 +1,0 @@
-{
-  "TargetUrl": "https://example.com/search?q=",
-  "LastScan": "2025-12-25T12:57:33.1408903+03:00",
-  "TotalVulnerabilities": 0,
-  "Settings": {
-    "SslInterception": true,
-    "CertificateActive": true
-  }
-}
