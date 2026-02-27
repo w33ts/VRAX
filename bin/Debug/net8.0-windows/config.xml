@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DatabasePath>ReconSuite.db</DatabasePath>
+  <MaxThreads>50</MaxThreads>
+  <Timeout>5000</Timeout>
+  <EnableLogging>true</EnableLogging>
+  <CommonPorts>
+    <string>21</string>
+    <string>22</string>
+    <string>23</string>
+    <string>25</string>
+    <string>53</string>
+    <string>80</string>
+    <string>110</string>
+    <string>111</string>
+    <string>135</string>
+    <string>139</string>
+    <string>143</string>
+    <string>443</string>
+    <string>445</string>
+    <string>993</string>
+    <string>995</string>
+    <string>1723</string>
+    <string>3306</string>
+    <string>3389</string>
+    <string>5900</string>
+    <string>8080</string>
+  </CommonPorts>
+  <DirectoryList>
+    <string>admin</string>
+    <string>login</string>
+    <string>test</string>
+    <string>backup</string>
+    <string>config</string>
+    <string>api</string>
+    <string>wp-admin</string>
+    <string>phpmyadmin</string>
+  </DirectoryList>
+  <UserAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</UserAgent>
+</Config>
