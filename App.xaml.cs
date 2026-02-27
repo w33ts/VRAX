@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Threading.Tasks;
 
-namespace ReconSuite
+namespace VRAX
 {
     public partial class App : Application
     {

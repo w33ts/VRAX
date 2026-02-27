@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>unnamed.ico</ApplicationIcon>
+    <Version>0.0.2</Version>
+    <AssemblyVersion>0.0.2.0</AssemblyVersion>
+    <FileVersion>0.0.2.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="unnamed.ico" />

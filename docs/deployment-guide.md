@@ -22,6 +22,15 @@ git push origin v1.0.1
 3. GitHub Actions runs `.github/workflows/release.yml`.
 4. When successful, GitHub Release for that tag is created and includes a zip artifact.
 
+## Semantic versioning
+
+- Follow `MAJOR.MINOR.PATCH` tags (for example, `v0.0.2`).
+- Increment versions in `VRAX.csproj` before tagging:
+  - `<Version>`
+  - `<AssemblyVersion>`
+  - `<FileVersion>`
+- Update `CHANGELOG.md` with a concise release note section for the new version.
+
 ## Manual build validation (maintainer)
 
 Use this to test release behavior before tagging.
