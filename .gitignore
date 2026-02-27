@@ -1,3 +1,51 @@
+# Build output
+bin/
 obj/
+publish/
+artifacts/
+
+# Visual Studio and IDE state
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Logs and diagnostics
 *.log
+*.cache
+
+# Runtime/generated local app data
+*.db
+*.sqlite
+*.pdb
+*.pcap
+session.json
+recent_attacks.json
+findings.json
+vanguard_report_*.json
+report_*.html
+Evidence/
+certificates/
+certs/
+TrackingData/
+Victims/
+
+# Certificate and secret-like files
+*.pfx
+*.cer
+
+# Release artifacts
+*.zip
+
+# Existing project preference
 *.txt
